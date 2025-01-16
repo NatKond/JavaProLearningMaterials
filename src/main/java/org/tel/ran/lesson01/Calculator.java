@@ -15,13 +15,8 @@ public class Calculator {
     private ArrayList<Double> numbers;
     private StringBuilder operations;
 
-    public Calculator() {
-        this.numbers = new ArrayList<>();
-        this.operations = new StringBuilder();
-    }
-
     private boolean checkString(String input){
-        String check = "+-*/1234567890";
+        String check = "+-*/1234567890.";
         for (char c:input.toCharArray()){
             if (check.indexOf(c) == -1) return false;
         }
@@ -29,7 +24,8 @@ public class Calculator {
     }
 
     private void parseString(String input){
-
+        numbers = new ArrayList<>();
+        operations = new StringBuilder();
         String mathOperations = "+-*/";
         int startOfNumber = 0;
         int indexOfOperation;
@@ -60,7 +56,7 @@ public class Calculator {
         int indexOfDivision = operations.indexOf("/");
         while (indexOfDivision != -1){
             operations.deleteCharAt(indexOfDivision);
-            numbers.set(indexOfDivision, numbers.get(indexOfDivision) / numbers.get(indexOfDivision + 1));
+            numbers.set(indexOfDivision, numbers.get(indexOfDivision) / (numbers.get(indexOfDivision + 1)));
             numbers.remove(indexOfDivision + 1);
             indexOfDivision = operations.indexOf("/");
         }
