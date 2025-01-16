@@ -1,5 +1,6 @@
 package org.tel.ran.lesson01;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -80,11 +81,21 @@ public class Calculator {
 
         parseString(input,numbers,operations);
 
+        StringBuilder result = new StringBuilder();
+        DecimalFormat df = new DecimalFormat("0.##");
+        for (int i = 0; i < operations.length(); i++) {
+            result.append(df.format(numbers.get(i))).append(" ").append(operations.charAt(i)).append(" ");
+        }
+
+        result.append(df.format(numbers.getLast()));
+
         multiply(numbers, operations);
 
         divide(numbers, operations);
 
-        return "= " + addAndSubtract(numbers, operations);
+        DecimalFormat twoDecimals = new DecimalFormat("0.00");
+
+        return result.toString() + " = " + twoDecimals.format(addAndSubtract(numbers, operations));
     }
 
 }
