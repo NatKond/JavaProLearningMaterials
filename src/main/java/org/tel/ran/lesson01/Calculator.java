@@ -72,6 +72,18 @@ public class Calculator {
         return result;
     }
 
+    private String createStringWithCase(ArrayList<Double> numbers, StringBuilder operations){
+        StringBuilder stringWithCase = new StringBuilder();
+        DecimalFormat df = new DecimalFormat("0.##");
+        for (int i = 0; i < operations.length(); i++) {
+            stringWithCase.append(df.format(numbers.get(i))).append(" ").append(operations.charAt(i)).append(" ");
+        }
+        stringWithCase.append(df.format(numbers.getLast()));
+        return stringWithCase.toString();
+    }
+
+    
+
     public String getResult(String input){
         input = input.replaceAll("\\s+","");
         if (!checkString(input)) return "Error. The string contains invalid characters.";
@@ -81,13 +93,7 @@ public class Calculator {
 
         parseString(input,numbers,operations);
 
-        StringBuilder result = new StringBuilder();
-        DecimalFormat df = new DecimalFormat("0.##");
-        for (int i = 0; i < operations.length(); i++) {
-            result.append(df.format(numbers.get(i))).append(" ").append(operations.charAt(i)).append(" ");
-        }
-
-        result.append(df.format(numbers.getLast()));
+        String stringWithCase = createStringWithCase(numbers,operations);
 
         multiply(numbers, operations);
 
@@ -95,7 +101,7 @@ public class Calculator {
 
         DecimalFormat twoDecimals = new DecimalFormat("0.00");
 
-        return result.toString() + " = " + twoDecimals.format(addAndSubtract(numbers, operations));
+        return stringWithCase + " = " + twoDecimals.format(addAndSubtract(numbers, operations));
     }
 
 }
