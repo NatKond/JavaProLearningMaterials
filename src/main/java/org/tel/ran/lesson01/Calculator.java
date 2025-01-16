@@ -12,8 +12,6 @@ import java.util.ArrayList;
  **/
 
 public class Calculator {
-    private ArrayList<Double> numbers;
-    private StringBuilder operations;
 
     private boolean checkString(String input){
         String check = "+-*/1234567890.";
@@ -23,9 +21,7 @@ public class Calculator {
         return true;
     }
 
-    private void parseString(String input){
-        numbers = new ArrayList<>();
-        operations = new StringBuilder();
+    private void parseString(String input, ArrayList<Double> numbers, StringBuilder operations){
         String mathOperations = "+-*/";
         int startOfNumber = 0;
         int indexOfOperation;
@@ -42,7 +38,7 @@ public class Calculator {
         numbers.add(Double.parseDouble(input.substring(startOfNumber)));
     }
 
-    private void multiply(){
+    private void multiply(ArrayList<Double> numbers, StringBuilder operations){
         int indexOfMultiplication = operations.indexOf("*");
         while (indexOfMultiplication != -1){
             operations.deleteCharAt(indexOfMultiplication);
@@ -52,7 +48,7 @@ public class Calculator {
         }
     }
 
-    private void divide(){
+    private void divide(ArrayList<Double> numbers, StringBuilder operations){
         int indexOfDivision = operations.indexOf("/");
         while (indexOfDivision != -1){
             operations.deleteCharAt(indexOfDivision);
@@ -62,14 +58,7 @@ public class Calculator {
         }
     }
 
-    public String getResult(String input){
-        input = input.replaceAll("\\s+","");
-        if (!checkString(input)) return "Error. The string contains invalid characters.";
-
-        parseString(input);
-        multiply();
-        divide();
-
+    private double addAndSubtract(ArrayList<Double> numbers, StringBuilder operations){
         double result = numbers.getFirst();
         for (int i = 0; i < operations.length(); i++) {
             if (operations.charAt(i) == '+'){
@@ -79,7 +68,23 @@ public class Calculator {
                 result -= numbers.get(i + 1);
             }
         }
-        return "= " + result;
+        return result;
+    }
+
+    public String getResult(String input){
+        input = input.replaceAll("\\s+","");
+        if (!checkString(input)) return "Error. The string contains invalid characters.";
+
+        ArrayList<Double> numbers = new ArrayList<>();
+        StringBuilder operations = new StringBuilder();
+
+        parseString(input,numbers,operations);
+
+        multiply(numbers, operations);
+
+        divide(numbers, operations);
+
+        return "= " + addAndSubtract(numbers, operations);
     }
 
 }
