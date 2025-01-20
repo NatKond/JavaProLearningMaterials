@@ -14,52 +14,113 @@ import java.util.ArrayList;
 
 public class Calculator {
 
-    private boolean checkString(String input){
-        String check = "+-*/1234567890.";
+    private static final String VALID_CHARACTERS = "+-*/1234567890.";
+
+    private static final String MATH_OPERATIONS = "+-*/";
+
+    private final String[] history = new String[5];
+
+    private int countCases;
+
+    public String getResult(String input){
+        input = input.replaceAll("\\s+","");
+        if (!checkStringForValidCharacters(input)) return "Error. The string contains invalid characters.";
+
+        ArrayList<Double> numbers = new ArrayList<>();
+        StringBuilder operations = new StringBuilder();
+
+        parseString(input,numbers,operations);
+        if (checkDivisionByZero(numbers,operations)) return "Error, division by zero!";
+
+        double result = calculate(numbers, operations);
+
+        String stringWithCase = createStringWithCase(numbers,operations);
+        DecimalFormat twoDecimals = new DecimalFormat("0.00");
+        String output = stringWithCase + twoDecimals.format(result);
+        saveHistory(output);
+        return output;
+    }
+
+    public void printHistory(){
+        System.out.println("------ HISTORY ------");
+        for (String s : history) {
+            System.out.print(s + "; ");
+        }
+        System.out.println();
+    }
+
+    private void saveHistory (String output){
+        if (countCases == history.length - 1){
+            for (int i = 0; i < history.length - 1; i++) {
+                history[i] = history[i+1];
+                countCases = history.length - 1;
+            }
+        }
+
+        history[countCases] = output;
+        if (countCases < history.length - 1) countCases++;
+    }
+
+    private boolean checkStringForValidCharacters(String input){
         for (char c:input.toCharArray()){
-            if (check.indexOf(c) == -1) return false;
+            if (VALID_CHARACTERS.indexOf(c) == -1) return false;
         }
         return true;
     }
 
     private void parseString(String input, ArrayList<Double> numbers, StringBuilder operations){
-        String mathOperations = "+-*/";
         int startOfNumber = 0;
         int indexOfOperation;
         char c;
         for (int i = 1; i < input.length(); i++) {
             c = input.charAt(i);
-            indexOfOperation = mathOperations.indexOf(c);
+            indexOfOperation = MATH_OPERATIONS.indexOf(c);
             if (indexOfOperation != -1){
                 numbers.add(Double.parseDouble(input.substring(startOfNumber,i)));
-                operations.append(mathOperations.charAt(indexOfOperation));
+                operations.append(MATH_OPERATIONS.charAt(indexOfOperation));
                 startOfNumber = i + 1;
             }
         }
         numbers.add(Double.parseDouble(input.substring(startOfNumber)));
     }
 
-    private void multiply(ArrayList<Double> numbers, StringBuilder operations){
-        int indexOfMultiplication = operations.indexOf("*");
-        while (indexOfMultiplication != -1){
-            operations.deleteCharAt(indexOfMultiplication);
-            numbers.set(indexOfMultiplication, numbers.get(indexOfMultiplication) * numbers.get(indexOfMultiplication + 1));
-            numbers.remove(indexOfMultiplication + 1);
-            indexOfMultiplication = operations.indexOf("*");
+    private boolean checkDivisionByZero(ArrayList<Double> numbers, StringBuilder operations){
+        for (int i = 0; i < operations.length(); i++) {
+            if (operations.charAt(i) == '/' && numbers.get(i + 1) == 0) return true;
         }
+        return false;
     }
 
-    private void divide(ArrayList<Double> numbers, StringBuilder operations){
+    private double calculate (ArrayList<Double> numbers, StringBuilder operations){
+        ArrayList<Double> numbersCopy = new ArrayList<>(numbers);
+        StringBuilder operationsCopy = new StringBuilder(operations);
+        multiplyAndDivide(numbersCopy, operationsCopy);
+        double result = addAndSubtract(numbersCopy, operationsCopy);
+        return result;
+    }
+
+    private void multiplyAndDivide(ArrayList<Double> numbers, StringBuilder operations){
+        int indexOfMultiplication = operations.indexOf("*");
         int indexOfDivision = operations.indexOf("/");
-        while (indexOfDivision != -1){
-            operations.deleteCharAt(indexOfDivision);
-            numbers.set(indexOfDivision, numbers.get(indexOfDivision) / (numbers.get(indexOfDivision + 1)));
-            numbers.remove(indexOfDivision + 1);
+        while (indexOfMultiplication != -1 || indexOfDivision != -1){
+            if (indexOfMultiplication != -1){
+                operations.deleteCharAt(indexOfMultiplication);
+                numbers.set(indexOfMultiplication, numbers.get(indexOfMultiplication) * numbers.get(indexOfMultiplication + 1));
+                numbers.remove(indexOfMultiplication + 1);
+            }
+            indexOfDivision = operations.indexOf("/");
+
+            if (indexOfDivision != -1){
+                operations.deleteCharAt(indexOfDivision);
+                numbers.set(indexOfDivision, numbers.get(indexOfDivision) / (numbers.get(indexOfDivision + 1)));
+                numbers.remove(indexOfDivision + 1);
+            }
+            indexOfMultiplication = operations.indexOf("*");
             indexOfDivision = operations.indexOf("/");
         }
     }
 
-    private double addAndSubtract(ArrayList<Double> numbers, StringBuilder operations){
+    private double addAndSubtract (ArrayList<Double> numbers, StringBuilder operations){
         double result = numbers.getFirst();
         for (int i = 0; i < operations.length(); i++) {
             if (operations.charAt(i) == '+'){
@@ -78,30 +139,9 @@ public class Calculator {
         for (int i = 0; i < operations.length(); i++) {
             stringWithCase.append(df.format(numbers.get(i))).append(" ").append(operations.charAt(i)).append(" ");
         }
-        stringWithCase.append(df.format(numbers.getLast()));
+        stringWithCase.append(df.format(numbers.getLast())).append(" = ");
+
         return stringWithCase.toString();
-    }
-
-    
-
-    public String getResult(String input){
-        input = input.replaceAll("\\s+","");
-        if (!checkString(input)) return "Error. The string contains invalid characters.";
-
-        ArrayList<Double> numbers = new ArrayList<>();
-        StringBuilder operations = new StringBuilder();
-
-        parseString(input,numbers,operations);
-
-        String stringWithCase = createStringWithCase(numbers,operations);
-
-        multiply(numbers, operations);
-
-        divide(numbers, operations);
-
-        DecimalFormat twoDecimals = new DecimalFormat("0.00");
-
-        return stringWithCase + " = " + twoDecimals.format(addAndSubtract(numbers, operations));
     }
 
 }

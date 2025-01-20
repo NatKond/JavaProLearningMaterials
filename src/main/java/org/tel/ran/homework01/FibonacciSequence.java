@@ -24,14 +24,12 @@ public class FibonacciSequence {
         }
     }
 
-    private int[] initSequence(){
-        int[] sequence = new int[length];
+    public int getLength() {
+        return length;
+    }
 
-        if (length == 0) return sequence;
-        sequence[0] = 0;
-        if (length == 1) return sequence;
-        sequence[1] = 1;
-        return sequence;
+    public void setLength(int length) {
+        this.length = length;
     }
 
     public int[] getSequenceFor(){
@@ -65,6 +63,17 @@ public class FibonacciSequence {
         } while (i < sequence.length);
         return sequence;
     }
+
+    private int[] initSequence(){
+        int[] sequence = new int[length];
+
+        if (length == 0) return sequence;
+        sequence[0] = 0;
+        if (length == 1) return sequence;
+        sequence[1] = 1;
+        return sequence;
+    }
+
 
 
 }

@@ -15,5 +15,10 @@ public class Main {
         System.out.println("fs1.getSequenceWhile() = " + Arrays.toString(fs1.getSequenceWhile()));
         System.out.println("fs1.getSequenceDoWhile() = " + Arrays.toString(fs1.getSequenceDoWhile()));
 
+        FibonacciSequence fs2 = new FibonacciSequence();
+        fs1.setLength(Integer.parseInt(length));
+        System.out.println("fs2.getSequenceFor() = " + Arrays.toString(fs2.getSequenceFor()));
+        System.out.println("fs2.getSequenceWhile() = " + Arrays.toString(fs2.getSequenceWhile()));
+        System.out.println("fs2.getSequenceDoWhile() = " + Arrays.toString(fs2.getSequenceDoWhile()));
     }
 }
