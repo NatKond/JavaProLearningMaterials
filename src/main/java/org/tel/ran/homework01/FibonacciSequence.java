@@ -17,11 +17,7 @@ public class FibonacciSequence {
     }
 
     public FibonacciSequence(int length) {
-        if (length >= 0) {
-            this.length = length;
-        } else {
-            System.err.println("Error. The sequence cannot have a negative length.");
-        }
+        setLength(length);
     }
 
     public int getLength() {
@@ -29,7 +25,11 @@ public class FibonacciSequence {
     }
 
     public void setLength(int length) {
-        this.length = length;
+        if (length >= 0) {
+            this.length = length;
+        } else {
+            System.err.println("Error. The sequence cannot have a negative length.");
+        }
     }
 
     public int[] getSequenceFor(){
@@ -51,6 +51,7 @@ public class FibonacciSequence {
         }
         return sequence;
     }
+
     public int[] getSequenceDoWhile(){
         int[] sequence = initSequence();
 
