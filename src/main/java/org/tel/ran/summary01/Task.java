@@ -116,7 +116,7 @@ public class Task {
             do {
                 n = Math.abs(n);
                 sum += n%10;
-                n = n/10;
+                n /= 10;
             } while (n != 0);
         }
         return sum;
@@ -189,9 +189,6 @@ public class Task {
 
         return maxNegative;
     }
-
-
-
 
     private static boolean checkArray(int[] array){
         if (array == null || array.length == 0) {
