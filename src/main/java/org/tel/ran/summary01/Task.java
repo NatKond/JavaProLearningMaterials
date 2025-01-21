@@ -42,7 +42,7 @@ public class Task {
 
         ArrayList <Integer> numbersLessThanAverageList = new ArrayList<>();
         for (int num: array){
-            if (num > average) numbersLessThanAverageList.add(num);
+            if (num < average) numbersLessThanAverageList.add(num);
         }
 
         int[] numbersLessThanAverage = new int[numbersLessThanAverageList.size()];
@@ -81,7 +81,7 @@ public class Task {
         return compressedArray;
     }
 
-    public static int sumElementsAfterFirstNegative(int[] array){
+    public static int sumAbsOfElementsAfterFirstNegative(int[] array){
         if (!checkArray(array)) return 0;
 
         int sum = 0;
@@ -108,12 +108,16 @@ public class Task {
         return indexMin;
     }
 
-    public static int findSumOfAllElement(int[] array){
+    public static int calculateSumOfDigitsInArray(int[] array){
         if (!checkArray(array)) return 0;
 
-        int sum = array[0];
-        for (int i = 1; i < array.length; i++) {
-            sum += array[i];
+        int sum = 0;
+        for (int n:array) {
+            do {
+                n = Math.abs(n);
+                sum += n%10;
+                n = n/10;
+            } while (n != 0);
         }
         return sum;
     }
