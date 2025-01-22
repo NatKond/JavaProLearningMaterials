@@ -190,6 +190,53 @@ public class Task {
         return maxNegative;
     }
 
+    public static int findMostFrequentNumber(int[] array){
+        if (!checkArray(array)) return 0;
+
+        boolean[] isComparedArrayEl = new boolean[array.length];
+        int countMax = 0;
+        int mostFrequentElement = array[0];
+        for (int i = 0; i < array.length; i++) {
+            if (!isComparedArrayEl[i]) {
+                int count = 0;
+                for (int j = i + 1; j < array.length; j++) {
+                    if (array[i] == array[j] && !isComparedArrayEl[i]) {
+                        isComparedArrayEl[j] = true;
+                        count++;
+                    }
+                }
+                if (count > countMax) {
+                    mostFrequentElement = array[i];
+                    countMax = count;
+                }
+            }
+            isComparedArrayEl[i] = true;
+        }
+        return mostFrequentElement;
+    }
+
+    public static int[] switchMaxAndMin(int[] array){
+        if (!checkArray(array)) return new int[0];
+
+        int indexOfMax = 0;
+        int indexOfMin = 0;
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] > array[indexOfMax]){
+                indexOfMax = i;
+            }
+            if (array[i] < array[indexOfMin]){
+                indexOfMin = i;
+            }
+        }
+
+        int[] arrayCopy = Arrays.copyOf(array,array.length);
+        int temp = arrayCopy[indexOfMax];
+        arrayCopy[indexOfMax] = arrayCopy[indexOfMin];
+        arrayCopy[indexOfMin] = temp;
+
+        return arrayCopy;
+    }
+
     private static boolean checkArray(int[] array){
         if (array == null || array.length == 0) {
             System.err.println("Array must not be null or empty");
@@ -197,5 +244,4 @@ public class Task {
         }
         return true;
     }
-
 }
