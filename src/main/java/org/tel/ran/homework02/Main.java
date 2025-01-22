@@ -14,6 +14,6 @@ public class Main {
                 3. inputNumber - the parameter passed to the algorithm.\s""");
         String input = scanner.nextLine();
         AlgorithmRunner algorithmRunner = new AlgorithmRunner();
-        algorithmRunner.executeAlgorithm(input);
+        System.out.println(algorithmRunner.executeAlgorithm(input));
     }
 }

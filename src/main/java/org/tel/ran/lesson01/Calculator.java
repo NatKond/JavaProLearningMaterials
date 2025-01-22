@@ -40,16 +40,12 @@ public class Calculator {
         return output;
     }
 
-    public void printHistory(){
-        System.out.println("------ HISTORY ------");
-        for (String s : history) {
-            System.out.print(s + "; ");
-        }
-        System.out.println();
+    public String[] getHistory(){
+        return this.history;
     }
 
     private void saveHistory (String output){
-        if (countCases == history.length - 1){
+        if (countCases == history.length){
             for (int i = 0; i < history.length - 1; i++) {
                 history[i] = history[i+1];
                 countCases = history.length - 1;
@@ -57,7 +53,7 @@ public class Calculator {
         }
 
         history[countCases] = output;
-        if (countCases < history.length - 1) countCases++;
+        countCases++;
     }
 
     private boolean checkStringForValidCharacters(String input){

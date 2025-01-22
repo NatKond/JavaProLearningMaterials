@@ -12,7 +12,7 @@ public class AlgorithmRunner {
     private final String VALID_CHARACTERS = "1234567890 ";
     private final int NUMBER_OF_PARAMETERS = 3;
 
-    public void executeAlgorithm(String input) {
+    public String executeAlgorithm(String input) {
         if (!checkStringForValidCharacters(input)) throw new IllegalArgumentException("Invalid input data!");
         int[] inputData = parseInput(input);
         int algorithmId = inputData[0];
@@ -20,22 +20,20 @@ public class AlgorithmRunner {
         int inputNumber = inputData[2];
 
         switch (algorithmId) {
+
             case 1: {
                 switch (loopType) {
                     case 1: {
                         FibonacciSequence fibonacciSequence = new FibonacciSequence(inputNumber);
-                        printResult("Fibonacci sequence", "while", fibonacciSequence.getSequenceWhile());
-                        return;
+                        return printResult("Fibonacci sequence", "while", fibonacciSequence.getSequenceWhile());
                     }
                     case 2: {
                         FibonacciSequence fibonacciSequence = new FibonacciSequence(inputNumber);
-                        printResult("Fibonacci sequence", "do-while",fibonacciSequence.getSequenceDoWhile());
-                        return ;
+                        return printResult("Fibonacci sequence", "do-while",fibonacciSequence.getSequenceDoWhile());
                     }
                     case 3: {
                         FibonacciSequence fibonacciSequence = new FibonacciSequence(inputNumber);
-                        printResult("Fibonacci sequence", "for",fibonacciSequence.getSequenceFor());
-                        return;
+                        return printResult("Fibonacci sequence", "for",fibonacciSequence.getSequenceFor());
                     }
                     default: {
                         throw new IllegalArgumentException("Invalid loop type!");
@@ -46,18 +44,15 @@ public class AlgorithmRunner {
                 switch (loopType) {
                     case 1: {
                         Factorial factorial = new Factorial();
-                        printResult("Factorial", "while", new int[]{factorial.getFactorialWhile(inputNumber)});
-                        return;
+                        return printResult("Factorial", "while", new int[]{factorial.getFactorialWhile(inputNumber)});
                     }
                     case 2: {
                         Factorial factorial = new Factorial();
-                        printResult("Factorial", "do-while", new int[]{factorial.getFactorialDoWhile(inputNumber)});
-                        return;
+                        return printResult("Factorial", "do-while", new int[]{factorial.getFactorialDoWhile(inputNumber)});
                     }
                     case 3: {
                         Factorial factorial = new Factorial();
-                        printResult("Factorial", "for", new int[]{factorial.getFactorialFor(inputNumber)});
-                        return;
+                        return printResult("Factorial", "for", new int[]{factorial.getFactorialFor(inputNumber)});
                     }
                     default: {
                         throw new IllegalArgumentException("Invalid loop type!");
@@ -88,10 +83,10 @@ public class AlgorithmRunner {
         return true;
     }
 
-    private void printResult (String algorithmName, String loopType, int[] result){
+    private String printResult (String algorithmName, String loopType, int[] result){
         StringBuilder output = new StringBuilder(algorithmName + " calculated using the " + loopType + " loop: ");
         for (int n: result) output.append(n).append(" ");
-        System.out.println(output);
+        return output.toString();
     }
 
 }
