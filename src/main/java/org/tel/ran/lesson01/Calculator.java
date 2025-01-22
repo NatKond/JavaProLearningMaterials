@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Calculator {
 
-    private static final String VALID_CHARACTERS = "+-*/1234567890.";
+    private static final String VALID_CHARACTERS = "+-*/1234567890. ";
 
     private static final String MATH_OPERATIONS = "+-*/";
 
@@ -23,7 +23,6 @@ public class Calculator {
     private int countCases;
 
     public String getResult(String input){
-        input = input.replaceAll("\\s+","");
         if (!checkStringForValidCharacters(input)) return "Error. The string contains invalid characters.";
 
         ArrayList<Double> numbers = new ArrayList<>();
@@ -69,6 +68,7 @@ public class Calculator {
     }
 
     private void parseString(String input, ArrayList<Double> numbers, StringBuilder operations){
+        input = input.replaceAll("\\s+","");
         int startOfNumber = 0;
         int indexOfOperation;
         char c;
@@ -95,8 +95,7 @@ public class Calculator {
         ArrayList<Double> numbersCopy = new ArrayList<>(numbers);
         StringBuilder operationsCopy = new StringBuilder(operations);
         multiplyAndDivide(numbersCopy, operationsCopy);
-        double result = addAndSubtract(numbersCopy, operationsCopy);
-        return result;
+        return addAndSubtract(numbersCopy, operationsCopy);
     }
 
     private void multiplyAndDivide(ArrayList<Double> numbers, StringBuilder operations){
