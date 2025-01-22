@@ -4,9 +4,6 @@ public class FibonacciSequence {
 
     private int length;
 
-    public FibonacciSequence() {
-    }
-
     public FibonacciSequence(int length) {
         setLength(length);
     }
@@ -65,7 +62,4 @@ public class FibonacciSequence {
         sequence[1] = 1;
         return sequence;
     }
-
-
-
 }
