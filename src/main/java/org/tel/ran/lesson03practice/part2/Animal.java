@@ -13,9 +13,9 @@ public abstract class Animal {
      *  В цикле отправляйте их на прием к ветеринару.
      */
 
-    private String name;
-    private String food;
-    private String location;
+    protected String name;
+    protected String food;
+    protected String location;
 
     public Animal(String name, String food, String location) {
         this.name = name;
