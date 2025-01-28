@@ -12,37 +12,36 @@ public class Main {
 
         Card[] cards = new Card[]{card01,card02,card03,card04,card05};
 
-        showBalanceForAllCards(cards);
+        showBalanceForCards(cards);
 
-        showBalanceForAllCards( 1.0435, "$", card05);
+        showBalanceForCardsInCurrency(1.0435, "$", card05);
 
-        showBalanceForAllCards(0.8434, "GBP", card05);
+        showBalanceForCardsInCurrency(0.8434, "GBP", card05);
 
-        showBalanceForAllCards( 7.6060, "CNY", card05);
+        showBalanceForCardsInCurrency(7.6060, "CNY", card05);
 
         payTaxes(100,cards);
 
-        showBalanceForAllCards(cards);
+        showBalanceForCards(cards);
 
-        card01.withdraw(10);
+        payTaxes(10, card01);
     }
 
-    public static void showBalanceForAllCards(Card... cards){
+    private static void showBalanceForCards(Card... cards){
         for (Card c: cards){
             c.showBalance();
         }
     }
-    public static void showBalanceForAllCards(double exchangeRate, String currency, Card... cards){
+
+    private static void showBalanceForCardsInCurrency(double exchangeRate, String currency, Card... cards){
         for (Card c: cards){
             c.showBalanceInCurrency(exchangeRate,currency);
         }
     }
 
-    public static void payTaxes(double amount, Card... cards){
+    private static void payTaxes(double amount, Card... cards){
         for (Card c:cards){
             c.withdraw(amount);
         }
     }
-
-    
 }
