@@ -10,24 +10,33 @@ package org.tel.ran.homework02;
 public class AlgorithmRunner {
 
     private final String VALID_CHARACTERS = "1234567890";
+
     private final int NUMBER_OF_PARAMETERS = 3;
 
-    public int[] executeAlgorithm(String input) {
-        input = input.replaceAll("\\s+", "");
-        if (!checkStringForValidCharacters(input)) throw new IllegalArgumentException("Invalid input data!");
-        int[] inputData = parseInput(input);
-        int algorithmId = inputData[0];
-        int loopType = inputData[1];
-        int inputNumber = inputData[2];
+    private String lastAlgorithmName;
+
+    private String lastLoopType;
+
+    public String getLastAlgorithmName() {
+        return lastAlgorithmName;
+    }
+
+    public String getLastLoopType() {
+        return lastLoopType;
+    }
+
+    public int[] executeAlgorithm(int algorithmId, int loopType, int inputNumber) {
         return chooseAlgorithm(algorithmId, loopType, inputNumber);
     }
 
     private int[] chooseAlgorithm(int algorithmId,  int loopType, int inputNumber) {
         switch (algorithmId) {
             case 1: {
+                lastAlgorithmName = "Fibonacci";
                 return chooseLoopFibonacci(loopType, inputNumber);
             }
             case 2: {
+                lastAlgorithmName = "Factorial";
                 return chooseLoopFactorial(loopType, inputNumber);
             }
             default: {
@@ -40,12 +49,15 @@ public class AlgorithmRunner {
             FibonacciSequence fibonacciSequence = new FibonacciSequence(inputNumber);
             switch (loopType) {
                 case 1: {
+                    lastLoopType = "while";
                     return fibonacciSequence.getSequenceWhile();
                 }
                 case 2: {
+                    lastLoopType = "do-while";
                     return fibonacciSequence.getSequenceDoWhile();
                 }
                 case 3: {
+                    lastLoopType = "for";
                     return fibonacciSequence.getSequenceFor();
                 }
                 default: {
@@ -58,43 +70,21 @@ public class AlgorithmRunner {
             Factorial factorial = new Factorial();
             switch (loopType) {
                 case 1: {
+                    lastLoopType = "while";
                     return new int[]{factorial.getFactorialWhile(inputNumber)};
                 }
                 case 2: {
+                    lastLoopType = "do-while";
                     return new int[]{factorial.getFactorialDoWhile(inputNumber)};
                 }
                 case 3: {
+                    lastLoopType = "for";
                     return new int[]{factorial.getFactorialFor(inputNumber)};
                 }
                 default: {
                     throw new IllegalArgumentException("Invalid loop type!");
                 }
             }
-        }
-
-        private int[] parseInput (String input){
-            int[] inputData = new int[NUMBER_OF_PARAMETERS];
-            for (int i = 0; i < inputData.length - 1; i++) {
-                inputData[i] = input.charAt(i) - '0';
-            }
-            inputData[inputData.length - 1] = Integer.parseInt(input.substring(inputData.length - 1));
-            return inputData;
-        }
-
-        private boolean checkStringForValidCharacters (String input){
-            if (input == null || input.length() < 3) {
-                throw new IllegalArgumentException("Invalid input data!");
-            }
-            for (char c : input.toCharArray()) {
-                if (VALID_CHARACTERS.indexOf(c) == -1) return false;
-            }
-            return true;
-        }
-
-        private String printResult (String algorithmName, String loopType,int[] result){
-            StringBuilder output = new StringBuilder(algorithmName + " calculated using the " + loopType + " loop: ");
-            for (int n : result) output.append(n).append(" ");
-            return output.toString();
         }
 
 }
