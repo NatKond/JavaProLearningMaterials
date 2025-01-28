@@ -18,7 +18,7 @@ public class Main {
         // Экземпляр класса Human
         Human human = new Human("Jane Smith", 25);
 
-        // Экземпляры класса Robot
+        // Экземпляр класса Robot
         Robot robot = new Robot("T-800");
 
         Creature[] creatures = {cat1, cat2, dog, mouse1, mouse2, human, robot};

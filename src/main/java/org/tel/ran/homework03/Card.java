@@ -43,6 +43,14 @@ public class Card {
         balance += amount;
     }
 
+    public void showBalance(){
+        System.out.printf("Balance for %s: %.2f EUR%n", userName, balance);
+    }
+
+    public void showBalanceInCurrency(double exchangeRate, String currencyName){
+        System.out.printf("Balance for %s: %.2f %s%n", userName, balance*exchangeRate,currencyName);
+    }
+
     public void withdraw(double amount){
         amountCheck(amount);
         balanceCheck(balance - amount);
