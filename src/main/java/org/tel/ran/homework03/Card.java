@@ -4,8 +4,6 @@ package org.tel.ran.homework03;
  *  Сделайте несколько конструкторов (перегрузка) для:
  *  - создания карты с именем пользователя и балансом
  *  - создания карты с именем пользователя
- *  Сделайте методы для пополнения/снятия/отображения баланса
- *  Добавьте дополнительный метод для отображения баланса в различных валютах, передавая курс валюты
  */
 public class Card {
 
@@ -41,7 +39,7 @@ public class Card {
 
     private void nameCheck(String name){
         name = name.replaceAll("\\s+", "");
-        if (name == null || name.isEmpty()){
+        if (name.isEmpty()){
             throw new IllegalArgumentException("Invalid name!");
         }
     }
