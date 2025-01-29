@@ -9,61 +9,40 @@ package org.tel.ran.homework03;
  */
 public class Card {
 
-    private String userName;
+    private String name;
 
     private double balance;
 
-    public Card() {
-    }
-
     public Card(String userName) {
-        this.userName = userName;
+        setName(userName);
     }
 
     public Card(String userName, double balance) {
-        balanceCheck(balance);
-        this.userName = userName;
-        this.balance = balance;
+        setName(userName);
+        setBalance(balance);
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
     public double getBalance() {
         return balance;
     }
 
-    public double getBalanceInCurrency(double exchangeRate){
-        return balance * exchangeRate;
+    public void setName(String name) {
+        nameCheck(name);
+        this.name = name;
     }
 
-    public void deposit(double amount){
-        amountCheck(amount);
-        balance += amount;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
-    public void showBalance(){
-        System.out.printf("Balance for %s: %.2f EUR%n", userName, balance);
-    }
-
-    public void showBalanceInCurrency(double exchangeRate, String currencyName){
-        System.out.printf("Balance for %s: %.2f %s%n", userName, balance*exchangeRate,currencyName);
-    }
-
-    public void withdraw(double amount){
-        amountCheck(amount);
-        balanceCheck(balance - amount);
-        balance -= amount;
-    }
-
-    private void balanceCheck(double balance){
-        if (balance < 0)
-            throw new IllegalArgumentException("The balance can not fall below zero.");
-    }
-
-    private void amountCheck(double amount){
-        if (amount < 0)
-            throw new IllegalArgumentException("Amount must be positive.");
+    private void nameCheck(String name){
+        name = name.replaceAll("\\s+", "");
+        if (name == null || name.isEmpty()){
+            throw new IllegalArgumentException("Invalid name!");
+        }
     }
 }
