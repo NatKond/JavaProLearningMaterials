@@ -14,19 +14,23 @@ public class Main {
 
         Card[] cards = new Card[]{card01,card02,card03,card04,card05};
 
+        System.out.println("-------- BALANCE --------");
         showBalanceForCards(atm, cards);
 
-        showBalanceForCardsInCurrency(atm, 1.0435, "$", card05);
+        atm.showBalanceInCurrency(card05, 1.0435, "$");
 
-        showBalanceForCardsInCurrency(atm, 0.8434, "GBP", card05);
+        atm.showBalanceInCurrency(card05, 0.8434, "GBP");
 
-        showBalanceForCardsInCurrency(atm, 7.6060, "CNY", card05);
+        atm.showBalanceInCurrency(card05, 7.6060, "CNY");
+
+        System.out.println("-------- TAXES --------");
 
         payTaxes(atm, 250,cards);
 
         showBalanceForCards(atm, cards);
 
-        payTaxes(atm, 10, card02);
+        System.out.println("-------- WITHDRAW FROM DEBIT CARD --------");
+        atm.withdraw( card02, 10);
     }
 
     private static void showBalanceForCards(Atm atm, Card... cards){
