@@ -7,17 +7,16 @@ public class DebitCard extends Card{
 
     public DebitCard(String userName, double balance) {
         super(userName);
-        setBalance(balance);
     }
 
     @Override
-    public void setBalance(double balance) {
-        balanceCheck(balance);
-        super.setBalance(balance);
+    public void withdraw(double amount) {
+        withdrawCheck(amount);
+        super.withdraw(amount);
     }
 
-    private void balanceCheck(double balance){
-        if (balance < 0)
-            throw new IllegalArgumentException("The starting balance must be positive.");
+    private void withdrawCheck(double amount){
+        if (super.getBalance() < amount)
+            throw new IllegalArgumentException("Insufficient funds.");
     }
 }

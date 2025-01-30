@@ -5,11 +5,13 @@ package org.tel.ran.homework03;
  *  - создания карты с именем пользователя и балансом
  *  - создания карты с именем пользователя
  */
-public class Card {
+public abstract class Card {
 
     private String name;
 
     private double balance;
+
+    private String pin;
 
     public Card(String userName) {
         setName(userName);
@@ -20,6 +22,12 @@ public class Card {
         setBalance(balance);
     }
 
+    public Card(String userName, double balance, String pin) {
+        setName(userName);
+        setBalance(balance);
+        setPin(pin);
+    }
+
     public String getName() {
         return name;
     }
@@ -28,13 +36,40 @@ public class Card {
         return balance;
     }
 
-    public void setName(String name) {
+    public void deposit(double amount){
+        amountCheck(amount);
+        balance += amount;
+    }
+
+    public void withdraw(double amount){
+        amountCheck(amount);
+        balance -= amount;
+    }
+
+    private void setName(String name) {
         nameCheck(name);
         this.name = name;
     }
 
-    public void setBalance(double balance) {
+    private void setBalance(double balance) {
+        balanceCheck(balance);
         this.balance = balance;
+    }
+
+    private void setPin(String pin) {
+        if (isPinValid(pin)){
+            this.pin = pin;
+        }
+    }
+
+    private void balanceCheck(double balance){
+        if (balance < 0)
+            throw new IllegalArgumentException("The initial balance should be positive.");
+    }
+
+    private void amountCheck(double amount){
+        if (amount < 0)
+            throw new IllegalArgumentException("The amount must be positive.");
     }
 
     private void nameCheck(String name){
@@ -42,5 +77,18 @@ public class Card {
         if (name.isEmpty()){
             throw new IllegalArgumentException("Invalid name!");
         }
+    }
+
+    private boolean isPinValid(String pin){
+        try{
+            Integer.parseInt(pin);
+            return pin.length() == 4;
+        } catch (NumberFormatException e){
+            return false;
+        }
+    }
+
+    private void pinCheck(String pin){
+
     }
 }

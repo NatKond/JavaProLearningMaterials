@@ -26,8 +26,8 @@ public class Human extends Hero{
         int damage;
         if (chanceOfCriticalDamage > RANDOM.nextInt(101)){
             damage = (int) (getPower() * damageMultiplier / enemy.getDefence());
-            enemy.takeDamage(damage, getName());
-            System.out.printf("%s attacks %s for %d damage", getName(), enemy.getName(),damage);
+            enemy.takeDamage(damage, enemy);
+            System.out.printf("%s attacks %s for %d damage.%n", getName(), enemy.getName(),damage);
         } else super.attack(enemy);
     }
 

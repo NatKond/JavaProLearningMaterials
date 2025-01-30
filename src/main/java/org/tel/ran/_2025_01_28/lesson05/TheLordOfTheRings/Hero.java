@@ -33,19 +33,23 @@ public class Hero {
         return power;
     }
 
-    public void attack (Hero enemy){
-        int damage = power / enemy.getDefence();
-        enemy.takeDamage(damage, name);
-        System.out.printf("%s attacks %s for %d damage", name, enemy.getName(),damage);
+    protected void setHealth(int health) {
+        this.health = health;
     }
 
-    protected void takeDamage(int damage, String nameOfEnemy){
+    public void attack (Hero enemy){
+        int damage = getPower() / enemy.getDefence();
+        enemy.takeDamage(damage, this);
+        System.out.printf("%s attacks %s for %d damage.%n", name, enemy.getName(),damage);
+    }
+
+    protected void takeDamage(int damage, Hero enemy){
         health -= damage;
-        System.out.printf("%s takes %d damage from %s.", name, damage, nameOfEnemy);
+        System.out.printf("%s takes %d damage from %s.%n", name, damage, enemy.getName());
         if (health <= 0){
-            System.out.printf("%s dies",name);
+            System.out.printf("%s dies.%n",name);
         }else {
-            System.out.printf("%s remains %d", name, health);
+            System.out.printf("%s remains %d.%n", name, health);
         }
     }
 

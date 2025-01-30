@@ -9,5 +9,4 @@ public class CreditCard extends Card{
     public CreditCard(String userName, double balance) {
         super(userName, balance);
     }
-
 }
