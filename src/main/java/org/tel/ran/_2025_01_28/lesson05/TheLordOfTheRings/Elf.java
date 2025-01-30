@@ -21,10 +21,19 @@ public class Elf extends Hero{
     @Override
     protected void takeDamage(int damage, Hero enemy) {
         if (chanceToDodge > RANDOM.nextInt(101)){
-            System.out.printf("%s has dodged.%n",getName());
+            System.out.printf("%s%s%s has dodged.%n",YELLOW,getName(),RESET);
             return;
         }
         super.takeDamage(damage, enemy);
+    }
+
+    @Override
+    protected void setHealth(int health) {
+        if (health >= 80 && health <= 110){
+            super.setHealth(health);
+        } else {
+            throw new IllegalArgumentException("The health is invalid.");
+        }
     }
 
     private void setChanceToDodge(int chanceToDodge) {

@@ -6,7 +6,7 @@ public class DebitCard extends Card{
     }
 
     public DebitCard(String userName, double balance) {
-        super(userName);
+        super(userName, balance);
     }
 
     @Override

@@ -13,6 +13,7 @@ public abstract class Card {
 
     private String pin;
 
+
     public Card(String userName) {
         setName(userName);
     }
@@ -46,6 +47,26 @@ public abstract class Card {
         balance -= amount;
     }
 
+    public boolean hasPin(){
+        return (pin != null);
+    }
+
+    public boolean checkPin(String pin){
+        return this.pin.equals(pin);
+    }
+
+    public void setPin(String pin) {
+        if (isPinValid(pin)){
+            this.pin = pin;
+        }
+    }
+
+    public void changePin(String oldPin, String newPin) {
+        if (isPinValid(oldPin)){
+            this.pin = newPin;
+        }
+    }
+
     private void setName(String name) {
         nameCheck(name);
         this.name = name;
@@ -54,12 +75,6 @@ public abstract class Card {
     private void setBalance(double balance) {
         balanceCheck(balance);
         this.balance = balance;
-    }
-
-    private void setPin(String pin) {
-        if (isPinValid(pin)){
-            this.pin = pin;
-        }
     }
 
     private void balanceCheck(double balance){
@@ -86,9 +101,5 @@ public abstract class Card {
         } catch (NumberFormatException e){
             return false;
         }
-    }
-
-    private void pinCheck(String pin){
-
     }
 }

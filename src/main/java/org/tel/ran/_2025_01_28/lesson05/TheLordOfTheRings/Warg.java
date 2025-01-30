@@ -13,20 +13,38 @@ public class Warg extends Hero{
     }
 
     @Override
-    public void attack(Hero enemy) {
-        heal();
-        super.attack(enemy);
+    public String toString() {
+        return String.format("Warg %s has %d health.", getName(), getHealth());
     }
 
-    private void heal(){
-        setHealth(getHealth() + healthAmount);
+    @Override
+    public void attack(Hero enemy) {
+        super.attack(enemy);
+        heal();
+    }
+
+    @Override
+    protected void setHealth(int health) {
+        if (health >= 80 && health <= 100){
+            super.setHealth(health);
+        } else {
+            throw new IllegalArgumentException("The health is invalid.");
+        }
+    }
+
+    protected void heal(){
+        super.setHealth(getHealth() + healthAmount);
+        System.out.printf("%s%s%s heals to %s%d%s health points.%n",PURPLE,getName(),RESET, GREEN, getHealth(),RESET);
         if (getHealth() > healthMax){
             setHealth(healthMax);
         }
-        System.out.printf("%s healed to %d health points.%n",getName(), getHealth());
     }
 
     private void setHealthAmount(int healthAmount) {
-        this.healthAmount = healthAmount;
+        if (healthAmount > 1 && healthAmount <= 10) {
+            this.healthAmount = healthAmount;
+        } else {
+            throw new IllegalArgumentException("Health amount to heal is invalid.");
+        }
     }
 }
