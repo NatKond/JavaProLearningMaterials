@@ -1,5 +1,7 @@
 package org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings;
 
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidHealthException;
+
 import java.util.Random;
 
 public class Human extends Hero{
@@ -37,9 +39,8 @@ public class Human extends Hero{
         if (health >= 100 && health <= 130){
             super.setHealth(health);
         } else {
-            throw new IllegalArgumentException("The health is invalid.");
+            throw new InvalidHealthException("Human cannot have " + health + " health. Human health should be between 100 and 130.");
         }
-
     }
 
     private void setDamageMultiplier(double damageMultiplier) {
