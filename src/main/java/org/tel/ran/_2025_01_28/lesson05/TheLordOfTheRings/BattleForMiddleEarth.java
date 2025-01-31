@@ -9,40 +9,32 @@ public class BattleForMiddleEarth {
     public static void main(String[] args) {
         Human human1 = new Human("Human1",100,90,3, 2,25);
         Elf elf1 = new Elf("Elf1",80,80,2,40);
-        Dwarf dwarf1 = new Dwarf("Dwarf", 150,110,5,2.5);
+        Dwarf dwarf1 = new Dwarf("Dwarf1", 150,110,5,2.5);
         Orc orc1 = new Orc("Orc1", 105,90,2);
         Warg warg1 = new Warg("Warg1",80,80,2,10);
         Nazgul nazgul1 = new Nazgul("Nasgul1", 150,120,6,5);
 
-        Army army1 = new Army("MiddleEarthDefenders ", new Hero[]{human1,elf1,dwarf1});
-        Army army2 = new Army("MordorForces", new Hero[]{orc1,nazgul1});
+        Army army1 = new Army("Middle Earth Defenders", new Hero[]{human1, elf1, dwarf1});
+        Army army2 = new Army("Mordor Forces", new Hero[]{nazgul1, orc1, warg1});
 
-        fight(army1,army2);
+        fight1(army1,army2);
     }
 
-    public void fight1 (Army army1, Army army2) {
+    public static void fight1 (Army army1, Army army2) {
         System.out.println("Battle starts.");
-        int index1 = 0;
-        int index2 = 0;
+        int countMoves = 0;
         while (army1.isAlive() && army2.isAlive()) {
-            for (int i = 0; i < army1.getHeroes().length; i++) {
-                if (index2 == army2.getHeroes().length) {
-                    index2 = 0;
-                }
-                Hero hero1 = army1.getHeroes()[i];
-                if (!hero1.isAlive()) {
-                    continue;
-                }
-                Hero hero2 = army2.getHeroes()[index2];
-                while (!hero2.isAlive() && index2 < army2.getHeroes().length - 1) {
-                    hero2 = army2.getHeroes()[++index2];
-                }
-
-                hero1.attack(hero2);
-                index2++;
-
-            }
+            countMoves++;
+            System.out.println("------------- " + countMoves + " move. -------------");
+            army1.attack(army2);
+            army2.attack(army1);
         }
+        System.out.println();
+
+        if (army1.isAlive()) System.out.println(BLUE  + army1.getName() + " has won!" + RESET);
+        if (army2.isAlive()) System.out.println(BLUE  + army2.getName() + " has won!" + RESET);
+        System.out.println(army1.toString());
+        System.out.println(army2.toString());
     }
 
     public static void fight(Army army1, Army army2){
@@ -54,9 +46,14 @@ public class BattleForMiddleEarth {
         int countMoves = 0;
         while (army1.isAlive() && army2.isAlive()){
             countMoves++;
-            System.out.println("------------ " + countMoves + " move. ------------");
+            System.out.println("------------- " + countMoves + " move. -------------");
+
+            index1 = army1.findAliveHeroIndex(index1);
+            index2 = army2.findAliveHeroIndex(index2);
+
             Hero hero1 = army1.getHeroes()[index1];
             Hero hero2 = army2.getHeroes()[index2];
+            /*
             if (!hero1.isAlive()) {
                 for (int i = index1 + 1; i < army1.getHeroes().length; i++) {
                     if (army1.getHeroes()[i].isAlive()) {
@@ -75,7 +72,7 @@ public class BattleForMiddleEarth {
                     }
                 }
             }
-
+            */
             if (!allHadAttacked1) hero1.attack(hero2);
             if (!allHadAttacked2) hero2.attack(hero1);
             index1++;
@@ -86,7 +83,7 @@ public class BattleForMiddleEarth {
                 allHadAttacked1 = true;
             }
             if (index2 == army2.getHeroes().length) {
-                System.out.printf("%s%s had attacked.%s%n",BLUE,army1.getName(),RESET);
+                System.out.printf("%s%s had attacked.%s%n",BLUE,army2.getName(),RESET);
                 index2 = 0;
                 allHadAttacked2 = true;
             }
@@ -100,5 +97,7 @@ public class BattleForMiddleEarth {
 
         if (army1.isAlive()) System.out.println(BLUE  + army1.getName() + " has won!" + RESET);
         if (army2.isAlive()) System.out.println(BLUE  + army2.getName() + " has won!" + RESET);
+        System.out.println(army1.toString());
+        System.out.println(army2.toString());
     }
 }
