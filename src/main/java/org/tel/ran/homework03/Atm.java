@@ -2,46 +2,70 @@ package org.tel.ran.homework03;
 
 public class Atm {
 
-    Card card;
+    private Card card;
+
+    private String enteredPin;
 
     public Atm() {
     }
 
     public void setCard(Card card, String pin) {
-        if (card.checkPin(pin)){
-            this.card = card;
-        } else throw new IllegalArgumentException("Incorrect PIN.");
+        this.card = card;
+        enteredPin = pin;
     }
 
     public void setCard(Card card) {
-        if (card.hasPin()){
-            throw new IllegalArgumentException("Please enter your PIN.");
-        }
         this.card = card;
+        enteredPin = null;
+    }
+
+    public void enterPin(String pin){
+        enteredPin = pin;
     }
 
     public void showBalance(){
-        System.out.printf("Balance for %s: %.2f EUR%n", card.getName(), card.getBalance());
+        try {
+            System.out.printf("Balance for %s: %.2f EUR%n", card.getName(enteredPin), card.getBalance(enteredPin));
+        } catch (IllegalArgumentException exception){
+            System.out.println(exception.getMessage());
+        }
+
     }
 
     public void showBalanceInCurrency( double exchangeRate, String currencyName){
-        System.out.printf("Balance for %s: %.2f %s%n", card.getName(), card.getBalance()*exchangeRate,currencyName);
+        try {
+            System.out.printf("Balance for %s: %.2f %s%n", card.getName(enteredPin), card.getBalance(enteredPin)*exchangeRate,currencyName);
+        } catch (IllegalArgumentException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
-    public void deposit( double amount){
-        card.deposit(amount);
+    public void deposit(double amount){
+        try {
+            card.deposit(amount,enteredPin);
+        } catch (IllegalArgumentException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
     public void withdraw( double amount){
-        card.withdraw(amount);
+        try {
+            card.withdraw(amount,enteredPin);
+        }catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     public void setPin(String pin){
         card.setPin(pin);
     }
 
-    public void changePin(String oldPin, String newPin){
-        card.changePin(oldPin,newPin);
+    public void changePin(String newPin){
+        try {
+            card.changePin(enteredPin,newPin);
+        }catch (IllegalArgumentException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
 }

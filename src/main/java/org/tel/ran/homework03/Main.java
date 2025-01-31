@@ -13,6 +13,7 @@ public class Main {
 
         atm.setCard(card05);
         atm.setPin("5253");
+        atm.enterPin("5253");
         atm.deposit(1000);
 
         Card[] cards = new Card[]{card01,card02,card03,card04};
@@ -47,6 +48,8 @@ public class Main {
 
         System.out.println("-------- SET DEBIT CARD WITH WRONG PIN --------");
         atm.setCard(card05, "5252");
+        atm.showBalance();
+        atm.enterPin("5253");
         atm.showBalance();
     }
 
