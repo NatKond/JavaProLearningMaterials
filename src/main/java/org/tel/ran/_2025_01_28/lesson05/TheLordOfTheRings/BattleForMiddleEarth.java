@@ -22,10 +22,10 @@ public class BattleForMiddleEarth {
 
     public static void fight1 (Army army1, Army army2) {
         System.out.println("Battle starts.");
-        int countMoves = 0;
+        int countAttacks = 0;
         while (army1.isAlive() && army2.isAlive()) {
-            countMoves++;
-            System.out.println("------------- " + countMoves + " move. -------------");
+            countAttacks++;
+            System.out.println("------------- " + countAttacks + " move. -------------");
             army1.attack(army2);
             army2.attack(army1);
         }

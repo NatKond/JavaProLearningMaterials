@@ -31,43 +31,48 @@ public class Army {
     }
 
     public Hero findAliveHero(int startIndex){
-        Hero hero = heroes[startIndex];
-        if (!hero.isAlive()) {
-            for (int i = startIndex + 1; i < heroes.length; i++) {
-                if (heroes[i].isAlive()) {
-                    hero = heroes[i];
-                    break;
-                }
+        for (int i = startIndex; i < heroes.length; i++) {
+            if (heroes[i].isAlive()) {
+                return heroes[i];
             }
         }
-        return hero;
+        return null;
     }
 
     public int findAliveHeroIndex(int startIndex){
-        Hero hero = heroes[startIndex];
-        int index = startIndex;
-        if (!hero.isAlive()) {
-            for (int i = startIndex + 1; i < heroes.length; i++) {
-                if (heroes[i].isAlive()) {
-                    index = i;
-                    break;
-                }
+        for (int i = startIndex; i < heroes.length; i++) {
+            if (heroes[i].isAlive()) {
+                return i;
             }
         }
-        return index;
+        return -1;
     }
 
     public void attack(Army enemies){
+        if (!this.isAlive()) return;
+        if (!enemies.isAlive()) return;
+        int i = 0;
         int indexEnemies = 0;
-        for (int i = 0; i < heroes.length; i++) {
-            Hero hero1 = this.findAliveHero(i);
-            Hero hero2 = enemies.findAliveHero(indexEnemies);
+
+        while (i < heroes.length && enemies.isAlive()){
+            i = findAliveHeroIndex(i);
+            if (i == -1) return;
+            Hero hero1 = heroes[i];
+
+            indexEnemies = enemies.findAliveHeroIndex(indexEnemies);
+            if (indexEnemies == -1) {
+                indexEnemies = enemies.findAliveHeroIndex(0);;
+            }
+            Hero hero2 = enemies.getHeroes()[indexEnemies];
+
             hero1.attack(hero2);
+            i++;
             indexEnemies++;
             if (indexEnemies == enemies.getHeroes().length) {
                 indexEnemies = 0;
             }
         }
+
         /* for (Hero hero1 : heroes) {
 
             if (!hero1.isAlive()) continue;
