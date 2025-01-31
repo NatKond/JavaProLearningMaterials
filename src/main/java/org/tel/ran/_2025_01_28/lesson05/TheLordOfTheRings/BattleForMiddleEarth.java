@@ -24,12 +24,27 @@ public class BattleForMiddleEarth {
         System.out.println("Battle starts.");
         int index1 = 0;
         int index2 = 0;
-        while (army1.isAlive() && army1.isAlive()) {
+        while (army1.isAlive() && army2.isAlive()) {
             for (int i = 0; i < army1.getHeroes().length; i++) {
+                if (index2 == army2.getHeroes().length) {
+                    index2 = 0;
+                }
+                Hero hero1 = army1.getHeroes()[i];
+                if (!hero1.isAlive()) {
+                    continue;
+                }
+                Hero hero2 = army2.getHeroes()[index2];
+                while (!hero2.isAlive() && index2 < army2.getHeroes().length - 1) {
+                    hero2 = army2.getHeroes()[++index2];
+                }
+
+                hero1.attack(hero2);
+                index2++;
 
             }
         }
     }
+
     public static void fight(Army army1, Army army2){
         System.out.println("Battle starts.");
         int index1 = 0;
@@ -51,7 +66,7 @@ public class BattleForMiddleEarth {
                     }
                 }
             }
-            if (!hero1.isAlive()) {
+            if (!hero2.isAlive()) {
                 for (int i = index2 + 1; i < army2.getHeroes().length; i++) {
                     if (army2.getHeroes()[i].isAlive()) {
                         hero2 = army2.getHeroes()[i];
