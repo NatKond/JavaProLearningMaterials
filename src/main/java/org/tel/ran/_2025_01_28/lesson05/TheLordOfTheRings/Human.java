@@ -49,7 +49,7 @@ public class Human extends Hero{
         if (damageMultiplier > 1.0 && damageMultiplier <= 5){
             this.damageMultiplier = damageMultiplier;
         } else {
-            throw new InvalidDamageMultiplierException("The value of damage multiplier can't be " + damageMultiplier + ". The value of damage multiplier should be between 1 and 2.");
+            throw new InvalidDamageMultiplierException("The value of damage multiplier can't be " + damageMultiplier + ". The value of damage multiplier should be between 1 and 5.");
         }
     }
 

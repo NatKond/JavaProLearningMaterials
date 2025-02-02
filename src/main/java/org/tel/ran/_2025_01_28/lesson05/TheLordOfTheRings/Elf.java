@@ -43,7 +43,7 @@ public class Elf extends Hero{
         if (chanceToDodge > 0 && chanceToDodge <= 100) {
             this.chanceToDodge = chanceToDodge;
         } else {
-            throw new InvalidChanceToDodgeExceptions("Chance to dodge can't be" + chanceToDodge + ". Chance to dodge should be between 0 and 100.");
+            throw new InvalidChanceToDodgeExceptions("Chance to dodge can't be " + chanceToDodge + ". Chance to dodge should be between 0 and 100.");
         }
     }
 }
