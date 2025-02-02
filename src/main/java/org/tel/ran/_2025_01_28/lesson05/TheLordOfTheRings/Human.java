@@ -41,7 +41,7 @@ public class Human extends Hero{
         if (health >= 100 && health <= 130){
             super.setHealth(health);
         } else {
-            throw new InvalidHealthException("Human cannot have " + health + " health. Human health should be between 100 and 130.");
+            throw new InvalidHealthException("Human can't have " + health + " health. Human health should be between 100 and 130.");
         }
     }
 
@@ -49,7 +49,7 @@ public class Human extends Hero{
         if (damageMultiplier > 1.0 && damageMultiplier <= 5){
             this.damageMultiplier = damageMultiplier;
         } else {
-            throw new InvalidDamageMultiplierException("The value of damage multiplier is invalid.");
+            throw new InvalidDamageMultiplierException("The value of damage multiplier can't be " + damageMultiplier + ". The value of damage multiplier should be between 1 and 2.");
         }
     }
 
@@ -57,7 +57,7 @@ public class Human extends Hero{
         if (chanceOfCriticalDamage > 0 && chanceOfCriticalDamage <= 100) {
             this.chanceOfCriticalDamage = chanceOfCriticalDamage;
         } else {
-            throw new InvalidChanceOfCriticalDamageException("The chance of critical damage is invalid.");
+            throw new InvalidChanceOfCriticalDamageException("The chance of critical damage can't be " + chanceOfCriticalDamage + ". The chance of critical damage should be between 0 and 100.");
         }
     }
 }

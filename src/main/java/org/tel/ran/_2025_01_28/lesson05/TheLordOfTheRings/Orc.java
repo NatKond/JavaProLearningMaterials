@@ -21,7 +21,7 @@ public class Orc extends Hero{
         if (health >= 100 && health <= 130){
             super.setHealth(health);
         } else {
-            throw new InvalidHealthException("The health is invalid.");
+            throw new InvalidHealthException("Orc can't have " + health + " health. Orc health should be between 100 and 130.");
         }
     }
 

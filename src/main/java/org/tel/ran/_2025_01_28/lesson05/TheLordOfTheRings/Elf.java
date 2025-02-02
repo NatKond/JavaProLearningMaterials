@@ -35,7 +35,7 @@ public class Elf extends Hero{
         if (health >= 80 && health <= 110){
             super.setHealth(health);
         } else {
-            throw new InvalidHealthException("The health is invalid.");
+            throw new InvalidHealthException("Elf can't have " + health + " health. Elf health should be between 80 and 110.");
         }
     }
 
@@ -43,7 +43,7 @@ public class Elf extends Hero{
         if (chanceToDodge > 0 && chanceToDodge <= 100) {
             this.chanceToDodge = chanceToDodge;
         } else {
-            throw new InvalidChanceToDodgeExceptions("Chance to dodge is invalid.");
+            throw new InvalidChanceToDodgeExceptions("Chance to dodge can't be" + chanceToDodge + ". Chance to dodge should be between 0 and 100.");
         }
     }
 }

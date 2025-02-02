@@ -28,7 +28,7 @@ public class Nazgul extends Hero{
         if (health >= 150 && health <= 180){
             super.setHealth(health);
         } else {
-            throw new InvalidHealthException("The health is invalid.");
+            throw new InvalidHealthException("Nazgul can't have " + health + " health. Nazgul health should be between 150 and 180.");
         }
     }
 
@@ -36,7 +36,7 @@ public class Nazgul extends Hero{
         if (counterDamage > 1 && counterDamage <= 10) {
             this.counterDamage = counterDamage;
         } else {
-            throw new InvalidCounterDamageValueException("Counter damage value is invalid.");
+            throw new InvalidCounterDamageValueException("Counter damage value can't be " + counterDamage + ". Counter damage value should be between 1 and 10.");
         }
     }
 }
