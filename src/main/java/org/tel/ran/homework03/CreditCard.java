@@ -10,11 +10,15 @@ public class CreditCard extends Card{
         super(userName, balance);
     }
 
+    public CreditCard(String userName, double balance, String pin) {
+        super(userName, balance, pin);
+    }
+
     @Override
     public void withdraw(double amount, String pin) {
         if (amount < 0) {
             throw new IllegalArgumentException("The amount must be positive.");
         }
-        super.setBalance(getBalance(pin) - amount);
+        super.balance -= amount;
     }
 }

@@ -9,13 +9,17 @@ public class DebitCard extends Card{
         super(userName, balance);
     }
 
+    public DebitCard(String userName, double balance, String pin) {
+        super(userName, balance, pin);
+    }
+
     @Override
     public void withdraw(double amount, String pin) {
         withdrawCheck(amount, pin);
         if (amount < 0) {
             throw new IllegalArgumentException("The amount must be positive.");
         }
-        super.setBalance(getBalance(pin) - amount);
+        super.balance -= amount;
     }
 
     private void withdrawCheck(double amount, String pin){

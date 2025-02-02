@@ -6,7 +6,7 @@ public class Main {
         CreditCard card01 = new CreditCard("John Snow", 100.00);
         DebitCard card02 = new DebitCard("Arya Stark", 250.50);
         CreditCard card03 = new CreditCard("Daenerys Targaryen", 200.75);
-        DebitCard card04 = new DebitCard("Tyrion Lannister", 5000.00);
+        DebitCard card04 = new DebitCard("Tyrion Lannister", 5000.00,"7177");
         CreditCard card05 = new CreditCard("Sansa Stark");
 
         Atm atm = new Atm();
@@ -49,7 +49,11 @@ public class Main {
         System.out.println("-------- SET DEBIT CARD WITH WRONG PIN --------");
         atm.setCard(card05, "5252");
         atm.showBalance();
-        atm.enterPin("5253");
+        atm.enterPin("5251");
+        atm.showBalance();
+        atm.enterPin("5250");
+        atm.showBalance();
+        atm.enterPin("5252");
         atm.showBalance();
     }
 

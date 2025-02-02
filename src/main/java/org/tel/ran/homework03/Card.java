@@ -9,13 +9,13 @@ public abstract class Card {
 
     private String name;
 
-    private double balance;
+    protected double balance;
 
     private String pin;
 
-    private int pinAttempts;
+    private int countPinAttempts;
 
-    private int isBlocked;
+    private boolean isBlocked;
 
 
     public Card(String userName) {
@@ -24,33 +24,33 @@ public abstract class Card {
 
     public Card(String userName, double balance) {
         setName(userName);
-        initialiseBalance(balance);
+        setBalance(balance);
     }
 
     public Card(String userName, double balance, String pin) {
         setName(userName);
-        initialiseBalance(balance);
+        setBalance(balance);
         setPin(pin);
     }
 
     public String getName(String pin) {
-        if (!checkPin(pin)){
+        if (!isCorrect(pin)){
             throw new IllegalArgumentException("Incorrect PIN.");
-        };
+        }
         return name;
     }
 
     public double getBalance(String pin) {
-        if (!checkPin(pin)){
+        if (!isCorrect(pin)){
             throw new IllegalArgumentException("Incorrect PIN.");
-        };
+        }
         return balance;
     }
 
     public void deposit(double amount, String pin){
-        if (!checkPin(pin)){
+        if (!isCorrect(pin)){
             throw new IllegalArgumentException("Incorrect PIN.");
-        };
+        }
         if (amount < 0)
             throw new IllegalArgumentException("The amount must be positive.");
         balance += amount;
@@ -65,22 +65,12 @@ public abstract class Card {
     }
 
     public void changePin(String oldPin, String newPin) {
-        if (!checkPin(oldPin)){
+        if (!isCorrect(oldPin)){
             throw new IllegalArgumentException("Incorrect PIN.");
         }
         if (isPinValid(newPin)){
             this.pin = newPin;
         }
-    }
-
-    protected void setBalance(double balance){
-        this.balance = balance;
-    }
-
-    private boolean checkPin(String pin){
-        if (this.pin == null && pin == null) return true;
-        if (this.pin != null && pin != null) return this.pin.equals(pin);
-        return false;
     }
 
     private void setName(String name) {
@@ -91,10 +81,23 @@ public abstract class Card {
         this.name = name;
     }
 
-    private void initialiseBalance(double balance) {
+    private void setBalance(double balance) {
         if (balance < 0)
             throw new IllegalArgumentException("The initial balance should be positive.");
         this.balance = balance;
+    }
+
+    private boolean isCorrect(String pin){
+        if (isBlocked)
+            throw new IllegalArgumentException("To many incorrect pin attempts. The card is blocked.");
+
+        if (this.pin == null && pin == null) return true;
+        if (this.pin != null && pin != null) {
+            if (this.pin.equals(pin)) return true;
+            countPinAttempts++;
+            if (countPinAttempts == 3) isBlocked = true;
+        }
+        return false;
     }
 
     private boolean isPinValid(String pin){
