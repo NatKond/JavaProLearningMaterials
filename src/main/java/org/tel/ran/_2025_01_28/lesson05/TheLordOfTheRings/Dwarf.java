@@ -1,5 +1,7 @@
 package org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings;
 
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidArmorMultiplierException;
+
 public class Dwarf extends Hero{
 
     private double armorMultiplier;
@@ -32,7 +34,7 @@ public class Dwarf extends Hero{
         if (armorMultiplier > 1.0 && armorMultiplier <= 5) {
             this.armorMultiplier = armorMultiplier;
         } else {
-            throw new IllegalArgumentException("Armor multiplier is invalid.");
+            throw new InvalidArmorMultiplierException("The armor multiplier is invalid.");
         }
     }
 }

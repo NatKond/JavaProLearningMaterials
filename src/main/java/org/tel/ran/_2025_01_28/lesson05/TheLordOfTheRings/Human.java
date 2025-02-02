@@ -1,5 +1,7 @@
 package org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings;
 
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidChanceOfCriticalDamageException;
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidDamageMultiplierException;
 import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidHealthException;
 
 import java.util.Random;
@@ -47,7 +49,7 @@ public class Human extends Hero{
         if (damageMultiplier > 1.0 && damageMultiplier <= 5){
             this.damageMultiplier = damageMultiplier;
         } else {
-            throw new IllegalArgumentException("The value of damage multiplier is invalid.");
+            throw new InvalidDamageMultiplierException("The value of damage multiplier is invalid.");
         }
     }
 
@@ -55,7 +57,7 @@ public class Human extends Hero{
         if (chanceOfCriticalDamage > 0 && chanceOfCriticalDamage <= 100) {
             this.chanceOfCriticalDamage = chanceOfCriticalDamage;
         } else {
-            throw new IllegalArgumentException("The chance of critical damage is invalid.");
+            throw new InvalidChanceOfCriticalDamageException("The chance of critical damage is invalid.");
         }
     }
 }

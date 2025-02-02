@@ -1,5 +1,7 @@
 package org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings;
 
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidHealthException;
+
 public class Orc extends Hero{
 
     private final int healthMax;
@@ -19,7 +21,7 @@ public class Orc extends Hero{
         if (health >= 100 && health <= 130){
             super.setHealth(health);
         } else {
-            throw new IllegalArgumentException("The health is invalid.");
+            throw new InvalidHealthException("The health is invalid.");
         }
     }
 

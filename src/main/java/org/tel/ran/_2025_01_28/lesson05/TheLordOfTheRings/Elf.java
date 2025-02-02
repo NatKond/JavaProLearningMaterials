@@ -1,5 +1,8 @@
 package org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings;
 
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidChanceToDodgeExceptions;
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidHealthException;
+
 import java.util.Random;
 
 public class Elf extends Hero{
@@ -32,7 +35,7 @@ public class Elf extends Hero{
         if (health >= 80 && health <= 110){
             super.setHealth(health);
         } else {
-            throw new IllegalArgumentException("The health is invalid.");
+            throw new InvalidHealthException("The health is invalid.");
         }
     }
 
@@ -40,7 +43,7 @@ public class Elf extends Hero{
         if (chanceToDodge > 0 && chanceToDodge <= 100) {
             this.chanceToDodge = chanceToDodge;
         } else {
-            throw new IllegalArgumentException("Chance to dodge is invalid.");
+            throw new InvalidChanceToDodgeExceptions("Chance to dodge is invalid.");
         }
     }
 }

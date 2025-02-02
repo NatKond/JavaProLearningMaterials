@@ -63,6 +63,7 @@ public class Army {
             if (indexEnemies == -1) {
                 indexEnemies = enemies.findAliveHeroIndex(0);;
             }
+
             Hero hero2 = enemies.getHeroes()[indexEnemies];
 
             hero1.attack(hero2);

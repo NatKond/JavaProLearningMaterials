@@ -9,7 +9,7 @@ public class BattleForMiddleEarth {
     public static void main(String[] args) {
         Human human1 = new Human("Human1",100,90,3, 2,25);
         Elf elf1 = new Elf("Elf1",80,80,2,40);
-        Dwarf dwarf1 = new Dwarf("Dwarf1", 150,110,5,2.5);
+        Dwarf dwarf1 = new Dwarf("Dwarf1", 150,110,5,2);
         Orc orc1 = new Orc("Orc1", 105,90,2);
         Warg warg1 = new Warg("Warg1",80,80,2,10);
         Nazgul nazgul1 = new Nazgul("Nasgul1", 150,120,6,5);
