@@ -93,7 +93,10 @@ public abstract class Card {
 
         if (this.pin == null && pin == null) return true;
         if (this.pin != null && pin != null) {
-            if (this.pin.equals(pin)) return true;
+            if (this.pin.equals(pin)) {
+                countPinAttempts = 0;
+                return true;
+            }
             countPinAttempts++;
             if (countPinAttempts == 3) isBlocked = true;
         }
