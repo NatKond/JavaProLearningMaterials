@@ -7,17 +7,45 @@ public class BattleForMiddleEarth {
     public static final String RESET = "\u001B[0m";
 
     public static void main(String[] args) {
-        Human human1 = new Human("Human1",100,90,3, 3,25);
+        /*Human human1 = new Human("Human1",100,90,3, 3,25);
         Elf elf1 = new Elf("Elf1",80,80,2,100);
         Dwarf dwarf1 = new Dwarf("Dwarf1", 150,110,5,2);
         Orc orc1 = new Orc("Orc1", 105,90,2);
         Warg warg1 = new Warg("Warg1",80,80,2,10);
-        Nazgul nazgul1 = new Nazgul("Nasgul1", 150,120,6,5);
+        Nazgul nazgul1 = new Nazgul("Nasgul1", 150,120,6,5);*/
 
-        Army army1 = new Army("Middle Earth Defenders", new Hero[]{human1, elf1, dwarf1});
-        Army army2 = new Army("Mordor Forces", new Hero[]{nazgul1, orc1, warg1});
+        Human human1 = new Human("Aragorn", 100, 90, 3, 2, 25);
+        Human human2 = new Human("Boromir", 110, 85, 4, 3, 20);
+        Human human3 = new Human("Theoden", 105, 92, 3, 2, 30);
+        Human human4 = new Human("Eomer", 105, 88, 4, 3, 28);
 
-        fight1(army1,army2);
+        Elf elf1 = new Elf("Legolas", 80, 80, 2, 40);
+        Elf elf2 = new Elf("Thranduil", 85, 75, 3, 35);
+        Elf elf3 = new Elf("Galadriel", 90, 85, 2, 50);
+        Elf elf4 = new Elf("Elrond", 95, 82, 3, 45);
+
+        Dwarf dwarf1 = new Dwarf("Gimli", 150, 110, 5, 2.5);
+        Dwarf dwarf2 = new Dwarf("Dain Ironfoot", 130, 115, 6, 2.8);
+        Dwarf dwarf3 = new Dwarf("Thorin Oakenshield", 145, 108, 5, 2.7);
+        Dwarf dwarf4 = new Dwarf("Balin", 145, 105, 5, 2.4);
+
+        Orc orc1 = new Orc("Azog", 105, 90, 2);
+        Orc orc2 = new Orc("Bolg", 110, 95, 3);
+        Orc orc3 = new Orc("Gothmog", 100, 88, 2);
+        Orc orc4 = new Orc("Uglúk", 102, 89, 2);
+
+        Warg warg1 = new Warg("Sharptooth", 80, 80, 2, 10);
+        Warg warg2 = new Warg("Bloodfang", 85, 85, 3, 5);
+
+        Nazgul nazgul1 = new Nazgul("Witch-King of Angmar", 150, 120, 6, 5);
+        Nazgul nazgul2 = new Nazgul("Khamûl", 165, 115, 5, 4);
+
+
+
+        Army army1 = new Army("Middle Earth Defenders", new Hero[]{human1, human2, human3, elf1, dwarf1, dwarf2});
+        Army army2 = new Army("Mordor Forces", new Hero[]{orc1, orc2, orc3, orc4, warg1, warg2, nazgul1, nazgul2});
+
+        fight(army1,army2);
     }
 
     public static void fight1 (Army army1, Army army2) {
