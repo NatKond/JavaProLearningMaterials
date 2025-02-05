@@ -18,19 +18,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /*Folder root = new Folder("root");
-        File file1 = new File("test.txt");
-        root.addContent(file1);
-
-        Folder folder1 = new Folder("folder1");
-        File file2 = new File("Hello.java");
-        folder1.addContent(file2);
-        root.addContent(folder1);
-
-        File file3 = new File("New.java");
-        folder1.addContent(file3);
-        root.addContent(folder1);*/
-
         createStructureFromString("test.txt");
 
         createStructureFromString("root/folder1/1.txt");
