@@ -2,39 +2,33 @@ package org.tel.ran.homework04;
 
 import java.util.*;
 
-public class Folder implements FileSystemObject {
+public class Folder extends Content {
 
-    private String name;
-
-    private Set<FileSystemObject> content = new TreeSet<>();
+    private Set<Content> content = new TreeSet<>();
 
     public Folder(String name) {
-        this.name = name;
+        super(name);
     }
 
-    public Folder(String name, Set<FileSystemObject> content) {
-        this.name = name;
+    public Folder(String name, Set<Content> content) {
+        super(name);
         this.content = content;
-    }
-    @Override
-    public String getName() {
-        return name;
     }
 
     @Override
     public void displayFormatedContent(String indent) {
-        System.out.println(indent + getName());
-        for (FileSystemObject obj: content){
+        super.displayFormatedContent(indent);
+        for (Content obj: content){
             obj.displayFormatedContent(indent + "  ");
         }
     }
 
-    public void addContent(FileSystemObject component){
+    public void addContent(Content component){
         content.add(component);
     }
 
     public Folder getFolder(String folderName){
-        for (FileSystemObject component: content){
+        for (Content component: content){
             if (component instanceof Folder){
                 if (component.getName().equals(folderName)) return (Folder) component;
             }

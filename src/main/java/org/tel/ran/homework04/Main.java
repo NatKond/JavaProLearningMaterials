@@ -6,16 +6,6 @@ public class Main {
 
     public static final Folder ROOT = new Folder("root");
 
-    public Comparator componentComparator = new Comparator() {
-        @Override
-        public int compare(Object o1, Object o2) {
-            FileSystemObject component1 = (FileSystemObject) o1;
-            FileSystemObject component2 = (FileSystemObject) o2;
-
-            return component1.getName().compareTo(component2.getName());
-        }
-    };
-
     public static void main(String[] args) {
 
         createStructureFromString("test.txt");
