@@ -1,5 +1,8 @@
 package org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings;
 
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidCounterDamageValueException;
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidHealthException;
+
 public class Nazgul extends Hero{
 
     private int counterDamage;
@@ -25,7 +28,7 @@ public class Nazgul extends Hero{
         if (health >= 150 && health <= 180){
             super.setHealth(health);
         } else {
-            throw new IllegalArgumentException("The health is invalid.");
+            throw new InvalidHealthException("Nazgul can't have " + health + " health. Nazgul health should be between 150 and 180.");
         }
     }
 
@@ -33,7 +36,7 @@ public class Nazgul extends Hero{
         if (counterDamage > 1 && counterDamage <= 10) {
             this.counterDamage = counterDamage;
         } else {
-            throw new IllegalArgumentException("Counter damage value is invalid.");
+            throw new InvalidCounterDamageValueException("Counter damage value can't be " + counterDamage + ". Counter damage value should be between 1 and 10.");
         }
     }
 }

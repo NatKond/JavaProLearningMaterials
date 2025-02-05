@@ -45,6 +45,10 @@ public class Hero {
         return power;
     }
 
+    public boolean isAlive() {
+        return (health != 0);
+    }
+
     public void attack (Hero enemy){
         int damage = getPower() / enemy.getDefence();
         System.out.printf("%s%s%s attacks %s for %d damage.%s%n", getBackgroundColor(this), BOLD,name, enemy.getName(), damage, RESET);

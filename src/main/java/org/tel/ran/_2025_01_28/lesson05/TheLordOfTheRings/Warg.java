@@ -1,5 +1,8 @@
 package org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings;
 
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidHealHealthAmountException;
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidHealthException;
+
 public class Warg extends Hero{
 
     private int healthAmount;
@@ -28,7 +31,7 @@ public class Warg extends Hero{
         if (health >= 80 && health <= 100){
             super.setHealth(health);
         } else {
-            throw new IllegalArgumentException("The health is invalid.");
+            throw new InvalidHealthException("Warg can't have " + health + " health. Warg health should be between 80 and 100.");
         }
     }
 
@@ -44,7 +47,7 @@ public class Warg extends Hero{
         if (healthAmount > 1 && healthAmount <= 10) {
             this.healthAmount = healthAmount;
         } else {
-            throw new IllegalArgumentException("Health amount to heal is invalid.");
+            throw new InvalidHealHealthAmountException("The health amount to heal can't be " + healthAmount + ". The health amount to heal should be between 1 and 10.");
         }
     }
 }

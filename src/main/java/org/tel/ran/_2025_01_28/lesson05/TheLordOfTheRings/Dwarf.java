@@ -1,5 +1,8 @@
 package org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings;
 
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidArmorMultiplierException;
+import org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings.exceptions.InvalidHealthException;
+
 public class Dwarf extends Hero{
 
     private double armorMultiplier;
@@ -24,7 +27,7 @@ public class Dwarf extends Hero{
         if (health >= 120 && health <= 150){
             super.setHealth(health);
         } else {
-            throw new IllegalArgumentException("The health is invalid.");
+            throw new InvalidHealthException("Dwarf can't have " + health + " health. Dwarf health should be between 120 and 150.");
         }
     }
 
@@ -32,7 +35,7 @@ public class Dwarf extends Hero{
         if (armorMultiplier > 1.0 && armorMultiplier <= 5) {
             this.armorMultiplier = armorMultiplier;
         } else {
-            throw new IllegalArgumentException("Armor multiplier is invalid.");
+            throw new InvalidArmorMultiplierException("The armor multiplier can't be " + armorMultiplier + ". The armor multiplier should be between 1 and 5.");
         }
     }
 }
