@@ -1,5 +1,6 @@
 package org.tel.ran.homework04;
 
+
 import java.util.*;
 
 public class Main {
@@ -8,21 +9,26 @@ public class Main {
 
     public static void main(String[] args) {
 
-        createStructureFromString("test.txt");
+        Scanner scanner = new Scanner(System.in);
+        String answer;
+        String input;
 
-        createStructureFromString("root/folder1/1.txt");
-        createStructureFromString("root/folder1/New.java");
-        createStructureFromString("root/folder2/Hello");
-        createStructureFromString("root/folder2/Hello/test/test1");
-        createStructureFromString("root/folder2/Task.txt");
-        ROOT.displayFormatedContent("");
+        do {
+            System.out.println("Enter number:\n" +
+                    "1 - add content; 2 - print FileSystem; 3 - stop program");
+            answer = scanner.nextLine();
+            if (answer.equals("1")){
+                System.out.println("Enter content:");
+                input = scanner.nextLine();
+                createStructureFromString(input);
+            } else if (answer.equals("2")) {
+                ROOT.displayFormatedContent("");
+            }
+        } while (!answer.equals("3"));
     }
 
     public static void createStructureFromString(String input){
-        ArrayList <String> names = new ArrayList<>(Arrays.asList(input.split("/")));
-        if (names.getFirst().equals("root")) {
-            names.removeFirst();
-        }
+        ArrayList<String> names = parseString(input);
 
         Folder currentFolder = ROOT;
 
@@ -39,7 +45,23 @@ public class Main {
         }
     }
 
+    private static ArrayList<String> parseString(String input){
+        //input = input.replaceAll("\\s+","");
+        ArrayList<String> names = new ArrayList<>(List.of(input.split("/")));
+        Iterator<String> iterator = names.iterator();
+
+        for (int i = 0; i < names.size(); i++) {
+            if (names.get(i).isEmpty()) names.remove(i);
+        }
+
+        if (names.getFirst().equals("root")) {
+            names.removeFirst();
+        }
+        return names;
+    }
+
     private static boolean isFile(String name){
+        if (name.length() - 4 < 0) return false;
         return name.indexOf(".") == (name.length() - 4);
     }
 }

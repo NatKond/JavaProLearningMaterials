@@ -2,13 +2,13 @@ package org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings;
 
 import java.util.Arrays;
 
-public class Army {
+public class ArmyArray {
 
     private String name;
 
     private Hero[] heroes;
 
-    public Army(String name, Hero[] heroes) {
+    public ArmyArray(String name, Hero[] heroes) {
         this.name = name;
         this.heroes = heroes;
     }
@@ -48,7 +48,7 @@ public class Army {
         return -1;
     }
 
-    public void attack(Army enemies){
+    public void attack(ArmyArray enemies){
         if (!this.isAlive()) return;
         if (!enemies.isAlive()) return;
         int i = 0;

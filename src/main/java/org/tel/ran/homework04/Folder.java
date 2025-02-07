@@ -24,7 +24,10 @@ public class Folder extends Content {
     }
 
     public void addContent(Content component){
-        content.add(component);
+        try {
+            content.add(component);
+        }catch (Exception _){
+        }
     }
 
     public Folder getFolder(String folderName){

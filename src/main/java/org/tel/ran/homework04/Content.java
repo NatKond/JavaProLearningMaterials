@@ -5,7 +5,7 @@ public abstract class Content implements Comparable {
     private String name;
 
     public Content(String name) {
-        this.name = name;
+        if (!name.isEmpty()) this.name = name;
     }
 
     public String getName() {
@@ -21,5 +21,4 @@ public abstract class Content implements Comparable {
         Content obj = (Content) o;
         return name.compareTo(obj.getName());
     }
-
 }
