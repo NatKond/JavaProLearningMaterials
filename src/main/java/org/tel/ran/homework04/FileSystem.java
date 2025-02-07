@@ -8,6 +8,12 @@ public class FileSystem {
 
     public static final Folder ROOT = new Folder("root");
 
+    public static final int MIN_FILE_NAME_LENGTH = 4;
+
+    public static final int MIN_LENGTH_EXTENSION = 3;
+
+    public static final int MAX_LENGTH_EXTENSION = 6;
+
     public static void displayFormatedContent(){
         ROOT.displayFormatedContent("");
     }
@@ -21,7 +27,7 @@ public class FileSystem {
             if (isFile(name)){
                 currentFolder.addContent(new File(name));
                 break;
-            } else if (currentFolder.getFolder(name) != null){
+            } else if (currentFolder.hasFolder(name)){
                 currentFolder = currentFolder.getFolder(name);
             } else {
                 Folder newFolder = new Folder(name);
@@ -35,11 +41,11 @@ public class FileSystem {
         //input = input.replaceAll("\\s+","");
         ArrayList<String> names = new ArrayList<>(List.of(input.split("/")));
         Iterator<String> iterator = names.iterator();
-
-        for (int i = 0; i < names.size(); i++) {
-            if (names.get(i).isEmpty()) names.remove(i);
+        while (iterator.hasNext()){
+            if (iterator.next().isEmpty()){
+                iterator.remove();
+            }
         }
-
         if (names.getFirst().equals("root")) {
             names.removeFirst();
         }
@@ -47,7 +53,7 @@ public class FileSystem {
     }
 
     private static boolean isFile(String name){
-        if (name.length() - 4 < 0) return false;
-        return name.indexOf(".") < (name.length() - 2) && name.indexOf(".") > (name.length() - 7);
+        if (name.length() - MIN_FILE_NAME_LENGTH < 0) return false;
+        return name.indexOf(".") <= (name.length() - MIN_LENGTH_EXTENSION) && name.indexOf(".") >= (name.length() - MAX_LENGTH_EXTENSION);
     }
 }

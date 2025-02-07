@@ -18,16 +18,22 @@ public class Folder extends Content {
     @Override
     public void displayFormatedContent(String indent) {
         super.displayFormatedContent(indent);
-        for (Content obj: content){
-            obj.displayFormatedContent(indent + "  ");
+        for (Content component: content){
+            component.displayFormatedContent(indent + "  ");
         }
     }
 
     public void addContent(Content component){
-        try {
-            content.add(component);
-        }catch (Exception _){
+        content.add(component);
+    }
+
+    public boolean hasFolder(String folderName){
+        for (Content component: content){
+            if (component instanceof Folder){
+                if (component.getName().equals(folderName)) return true;
+            }
         }
+        return false;
     }
 
     public Folder getFolder(String folderName){
@@ -36,6 +42,6 @@ public class Folder extends Content {
                 if (component.getName().equals(folderName)) return (Folder) component;
             }
         }
-        return null;
+        throw new IllegalArgumentException("There no such folder");
     }
 }

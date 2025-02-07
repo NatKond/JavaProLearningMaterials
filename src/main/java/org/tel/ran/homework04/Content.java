@@ -5,7 +5,7 @@ public abstract class Content implements Comparable {
     private String name;
 
     public Content(String name) {
-        if (!name.isEmpty()) this.name = name;
+        this.name = name;
     }
 
     public String getName() {

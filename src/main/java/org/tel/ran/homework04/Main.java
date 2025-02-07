@@ -23,5 +23,4 @@ public class Main {
             }
         } while (!answer.equals("3"));
     }
-
 }
