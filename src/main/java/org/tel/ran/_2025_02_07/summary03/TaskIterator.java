@@ -42,8 +42,6 @@ public class TaskIterator {
         names.addAll(List.of("Mary","Mark","Mark","Tom","Tim","Tom","Tom","Tom"));
         System.out.println(names);
         System.out.println(getAllDublicates(names));
-        System.out.println(getAllDublicatesWithIterator(names));
-        System.out.println(names);
     }
 
     public static void printNamesOfLength(List<String> names, int length) {
@@ -124,28 +122,4 @@ public class TaskIterator {
 
         return new ArrayList<>(stringsDublicates);
     }
-
-    public static List<String> getAllDublicatesWithIterator(List<String> strings){
-        List<String> copy = new ArrayList<>(strings);
-        List<String> stringsDublicates = new ArrayList<>();
-        ListIterator<String> stringListIterator = strings.listIterator();
-        String str;
-        do {
-            str = stringListIterator.next();
-            while (stringListIterator.hasNext()) {
-                if (stringListIterator.next().equals(str)) {
-                    stringListIterator.remove();
-                    stringsDublicates.add(str);
-                }
-            }
-            while (stringListIterator.hasPrevious()){
-                if (stringListIterator.previous().equals(str)){
-                    stringListIterator.remove();
-                }
-            }
-
-        } while (!strings.isEmpty());
-        return stringsDublicates;
-    }
-
 }
