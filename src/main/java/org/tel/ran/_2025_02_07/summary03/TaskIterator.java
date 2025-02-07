@@ -1,9 +1,6 @@
 package org.tel.ran._2025_02_07.summary03;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * Имеется заданный список имен студентов: List names = new ArrayList<>(List.of("Mary", "Jane", "Tom", "Tim", "Mark", "Ann", null, ""))
@@ -42,7 +39,7 @@ public class TaskIterator {
         System.out.println(names);
 
         System.out.println(YELLOW + "Найти все дубликаты в List<String> и вернуть их в виде нового списка" + RESET);
-        names.addAll(List.of("Mary","Mark"));
+        names.addAll(List.of("Mary","Mark","Mark","Tom","Tim","Tom","Tom","Tom"));
         System.out.println(names);
         System.out.println(getAllDublicates(names));
         System.out.println(getAllDublicatesWithIterator(names));
@@ -116,7 +113,7 @@ public class TaskIterator {
      * Найти все дубликаты в List<String> и вернуть их в виде нового списка
      */
     public static List<String> getAllDublicates(List<String> strings){
-        List<String> stringsDublicates = new ArrayList<>();
+        Set<String> stringsDublicates = new HashSet<>();
         for (int i = 0; i < strings.size(); i++) {
             for (int j = i + 1; j < strings.size(); j++) {
                 if (strings.get(i).equals(strings.get(j))){
@@ -124,11 +121,12 @@ public class TaskIterator {
                 }
             }
         }
-        return stringsDublicates;
+
+        return new ArrayList<>(stringsDublicates);
     }
 
     public static List<String> getAllDublicatesWithIterator(List<String> strings){
-        //List<String> copy = new ArrayList<>(strings);
+        List<String> copy = new ArrayList<>(strings);
         List<String> stringsDublicates = new ArrayList<>();
         ListIterator<String> stringListIterator = strings.listIterator();
         String str;
