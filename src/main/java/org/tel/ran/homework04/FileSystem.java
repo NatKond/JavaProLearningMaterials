@@ -8,6 +8,8 @@ public class FileSystem {
 
     public static final Folder ROOT = new Folder("root");
 
+    public static final String INITIAL_INDENT = "";
+
     public static final int MIN_FILE_NAME_LENGTH = 4;
 
     public static final int MIN_LENGTH_EXTENSION = 3;
@@ -15,7 +17,7 @@ public class FileSystem {
     public static final int MAX_LENGTH_EXTENSION = 6;
 
     public static void displayFormatedContent(){
-        ROOT.displayFormatedContent("");
+        ROOT.displayFormatedContent(INITIAL_INDENT);
     }
 
     public static void createStructureFromString(String input){
