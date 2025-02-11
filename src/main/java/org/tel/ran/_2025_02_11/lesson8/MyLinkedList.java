@@ -61,6 +61,10 @@ public class MyLinkedList implements List {
             }
             currentNode = currentNode.getNext();
         }
+        if (o == currentNode.getValue()) {
+            remove(size - 1);
+            return true;
+        }
         return false;
     }
 
@@ -136,7 +140,7 @@ public class MyLinkedList implements List {
         }
         if (index == size - 1) {
             MyNode old = last;
-            last = old.getPrevious();
+            last = last.getPrevious();
             old.setPrevious(null);
             size--;
             return old;
