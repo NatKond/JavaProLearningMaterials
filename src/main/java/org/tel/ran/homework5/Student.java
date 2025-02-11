@@ -2,18 +2,18 @@ package org.tel.ran.homework5;
 
 public class Student {
     private String name;
-    private String avg_mark;
+    private String avgMark;
 
-    public Student(String name, String avg_mark) {
+    public Student(String name, String avgMark) {
         this.name = name;
-        this.avg_mark = avg_mark;
+        this.avgMark = avgMark;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getAvg_mark() {
-        return avg_mark;
+    public String getAvgMark() {
+        return avgMark;
     }
 }
