@@ -12,6 +12,7 @@ public class File extends Content {
 
     public static boolean isFile(String name){
         if (name.length() - MIN_NAME_LENGTH < 0) return false;
+        if (!name.contains(".")) return false;
         return name.indexOf(".") <= (name.length() - MIN_LENGTH_EXTENSION) && name.indexOf(".") >= (name.length() - MAX_LENGTH_EXTENSION);
     }
 }

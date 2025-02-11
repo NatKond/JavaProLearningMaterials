@@ -14,7 +14,7 @@ import java.util.*;
  */
 
 
-public class TaskIterator {
+public class Task_Iterator {
     public static final String YELLOW = "\u001B[33m";
     public static final String RESET = "\u001B[0m";
 
@@ -136,7 +136,6 @@ public class TaskIterator {
             str = stringListIterator.next();
             hasDuplicate = false;
             while (stringListIterator.hasNext()) {
-                System.out.print(stringListIterator.nextIndex());
                 if (stringListIterator.next().equals(str)) {
                     if (!hasDuplicate) {
                         stringsDublicates.add(str);
