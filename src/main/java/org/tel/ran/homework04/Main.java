@@ -1,68 +1,38 @@
 package org.tel.ran.homework04;
 
+
 import java.util.*;
 
 public class Main {
-
-    public static final Folder ROOT = new Folder("root");
-
-    public Comparator componentComparator = new Comparator() {
-        @Override
-        public int compare(Object o1, Object o2) {
-            FileSystemObject component1 = (FileSystemObject) o1;
-            FileSystemObject component2 = (FileSystemObject) o2;
-
-            return component1.getName().compareTo(component2.getName());
-        }
-    };
-
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String answer;
+        String input;
+        boolean flag = true;
 
-        /*Folder root = new Folder("root");
-        File file1 = new File("test.txt");
-        root.addContent(file1);
-
-        Folder folder1 = new Folder("folder1");
-        File file2 = new File("Hello.java");
-        folder1.addContent(file2);
-        root.addContent(folder1);
-
-        File file3 = new File("New.java");
-        folder1.addContent(file3);
-        root.addContent(folder1);*/
-
-        createStructureFromString("test.txt");
-
-        createStructureFromString("root/folder1/1.txt");
-        createStructureFromString("root/folder1/New.java");
-        createStructureFromString("root/folder2/Hello");
-        createStructureFromString("root/folder2/Hello/test/test1");
-        createStructureFromString("root/folder2/Task.txt");
-        ROOT.displayFormatedContent("");
-    }
-
-    public static void createStructureFromString(String input){
-        ArrayList <String> names = new ArrayList<>(Arrays.asList(input.split("/")));
-        if (names.getFirst().equals("root")) {
-            names.removeFirst();
-        }
-
-        Folder currentFolder = ROOT;
-
-        for (String name: names){
-            if (isFile(name)){
-                currentFolder.addContent(new File(name));
-            } else if (currentFolder.getFolder(name) != null){
-                currentFolder = currentFolder.getFolder(name);
-            } else {
-                Folder newFolder = new Folder(name);
-                currentFolder.addContent(newFolder);
-                currentFolder = newFolder;
+        while (flag) {
+            printActions();
+            answer = scanner.nextLine();
+            switch (answer) {
+                case "1" -> {
+                    System.out.println("Enter content:");
+                    input = scanner.nextLine();
+                    FileSystem.createStructureFromString(input);
+                }
+                case "2" -> FileSystem.displayFormatedContent();
+                case "3" -> flag = false;
             }
         }
     }
 
-    private static boolean isFile(String name){
-        return name.indexOf(".") == (name.length() - 4);
+
+    private static void printActions() {
+        String textBlock = """
+                Available actions:
+                1 - add content;
+                2 - print FileSystem;
+                3 - stop program;
+                Enter a number for which action you want to do:""";
+        System.out.println(textBlock + " ");
     }
 }

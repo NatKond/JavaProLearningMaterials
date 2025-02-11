@@ -1,5 +1,8 @@
 package org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BattleForMiddleEarth {
 
     public static final String BLUE = "\u001B[36m";
@@ -7,12 +10,12 @@ public class BattleForMiddleEarth {
     public static final String RESET = "\u001B[0m";
 
     public static void main(String[] args) {
-        /*Human human1 = new Human("Human1",100,90,3, 3,25);
-        Elf elf1 = new Elf("Elf1",80,80,2,100);
-        Dwarf dwarf1 = new Dwarf("Dwarf1", 150,110,5,2);
-        Orc orc1 = new Orc("Orc1", 105,90,2);
-        Warg warg1 = new Warg("Warg1",80,80,2,10);
-        Nazgul nazgul1 = new Nazgul("Nasgul1", 150,120,6,5);*/
+        Human human = new Human("Human1",100,90,3, 3,25);
+        Elf elf = new Elf("Elf1",80,80,2,100);
+        Dwarf dwarf = new Dwarf("Dwarf1", 150,110,5,2);
+        Orc orc = new Orc("Orc1", 105,90,2);
+        Warg warg = new Warg("Warg1",80,80,2,10);
+        Nazgul nazgul = new Nazgul("Nasgul1", 150,120,6,5);
 
         Human human1 = new Human("Aragorn", 100, 90, 3, 2, 25);
         Human human2 = new Human("Boromir", 110, 85, 4, 3, 20);
@@ -40,47 +43,67 @@ public class BattleForMiddleEarth {
         Nazgul nazgul1 = new Nazgul("Witch-King of Angmar", 150, 120, 6, 5);
         Nazgul nazgul2 = new Nazgul("Khamûl", 165, 115, 5, 4);
 
+        ArmyArray armyArray1 = new ArmyArray("Middle Earth Defenders", new Hero[]{human1, human2, human3, elf1, dwarf1, dwarf2});
+        ArmyArray armyArray2 = new ArmyArray("Mordor Forces", new Hero[]{orc1, orc2, orc3, orc4, warg1, warg2, nazgul1, nazgul2});
+
+        // fight(armyArray1, armyArray2);
+
+        ArmyList armyList1 = new ArmyList("Middle Earth Defenders", new ArrayList<>(List.of(human1, human2, human3, elf1, dwarf1, dwarf2)));
+        ArmyList armyList2 = new ArmyList("Mordor Forces", new ArrayList<>(List.of(orc1, orc2, orc3, orc4, warg1, warg2, nazgul1, nazgul2)));
 
 
-        Army army1 = new Army("Middle Earth Defenders", new Hero[]{human1, human2, human3, elf1, dwarf1, dwarf2});
-        Army army2 = new Army("Mordor Forces", new Hero[]{orc1, orc2, orc3, orc4, warg1, warg2, nazgul1, nazgul2});
-
-        fight(army1,army2);
+        fight(armyList1, armyList2);
     }
 
-    public static void fight1 (Army army1, Army army2) {
+    public static void fight(ArmyList armyList1,  ArmyList armyList2){
         System.out.println("Battle starts.");
         int countAttacks = 0;
-        while (army1.isAlive() && army2.isAlive()) {
+        while (armyList1.isAlive() && armyList2.isAlive()) {
             countAttacks++;
             System.out.println("------------- " + countAttacks + " move. -------------");
-            army1.attack(army2);
-            army2.attack(army1);
+            armyList1.attack(armyList2);
+            armyList2.attack(armyList1);
+        }
+        if (armyList1.isAlive()) System.out.println(BLUE  + armyList1.getName() + " has won!" + RESET);
+        if (armyList2.isAlive()) System.out.println(BLUE  + armyList2.getName() + " has won!" + RESET);
+        System.out.println(armyList1);
+        System.out.println(armyList2);
+    }
+
+
+    public static void fight1 (ArmyArray armyArray1, ArmyArray armyArray2) {
+        System.out.println("Battle starts.");
+        int countAttacks = 0;
+        while (armyArray1.isAlive() && armyArray2.isAlive()) {
+            countAttacks++;
+            System.out.println("------------- " + countAttacks + " move. -------------");
+            armyArray1.attack(armyArray2);
+            armyArray2.attack(armyArray1);
         }
         System.out.println();
 
-        if (army1.isAlive()) System.out.println(BLUE  + army1.getName() + " has won!" + RESET);
-        if (army2.isAlive()) System.out.println(BLUE  + army2.getName() + " has won!" + RESET);
-        System.out.println(army1.toString());
-        System.out.println(army2.toString());
+        if (armyArray1.isAlive()) System.out.println(BLUE  + armyArray1.getName() + " has won!" + RESET);
+        if (armyArray2.isAlive()) System.out.println(BLUE  + armyArray2.getName() + " has won!" + RESET);
+        System.out.println(armyArray1);
+        System.out.println(armyArray2);
     }
 
-    public static void fight(Army army1, Army army2){
+    public static void fight(ArmyArray armyArray1, ArmyArray armyArray2){
         System.out.println("Battle starts.");
         int index1 = 0;
         int index2 = 0;
         boolean allHadAttacked1 = false;
         boolean allHadAttacked2 = false;
         int countMoves = 0;
-        while (army1.isAlive() && army2.isAlive()){
+        while (armyArray1.isAlive() && armyArray2.isAlive()){
             countMoves++;
             System.out.println("------------- " + countMoves + " move. -------------");
 
-            index1 = army1.findAliveHeroIndex(index1);
-            index2 = army2.findAliveHeroIndex(index2);
+            index1 = armyArray1.findAliveHeroIndex(index1);
+            index2 = armyArray2.findAliveHeroIndex(index2);
 
-            Hero hero1 = army1.getHeroes()[index1];
-            Hero hero2 = army2.getHeroes()[index2];
+            Hero hero1 = armyArray1.getHeroes()[index1];
+            Hero hero2 = armyArray2.getHeroes()[index2];
             /*
             if (!hero1.isAlive()) {
                 for (int i = index1 + 1; i < army1.getHeroes().length; i++) {
@@ -105,13 +128,13 @@ public class BattleForMiddleEarth {
             if (!allHadAttacked2) hero2.attack(hero1);
             index1++;
             index2++;
-            if (index1 == army1.getHeroes().length) {
-                System.out.printf("%s%s had attacked.%s%n",BLUE,army1.getName(),RESET);
+            if (index1 == armyArray1.getHeroes().length) {
+                System.out.printf("%s%s had attacked.%s%n",BLUE, armyArray1.getName(),RESET);
                 index1 = 0;
                 allHadAttacked1 = true;
             }
-            if (index2 == army2.getHeroes().length) {
-                System.out.printf("%s%s had attacked.%s%n",BLUE,army2.getName(),RESET);
+            if (index2 == armyArray2.getHeroes().length) {
+                System.out.printf("%s%s had attacked.%s%n",BLUE, armyArray2.getName(),RESET);
                 index2 = 0;
                 allHadAttacked2 = true;
             }
@@ -123,9 +146,9 @@ public class BattleForMiddleEarth {
         }
         System.out.println();
 
-        if (army1.isAlive()) System.out.println(BLUE  + army1.getName() + " has won!" + RESET);
-        if (army2.isAlive()) System.out.println(BLUE  + army2.getName() + " has won!" + RESET);
-        System.out.println(army1.toString());
-        System.out.println(army2.toString());
+        if (armyArray1.isAlive()) System.out.println(BLUE  + armyArray1.getName() + " has won!" + RESET);
+        if (armyArray2.isAlive()) System.out.println(BLUE  + armyArray2.getName() + " has won!" + RESET);
+        System.out.println(armyArray1.toString());
+        System.out.println(armyArray2.toString());
     }
 }

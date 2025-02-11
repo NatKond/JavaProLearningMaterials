@@ -1,4 +1,4 @@
-package org.tel.ran.lesson01;
+package org.tel.ran._2025_01_14.lesson01;
 
 import java.util.Arrays;
 import java.util.Scanner;
