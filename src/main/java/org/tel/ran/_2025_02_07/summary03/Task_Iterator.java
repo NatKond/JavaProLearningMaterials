@@ -2,6 +2,8 @@ package org.tel.ran._2025_02_07.summary03;
 
 import java.util.*;
 
+import static org.tel.ran.textFormatting.*;
+
 /**
  * Имеется заданный список имен студентов: List names = new ArrayList<>(List.of("Mary", "Jane", "Tom", "Tim", "Mark", "Ann", null, ""))
  * С помощью итератора:
@@ -15,9 +17,6 @@ import java.util.*;
 
 
 public class Task_Iterator {
-    public static final String YELLOW = "\u001B[33m";
-    public static final String RESET = "\u001B[0m";
-
     public static void main(String[] args) {
         List<String> names = new ArrayList<>(List.of("Mary", "Jane", "Tom", "Tim", "Mark", "Ann"));
 
@@ -145,7 +144,6 @@ public class Task_Iterator {
                 }
             }
             while (stringListIterator.hasPrevious()) {
-                System.out.print(stringListIterator.previousIndex());
                 if (stringListIterator.previous().equals(str)) {
                     stringListIterator.remove();
                 }

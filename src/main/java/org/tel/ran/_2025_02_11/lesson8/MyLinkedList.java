@@ -12,12 +12,12 @@ public class MyLinkedList implements List {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
@@ -37,16 +37,14 @@ public class MyLinkedList implements List {
 
     @Override
     public boolean add(Object o) {
+        MyNode myNode = new MyNode(o);
         if (size == 0) {
-            MyNode myNode = new MyNode(o);
             first = myNode;
-            last = myNode;
         } else {
-            MyNode myNode = new MyNode(o);
             myNode.setPrevious(last);
             last.setNext(myNode);
-            last = myNode;
         }
+        last = myNode;
         size++;
         return true;
     }
@@ -86,7 +84,7 @@ public class MyLinkedList implements List {
     @Override
     public Object get(int index) {
         if (index > size - 1 || index < 0) {
-            throw new IndexOutOfBoundsException("Index is out of bounds.");
+            throw new IndexOutOfBoundsException("Index is out of bounds. The largest index of this list is " + (size - 1) + ".");
         }
         MyNode currentNode = first;
         for (int i = 0; i < index; i++) {
@@ -98,7 +96,7 @@ public class MyLinkedList implements List {
     @Override
     public Object set(int index, Object element) {
         if (index > size - 1 || index < 0) {
-            throw new IndexOutOfBoundsException("Index is out of bounds.");
+            throw new IndexOutOfBoundsException("Index is out of bounds. The largest index of this list is " + (size - 1) + ".");
         }
         MyNode currentNode = first;
         for (int i = 0; i < index; i++) {
@@ -111,7 +109,7 @@ public class MyLinkedList implements List {
     @Override
     public void add(int index, Object element) {
         if (index > size - 1 || index < 0) {
-            throw new IndexOutOfBoundsException("Index is out of bounds.");
+            throw new IndexOutOfBoundsException("Index is out of bounds. The largest index of this list is " + (size - 1) + ".");
         }
         MyNode currentNode = first;
         for (int i = 0; i < index - 1; i++) {
@@ -129,7 +127,7 @@ public class MyLinkedList implements List {
     @Override
     public Object remove(int index) {
         if (index > size - 1 || index < 0) {
-            throw new IndexOutOfBoundsException("Index is out of bounds.");
+            throw new IndexOutOfBoundsException("Index is out of bounds. The largest index of this list is " + (size - 1) + ".");
         }
         if (index == 0) {
             MyNode old = first;
@@ -208,10 +206,10 @@ public class MyLinkedList implements List {
         MyNode current = first;
         for (int i = 0; i < size; i++) {
             sb.append(current.getValue());
+            current = current.getNext();
             if (i == size - 1) {
                 break;
             }
-            current = current.getNext();
             sb.append(", ");
         }
         sb.append("]");

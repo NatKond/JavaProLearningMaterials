@@ -8,7 +8,7 @@ public class Task_ArrayList {
     public static void main(String[] args) {
 
         List<String> strings = new ArrayList<>(List.of("Hello", "Bye", "Goodbye", "Ay"));
-        System.out.println(countChars(strings));
+        System.out.println( countChars(strings));
         System.out.println(getStringLongerThanThree(strings));
         System.out.println(findMaxLength(strings));
 
