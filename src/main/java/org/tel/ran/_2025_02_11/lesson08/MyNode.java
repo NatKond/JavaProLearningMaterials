@@ -1,4 +1,4 @@
-package org.tel.ran._2025_02_11.lesson8;
+package org.tel.ran._2025_02_11.lesson08;
 
 public class MyNode {
     Object value;

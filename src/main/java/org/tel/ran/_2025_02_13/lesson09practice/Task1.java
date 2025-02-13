@@ -1,8 +1,8 @@
-package org.tel.ran._2025_02_11.lesson8;
+package org.tel.ran._2025_02_13.lesson09practice;
 
 import java.util.*;
 
-public class lesson8practice {
+public class Task1 {
     public static void main(String[] args) {
         String str = "dssireuauoiwrutdslkjf.,xcmkdfjghlskfj;slk;awr;oksd;lfgm";
         System.out.println("getUniqueCount(str) = " + getUniqueCount(str));

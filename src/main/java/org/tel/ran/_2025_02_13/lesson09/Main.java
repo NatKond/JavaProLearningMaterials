@@ -1,4 +1,4 @@
-package org.tel.ran._2025_02_13;
+package org.tel.ran._2025_02_13.lesson09;
 
 public class Main {
     public static void main(String[] args) {
