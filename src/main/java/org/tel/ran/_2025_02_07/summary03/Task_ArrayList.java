@@ -12,11 +12,13 @@ public class Task_ArrayList {
     public static void main(String[] args) {
 
         List<String> strings = new ArrayList<>(List.of("Hello", "Bye", "Goodbye", "Ay"));
+        System.out.println("strings  = " + strings);
         System.out.println(countChars(strings));
         System.out.println(getStringLongerThanThree(strings));
         System.out.println(findMaxLength(strings));
 
         List<Integer> integers = new ArrayList<>(List.of(3, 5, 6, 4, 2, 1));
+        System.out.println("integers = " + integers);
         System.out.println(findSum(integers));
         System.out.println(findMax(integers));
         System.out.println(findAllMultiple(integers, 3));
@@ -114,7 +116,6 @@ public class Task_ArrayList {
     /**
      * Написать метод, который проверяет, является ли список Integer отсортированным.
      */
-
     public static boolean isSorted(List<Integer> integers) {
         Iterator<Integer> integetsIterator = integers.iterator();
         int previousNumber = integetsIterator.next();

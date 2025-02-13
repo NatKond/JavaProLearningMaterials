@@ -15,7 +15,6 @@ import static org.tel.ran.textFormatting.*;
  * e). Заменить в списке "Ann" на "student Ann
  */
 
-
 public class Task_Iterator {
     public static void main(String[] args) {
         List<String> names = new ArrayList<>(List.of("Mary", "Jane", "Tom", "Tim", "Mark", "Ann"));
@@ -44,6 +43,7 @@ public class Task_Iterator {
         System.out.println(names);
         System.out.println(getAllDublicates(names));
         System.out.println(getAllDublicatesWithIterator(names));
+        System.out.println(getAllDublicatesWithIterator(new ArrayList<>()));
     }
 
     public static void printNamesOfLength(List<String> names, int length) {
@@ -131,7 +131,7 @@ public class Task_Iterator {
         ListIterator<String> stringListIterator = copy.listIterator();
         String str;
         boolean hasDuplicate;
-        do {
+        while (!copy.isEmpty()) {
             str = stringListIterator.next();
             hasDuplicate = false;
             while (stringListIterator.hasNext()) {
@@ -148,8 +148,7 @@ public class Task_Iterator {
                     stringListIterator.remove();
                 }
             }
-
-        } while (!copy.isEmpty());
+        }
         return stringsDublicates;
     }
 

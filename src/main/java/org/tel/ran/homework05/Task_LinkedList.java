@@ -81,12 +81,12 @@ public class Task_LinkedList {
      */
     public static <T> List<T> reverseList(List<T> list) {
         System.out.println(YELLOW + "Имеется лист. Написать метод, возвращающий этот же лист, в котором элементы расположены в обратном порядке." + RESET);
-        /*List<T> reversedList = new LinkedList<>();
-        for (T ob : list) {
-            reversedList.addFirst(ob);
+        for (int i = 0; i < list.size() / 2; i++) {
+            T temp = list.get(i);
+            list.set(i, list.get(list.size() - 1 - i));
+            list.set(list.size() - 1 - i, temp);
         }
-        return reversedList;*/
-        return list.reversed();
+        return list;
     }
 
     /**
