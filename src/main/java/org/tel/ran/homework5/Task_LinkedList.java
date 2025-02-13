@@ -71,7 +71,7 @@ public class Task_LinkedList {
      * Напишите метод, чтобы получить первое и последнее вхождение указанных элементов в связанном списке.
      * input: list = {1, 4, 3, 2, 1, 2, 2, 0}, element = 2 output: 3 (индекс первого вхождения), 6 (индекс последнего вхождения)
      */
-    public static int[] findFirstAndLast(List<?> list, Object element) {
+    public static <T> int[] findFirstAndLast(List<T> list, T element) {
         System.out.println(YELLOW + "Напишите метод, чтобы получить первое и последнее вхождение указанных элементов в связанном списке." + RESET);
         return new int[]{list.indexOf(element), list.lastIndexOf(element)};
     }
@@ -79,10 +79,10 @@ public class Task_LinkedList {
     /**
      * Имеется лист. Написать метод, возвращающий этот же лист, в котором элементы расположены в обратном порядке.
      */
-    public static List<?> reverseList(List<?> list) {
+    public static <T> List<T> reverseList(List<T> list) {
         System.out.println(YELLOW + "Имеется лист. Написать метод, возвращающий этот же лист, в котором элементы расположены в обратном порядке." + RESET);
-        List<Object> reversedList = new LinkedList<>();
-        for (Object ob : list) {
+        List<T> reversedList = new LinkedList<>();
+        for (T ob : list) {
             reversedList.addFirst(ob);
         }
         return reversedList;

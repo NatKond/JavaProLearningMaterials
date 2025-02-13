@@ -49,32 +49,27 @@ public class Task_Set {
     }
 
     /**
-     * Создать TreeSet. Из него: Найти заданное число 10, самое большое, самое маленькое Вывести все четные числа
-     * Получить список всех чисел в обратном порядке Получить список всех чисел меньше 7
-     */
-
-    /**
      * Имеется два набора элементов Set. Создать Set, в котором бы находились: все элементы из двух наборов,
      * только общие для двух наборов элементы, только элементы, которые присутствуют в первом наборе и отсутствуют во втором
      */
 
-    public static Set<?> combineSets(Set<?> set1, Set<?> set2) {
+    public static <T> Set<T> combineSets(Set<T> set1, Set<T> set2) {
         System.out.println(YELLOW + "Создать Set, в котором бы находились все элементы из двух наборов." + RESET);
-        Set<Object> combinedSet = new HashSet<>(set1);
+        Set<T> combinedSet = new HashSet<>(set1);
         combinedSet.addAll(set2);
         return combinedSet;
     }
 
-    public static Set<?> findCommonElementsSet(Set<?> set1, Set<?> set2) {
+    public static <T> Set<T> findCommonElementsSet(Set<T> set1, Set<T> set2) {
         System.out.println(YELLOW + "Создать Set, в котором бы находились только общие для двух наборов элементы." + RESET);
-        Set<Object> intersectionSet = new HashSet<>(set1);
+        Set<T> intersectionSet = new HashSet<>(set1);
         intersectionSet.retainAll(set2);
         return intersectionSet;
     }
 
-    public static Set<?> filterUniqueSet(Set<?> set1, Set<?> set2) {
+    public static <T> Set<T> filterUniqueSet(Set<T> set1, Set<T> set2) {
         System.out.println(YELLOW + "Создать Set, в котором бы находились только элементы, которые присутствуют в первом наборе и отсутствуют во втором." + RESET);
-        Set<Object> differenceSet = new HashSet<>(set1);
+        Set<T> differenceSet = new HashSet<>(set1);
         differenceSet.removeAll(set2);
         return differenceSet;
     }
