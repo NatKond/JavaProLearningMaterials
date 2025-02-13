@@ -81,11 +81,12 @@ public class Task_LinkedList {
      */
     public static <T> List<T> reverseList(List<T> list) {
         System.out.println(YELLOW + "Имеется лист. Написать метод, возвращающий этот же лист, в котором элементы расположены в обратном порядке." + RESET);
-        List<T> reversedList = new LinkedList<>();
+        /*List<T> reversedList = new LinkedList<>();
         for (T ob : list) {
             reversedList.addFirst(ob);
         }
-        return reversedList;
+        return reversedList;*/
+        return list.reversed();
     }
 
     /**
@@ -93,10 +94,12 @@ public class Task_LinkedList {
      */
     public static int findString(List<String> strings, String target) {
         System.out.println(YELLOW + "Проверить, содержит ли List<String> заданную строку и вернуть ее индекс. Если строка не найдена, вернуть -1." + RESET);
-        ListIterator<String> stringIterator = strings.listIterator();
-        while (stringIterator.hasNext()) {
-            if (stringIterator.next().equals(target)) {
-                return stringIterator.previousIndex();
+        if (strings.contains(target)) {
+            ListIterator<String> stringIterator = strings.listIterator();
+            while (stringIterator.hasNext()) {
+                if (stringIterator.next().equals(target)) {
+                    return stringIterator.previousIndex();
+                }
             }
         }
         return -1;

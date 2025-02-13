@@ -61,8 +61,9 @@ public class Task_Iterator {
         Iterator<String> namesIterator = names.iterator();
         while (namesIterator.hasNext()) {
             String name = namesIterator.next();
-            if (name == null) namesIterator.remove();
-            else if (name.isEmpty()) namesIterator.remove();
+            if (name == null || name.isEmpty()) {
+                namesIterator.remove();
+            }
         }
     }
 
@@ -121,7 +122,6 @@ public class Task_Iterator {
                 }
             }
         }
-
         return new ArrayList<>(stringsDublicates);
     }
 
