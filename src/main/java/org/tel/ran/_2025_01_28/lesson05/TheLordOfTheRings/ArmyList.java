@@ -1,6 +1,7 @@
 package org.tel.ran._2025_01_28.lesson05.TheLordOfTheRings;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -50,5 +51,9 @@ public class ArmyList {
             hero.attack(enemyArmy.getNextHero());
             enemyArmy.removeFallen();
         }
+    }
+    @Override
+    public String toString() {
+        return (heroes).toString();
     }
 }

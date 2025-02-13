@@ -2,9 +2,9 @@ package org.tel.ran.homework5;
 
 public class Student {
     private String name;
-    private String avgMark;
+    private double avgMark;
 
-    public Student(String name, String avgMark) {
+    public Student(String name, double avgMark) {
         this.name = name;
         this.avgMark = avgMark;
     }
@@ -13,7 +13,12 @@ public class Student {
         return name;
     }
 
-    public String getAvgMark() {
+    public double getAvgMark() {
         return avgMark;
+    }
+
+    @Override
+    public String toString() {
+        return name + " : " + avgMark;
     }
 }

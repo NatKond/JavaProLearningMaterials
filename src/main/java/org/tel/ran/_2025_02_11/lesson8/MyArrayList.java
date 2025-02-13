@@ -2,7 +2,7 @@ package org.tel.ran._2025_02_11.lesson8;
 
 import java.util.*;
 
-public class MyArrayList implements List {
+public class MyArrayList<E> implements List<E> {
 
     private static final int DEFAULT_CAPACITY = 10;
     Object[] elementData;
@@ -30,8 +30,8 @@ public class MyArrayList implements List {
     }
 
     @Override
-    public Iterator iterator() {
-        return null;
+    public Iterator<E> iterator() {
+        return new Itr();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class MyArrayList implements List {
     }
 
     @Override
-    public boolean add(Object o) {
+    public boolean add(E o) {
         if (size == maxSize) {
             throw new IllegalArgumentException("List is full. The maximum capacity has been reached.");
         }
@@ -99,33 +99,46 @@ public class MyArrayList implements List {
     }
 
     @Override
-    public Object get(int index) {
+    public E get(int index) {
         return null;
     }
 
     @Override
-    public Object set(int index, Object element) {
+    public E set(int index, E element) {
         return null;
     }
 
     @Override
-    public void add(int index, Object element) {
+    public void add(int index, E element) {
 
     }
 
     @Override
-    public Object remove(int index) {
+    public E remove(int index) {
         Object removedObject = elementData[index];
         for (int i = index; i < size - 1; i++) {
             elementData[i] = elementData[i + 1];
         }
         elementData[--size] = null;
-        return removedObject;
+        return (E) removedObject;
     }
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+        if (o == null) {
+            for (int i = 0; i < size; i++) {
+                if (elementData[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (o.equals(elementData[i])) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -181,5 +194,31 @@ public class MyArrayList implements List {
         }
         sb.append("]");
         return sb.toString();
+    }
+
+    private class Itr implements Iterator<E> {
+
+        private int current = -1;
+
+        @Override
+        public boolean hasNext() {
+            return current + 1 < size;
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext())
+                throw new NoSuchElementException("Out of bounds.");
+            return (E) elementData[++current];
+        }
+
+        @Override
+        public void remove() {
+            if (current < 0) {
+                throw new IllegalArgumentException("Out of bounds.");
+            }
+            MyArrayList.this.remove(current);
+            current--;
+        }
     }
 }

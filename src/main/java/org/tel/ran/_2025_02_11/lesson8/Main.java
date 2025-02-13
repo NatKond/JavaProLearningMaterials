@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println(11 >> 1);
 
-        MyArrayList myArrayList = new MyArrayList(16);
+        MyArrayList<Integer> myArrayList = new MyArrayList<>(16);
         System.out.println(Arrays.toString(myArrayList.elementData) + " ");
         System.out.println(myArrayList);
         myArrayList.add(1);
@@ -30,6 +30,10 @@ public class Main {
         myArrayList.remove(7);
         System.out.println(myArrayList);
 
+        for (Integer num: myArrayList){
+            System.out.print(num + " ");
+        }
+        System.out.println();
         MyLinkedList myLinkedList = new MyLinkedList();
         myLinkedList.add(1);
         myLinkedList.add(2);
