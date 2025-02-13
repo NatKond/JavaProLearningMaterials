@@ -11,7 +11,7 @@ import static org.tel.ran.textFormatting.*;
 public class Task_TreeSet {
 
     public static void main(String[] args) {
-        Set<Integer> numbers = Set.of(8, 5, 11, 2, 9, 4, 3, 1, 7, 10);
+        TreeSet<Integer> numbers = new TreeSet<>(Set.of(8, 5, 11, 2, 9, 4, 3, 1, 7, 10, 6));
         System.out.println("findNumber(numbers,10) = " + findNumber(numbers, 10));
         System.out.println("findMin(numbers) = " + findMin(numbers));
         System.out.println("findMax(numbers) = " + findMax(numbers));
@@ -19,7 +19,7 @@ public class Task_TreeSet {
         System.out.println("createListWithNumbersLessThanTarget(numbers, 7) = " + createListWithNumbersLessThanTarget(numbers, 7));
     }
 
-    public static boolean findNumber(Set<Integer> numbers, int target) {
+    public static boolean findNumber(TreeSet<Integer> numbers, int target) {
         System.out.println(YELLOW + "Найти заданное число 10" + RESET);
         /*for (Integer number:numbers){
             if (number.equals(target)){
@@ -30,19 +30,17 @@ public class Task_TreeSet {
         return numbers.contains(target);
     }
 
-    public static Integer findMin(Set<Integer> numbers) {
+    public static Integer findMin(TreeSet<Integer> numbers) {
         System.out.println(YELLOW + "Найти самое маленькое число" + RESET);
-        Iterator<Integer> setIterator = numbers.iterator();
-        return setIterator.next();
+        return numbers.getFirst();
     }
 
-    public static Integer findMax(Set<Integer> numbers) {
+    public static Integer findMax(TreeSet<Integer> numbers) {
         System.out.println(YELLOW + "Найти самое большое число" + RESET);
-        List<Integer> numbersList = new ArrayList<>(numbers);
-        return numbersList.getLast();
+        return numbers.getLast();
     }
 
-    public static List<Integer> createReversedList(Set<Integer> numbers) {
+    public static List<Integer> createReversedList(TreeSet<Integer> numbers) {
         System.out.println(YELLOW + "Получить список всех чисел в обратном порядке" + RESET);
         List<Integer> reversedList = new ArrayList<>(numbers);
         return reversedList.reversed();
@@ -52,9 +50,10 @@ public class Task_TreeSet {
         System.out.println(YELLOW + "Получить список всех чисел меньше target" + RESET);
         List<Integer> listWithNumbersLessThanTarget = new ArrayList<>();
         for (Integer number : numbers) {
-            if (number < target) {
-                listWithNumbersLessThanTarget.add(number);
+            if (number >= target) {
+                break;
             }
+            listWithNumbersLessThanTarget.add(number);
         }
         return listWithNumbersLessThanTarget;
     }
