@@ -1,4 +1,4 @@
-package org.tel.ran.homework5;
+package org.tel.ran.homework05;
 
 public class Student {
     private String name;

@@ -1,7 +1,6 @@
-package org.tel.ran.homework5;
+package org.tel.ran.homework05;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * На основе библиотечного класса LinkedList реализовать такую структуру данных, как стек:
