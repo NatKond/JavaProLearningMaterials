@@ -102,6 +102,7 @@ public class Point implements Comparable<Point> {
                 new Point(0, 4),
                 new Point(0, 3),
                 new Point(2, 2),
+                new Point(2, 0),
                 new Point(2, 3)));
         pointsTreeSet.add(new Point(0, 4));
         pointsTreeSet.add(new Point(0, 3));
@@ -110,13 +111,14 @@ public class Point implements Comparable<Point> {
 
         Set<Point> pointsTreeSet2 = new TreeSet<>(pointComparator);
         pointsTreeSet2.addAll(List.of(
-                new Point(2, 3), // +
-                new Point(2, 4), // +
-                new Point(1, 1), // +
-                new Point(1, 2), // +
-                new Point(0, 4), // +
+                new Point(2, 3),
+                new Point(2, 4),
+                new Point(1, 1),
+                new Point(1, 2),
+                new Point(0, 4),
                 new Point(0, 3),
                 new Point(2, 2),
+                new Point(2, 3),
                 new Point(2, 0)));
         System.out.println(RED + "TreeSet with comparator: " + RESET);
         System.out.println(YELLOW + pointsTreeSet2 + RESET);
