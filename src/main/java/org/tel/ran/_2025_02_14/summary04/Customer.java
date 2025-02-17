@@ -6,8 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Имеется класс Customer c полями: public class Customer { private String name; private String email; private String country; private int bonusAmount; private boolean isEmailConfirmed; }
- * e. Получить Map страна / суммарный накопленный бонус покупателей из данной страны
+ * Имеется класс Customer c полями: public class Customer {
+ * private String name;
+ * private String email;
+ * private String country;
+ * private int bonusAmount;
+ * private boolean isEmailConfirmed; }
  */
 
 public class Customer {
@@ -74,7 +78,6 @@ public class Customer {
         System.out.println(getConfirmedCountMap(List.of(customer2, customer5, customer7, customer9, customer11, customer13, customer16, customer18, customer20)));
         System.out.println(getListOfCustomersFromCountryMap(List.of(customer1, customer2, customer5, customer11, customer12, customer15)));
         System.out.println(getAccumulatedBonusCustomersFromCountryMap(List.of(customer1, customer2, customer5, customer11, customer12, customer15)));
-
     }
 
     /**
@@ -147,6 +150,12 @@ public class Customer {
         return result;
     }
 
+    /**
+     * На основе списка экземпляров данного класса List customers
+     * e. Получить Map страна / суммарный накопленный бонус покупателей из данной страны
+     * @param customers
+     * @return
+     */
     public static Map<String, Integer> getAccumulatedBonusCustomersFromCountryMap(List<Customer> customers) {
         Map<String, Integer> result = new HashMap<>();
         for (Customer customer:customers){
