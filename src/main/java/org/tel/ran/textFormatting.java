@@ -45,4 +45,9 @@ public class textFormatting {
     public static final String RAPID_BLINK = "\u001B[6m";
     public static final String HIDE = "\u001B[8m";
     public static final String STRIKETHROUGH = "\u001B[9m";
+
+    public static final String SAVE_CURSOR = "\u001B[s";   // Сохранить позицию курсора
+    public static final String RESTORE_CURSOR = "\u001B[u"; // Восстановить позицию курсора
+    public static final String CLEAR_SCREEN = "\u001B[2J"; // Очистить экран
+    public static final String CLEAR_LINE = "\u001B[K";    // Очистить текущую строку
 }
