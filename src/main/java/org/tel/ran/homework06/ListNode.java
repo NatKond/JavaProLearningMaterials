@@ -1,5 +1,9 @@
 package org.tel.ran.homework06;
 
+import java.util.Objects;
+
+import static org.tel.ran.textFormatting.*;
+
 public class ListNode<V> {
     private V value;
     private ListNode<V> previous;
@@ -31,5 +35,27 @@ public class ListNode<V> {
 
     public void setNext(ListNode<V> next) {
         this.next = next;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        ListNode<?> listNode = (ListNode<?>) object;
+        return Objects.equals(value, listNode.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder output = new StringBuilder(String.valueOf(value));
+        if (previous == null) {
+            output.append(": previous = null");
+        }
+        if (next == null) output.append(": next = null");
+        return output.toString();
     }
 }
