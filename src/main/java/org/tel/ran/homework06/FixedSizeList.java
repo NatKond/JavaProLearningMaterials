@@ -84,10 +84,41 @@ public class FixedSizeList<E> implements List<E> {
 
     @Override
     public boolean remove(Object o) {
-        if (!this.contains(o)) {
-            throw new ElementNotFoundException("This list does not contain \"" + o + "\".");
+        ListNode<E> currentNode = first;
+        boolean contains = false;
+        if (o == null) {
+            while (currentNode != null) {
+                if (currentNode.getValue() == null) {
+                    contains = true;
+                    break;
+                }
+                currentNode = currentNode.getNext();
+            }
+        } else {
+            while (currentNode != null) {
+                if (o.equals(currentNode.getValue())) {
+                    contains = true;
+                    break;
+                }
+                currentNode = currentNode.getNext();
+            }
         }
-        remove(indexOf(o));
+        if (!contains) return false;
+        ListNode<E> nextNode = currentNode.getNext();
+        ListNode<E> previousNode = currentNode.getPrevious();
+        if (previousNode == null) {
+            first = nextNode;
+            nextNode.setPrevious(null);
+        } else if (nextNode == null) {
+            last = previousNode;
+            previousNode.setNext(null);
+        } else {
+            previousNode.setNext(nextNode);
+            nextNode.setPrevious(previousNode);
+        }
+        currentNode.setPrevious(null);
+        currentNode.setNext(null);
+        size--;
         return true;
     }
 
@@ -150,6 +181,10 @@ public class FixedSizeList<E> implements List<E> {
     public void add(int index, E element) {
         hasReachedMaxSize();
         checkIndexBounds(index);
+        if (this.isEmpty()) {
+            this.add(element);
+            return;
+        }
         ListNode<E> newNode = new ListNode<>(element);
         ListNode<E> currentNode = findNodeByIndex(index);
         newNode.setNext(currentNode);
@@ -195,7 +230,7 @@ public class FixedSizeList<E> implements List<E> {
                 currentNode = currentNode.getNext();
                 count++;
             }
-        }else {
+        } else {
             while (currentNode != null) {
                 if (o.equals(currentNode.getValue())) {
                     return count;
@@ -210,7 +245,7 @@ public class FixedSizeList<E> implements List<E> {
     @Override
     public int lastIndexOf(Object o) {
         ListNode<E> currentNode = last;
-        int count = size -1;
+        int count = size - 1;
         if (o == null) {
             while (currentNode != null) {
                 if (currentNode.getValue() == null) {
@@ -219,7 +254,7 @@ public class FixedSizeList<E> implements List<E> {
                 currentNode = currentNode.getPrevious();
                 count--;
             }
-        }else {
+        } else {
             while (currentNode != null) {
                 if (o.equals(currentNode.getValue())) {
                     return count;
@@ -285,7 +320,7 @@ public class FixedSizeList<E> implements List<E> {
     }
 
     private void checkIndexBounds(int index) {
-        if (index > size - 1 || index < 0) {
+        if ((index > size - 1 || index < 0) && (index != 0)) {
             throw new OutOfRangeException("Index " + index + " is out of bounds. The largest index of this list is " + (size - 1) + ".");
         }
     }

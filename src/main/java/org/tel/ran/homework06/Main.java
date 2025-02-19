@@ -95,5 +95,7 @@ public class Main {
         stringFixedSizeList.clear();
         System.out.println("stringFixedSizeList.clear()");
         System.out.println(YELLOW + "stringFixedSizeList = " + stringFixedSizeList + RESET);
+        stringFixedSizeList.add(0,"Hello");
+        System.out.println(YELLOW + "stringFixedSizeList = " + stringFixedSizeList + RESET);
     }
 }
