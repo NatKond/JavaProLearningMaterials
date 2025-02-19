@@ -17,8 +17,9 @@ public class Main {
         stringFixedSizeList.add("Bye");
         stringFixedSizeList.add("See you");
         stringFixedSizeList.add("Take care");
-        // stringFixedSizeList.add("Farewell"); MaxSizeExceededException
+        //stringFixedSizeList.add("Farewell"); //MaxSizeExceededException
         System.out.println(YELLOW + "stringFixedSizeList = " + stringFixedSizeList + RESET);
+
         System.out.println("--------- CONTAINS ---------");
         System.out.println("stringFixedSizeList.contains(\"Hi\") = " + stringFixedSizeList.contains("Hi"));
         System.out.println("stringFixedSizeList.contains(\"Take care\") = " + stringFixedSizeList.contains("Take care"));
@@ -43,15 +44,18 @@ public class Main {
         stringFixedSizeList.add(7, "Hello");
         System.out.println("stringFixedSizeList.add(7, \"Hello\")");
         System.out.println(YELLOW + "stringFixedSizeList = " + stringFixedSizeList + RESET);
-        // stringFixedSizeList.remove("Hi"); ElementNotFoundException
+        // stringFixedSizeList.remove("Hi"); //ElementNotFoundException
+
         System.out.println("-------- GET BY INDEX --------");
         System.out.println("stringFixedSizeList.get(0) = " + stringFixedSizeList.get(0));
         System.out.println("stringFixedSizeList.get(5) = " + stringFixedSizeList.get(5));
         System.out.println("stringFixedSizeList.get(stringFixedSizeList.size() - 1) = " + stringFixedSizeList.get(stringFixedSizeList.size() - 1));
+
         System.out.println("-------- SET BY INDEX --------");
         System.out.println("stringFixedSizeList.set(0,\"Hi\") = " + stringFixedSizeList.set(0, "Hi"));
         System.out.println("stringFixedSizeList.set(2,\"Hello\") = " + stringFixedSizeList.set(2, "Hello"));
         System.out.println(YELLOW + "stringFixedSizeList = " + stringFixedSizeList + RESET);
+
         System.out.println("--------- INDEX OF ---------");
         System.out.println("stringFixedSizeList.indexOf(\"Hello\") = " + stringFixedSizeList.indexOf("Hello"));
         System.out.println("stringFixedSizeList.lastIndexOf(\"Hello\") = " + stringFixedSizeList.lastIndexOf("Hello"));
@@ -61,6 +65,7 @@ public class Main {
 
         System.out.println("--------- ITERATOR ---------");
         Iterator<String> stringIterator = stringFixedSizeList.iterator();
+        // stringIterator.remove();  //OutOfRangeException
         System.out.println("stringIterator.next() = " + stringIterator.next());
         System.out.println("stringIterator.next() = " + stringIterator.next());
         stringIterator.remove();
@@ -76,7 +81,7 @@ public class Main {
         System.out.println("stringIterator.remove()");
         System.out.println(YELLOW + "stringFixedSizeList = " + stringFixedSizeList + RESET);
         System.out.println("stringIterator.next() = " + stringIterator.next());
-       // System.out.println("stringIterator.next() = " + stringIterator.next()); OutOfRangeException
+        // System.out.println("stringIterator.next() = " + stringIterator.next()); //OutOfRangeException
 
         System.out.println("--------- CLEAR ---------");
         stringFixedSizeList.clear();

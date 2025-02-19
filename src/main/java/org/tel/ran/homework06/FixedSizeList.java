@@ -279,15 +279,15 @@ public class FixedSizeList<E> implements List<E> {
         @Override
         public E next() {
             if (!hasNext()) {
-                throw new OutOfRangeException("The last element has been reached.");
+                throw new OutOfRangeException("Element " + current + " is out of bounds of this list.");
             }
             return findNodeByIndex(++current).getValue();
         }
 
         @Override
         public void remove() {
-            if (!hasNext()) {
-                throw new OutOfRangeException("The last element has been reached.");
+            if (current < 0) {
+                throw new OutOfRangeException("Element " + current + " is out of bounds of this list.");
             }
             FixedSizeList.this.remove(current);
             current--;
