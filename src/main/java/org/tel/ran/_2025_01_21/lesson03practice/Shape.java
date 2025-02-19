@@ -1,4 +1,4 @@
-package org.tel.ran.lesson03practice;
+package org.tel.ran._2025_01_21.lesson03practice;
 
 /**
  * Создайте абстрактный класс Shape и его наследники Circle, Square, Triangle. Класс Shape содержит метод draw() и переменную хранящую цвет.
