@@ -1,6 +1,7 @@
 package org.tel.ran.homework06;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import static org.tel.ran.textFormatting.*;
 
@@ -69,7 +70,6 @@ public class Main {
         System.out.println("stringFixedSizeList.remove(2) = " + stringFixedSizeList.remove(2));
         System.out.println("stringFixedSizeList.indexOf(\"Hello\") = " + stringFixedSizeList.indexOf("Hello"));
         System.out.println(YELLOW + "stringFixedSizeList = " + stringFixedSizeList + RESET);
-
 
         System.out.println("--------- ITERATOR ---------");
         Iterator<String> stringIterator = stringFixedSizeList.iterator();

@@ -33,23 +33,7 @@ public class FixedSizeList<E> implements List<E> {
 
     @Override
     public boolean contains(Object o) {
-        ListNode<E> currentNode = first;
-        if (o == null) {
-            while (currentNode != null) {
-                if (currentNode.getValue() == null) {
-                    return true;
-                }
-                currentNode = currentNode.getNext();
-            }
-        } else {
-            while (currentNode != null) {
-                if (o.equals(currentNode.getValue())) {
-                    return true;
-                }
-                currentNode = currentNode.getNext();
-            }
-        }
-        return false;
+        return (findNodeValue((E)o) != null);
     }
 
     @Override
@@ -84,26 +68,8 @@ public class FixedSizeList<E> implements List<E> {
 
     @Override
     public boolean remove(Object o) {
-        ListNode<E> currentNode = first;
-        boolean contains = false;
-        if (o == null) {
-            while (currentNode != null) {
-                if (currentNode.getValue() == null) {
-                    contains = true;
-                    break;
-                }
-                currentNode = currentNode.getNext();
-            }
-        } else {
-            while (currentNode != null) {
-                if (o.equals(currentNode.getValue())) {
-                    contains = true;
-                    break;
-                }
-                currentNode = currentNode.getNext();
-            }
-        }
-        if (!contains) return false;
+        ListNode<E> currentNode = findNodeValue((E)o);
+        if (currentNode == null) return false;
         ListNode<E> nextNode = currentNode.getNext();
         ListNode<E> previousNode = currentNode.getPrevious();
         if (previousNode == null) {
@@ -311,6 +277,26 @@ public class FixedSizeList<E> implements List<E> {
             }
         }
         return currentNode;
+    }
+
+    private ListNode<E> findNodeValue(E element) {
+        ListNode<E> currentNode = first;
+        if (element == null) {
+            while (currentNode != null) {
+                if (currentNode.getValue() == null) {
+                    return currentNode;
+                }
+                currentNode = currentNode.getNext();
+            }
+        } else {
+            while (currentNode != null) {
+                if (element.equals(currentNode.getValue())) {
+                    return currentNode;
+                }
+                currentNode = currentNode.getNext();
+            }
+        }
+        return null;
     }
 
     private void hasReachedMaxSize() {
