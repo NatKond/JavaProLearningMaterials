@@ -1,7 +1,6 @@
 package org.tel.ran.homework06;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 import static org.tel.ran.textFormatting.*;
 

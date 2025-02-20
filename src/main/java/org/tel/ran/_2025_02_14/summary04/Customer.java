@@ -1,9 +1,6 @@
 package org.tel.ran._2025_02_14.summary04;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Имеется класс Customer c полями: public class Customer {
@@ -49,6 +46,11 @@ public class Customer {
         return isEmailConfirmed;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     public static void main(String[] args) {
         Customer customer1 = new Customer("John Doh", "john.doh@gmail.com", "USA", 25, true);
         Customer customer2 = new Customer("Emily Smith", "emily.smith@yahoo.com", "Canada", 30, false);
@@ -78,6 +80,7 @@ public class Customer {
         System.out.println(getConfirmedCountMap(List.of(customer2, customer5, customer7, customer9, customer11, customer13, customer16, customer18, customer20)));
         System.out.println(getListOfCustomersFromCountryMap(List.of(customer1, customer2, customer5, customer11, customer12, customer15)));
         System.out.println(getAccumulatedBonusCustomersFromCountryMap(List.of(customer1, customer2, customer5, customer11, customer12, customer15)));
+        System.out.println(getCountrySumBonusMap(List.of(customer1, customer2, customer5, customer11, customer12, customer15)));
     }
 
     /**
@@ -138,13 +141,13 @@ public class Customer {
      * @param customers
      * @return
      */
-    public static Map<String, List<String>> getListOfCustomersFromCountryMap(List<Customer> customers) {
-        Map<String, List<String>> result = new HashMap<>();
+    public static Map<String, List<Customer>> getListOfCustomersFromCountryMap(List<Customer> customers) {
+        Map<String, List<Customer>> result = new HashMap<>();
         for (Customer customer : customers) {
             if (result.containsKey(customer.getCountry())) {
-                result.get(customer.getCountry()).add(customer.getName());
+                result.get(customer.getCountry()).add(customer);
             } else {
-                result.put(customer.getCountry(), new LinkedList<>(List.of(customer.getName())));
+                result.put(customer.getCountry(), new LinkedList<>(List.of(customer)));
             }
         }
         return result;
@@ -153,18 +156,34 @@ public class Customer {
     /**
      * На основе списка экземпляров данного класса List customers
      * e. Получить Map страна / суммарный накопленный бонус покупателей из данной страны
+     *
      * @param customers
      * @return
      */
     public static Map<String, Integer> getAccumulatedBonusCustomersFromCountryMap(List<Customer> customers) {
         Map<String, Integer> result = new HashMap<>();
-        for (Customer customer:customers){
-            if (result.containsKey(customer.getCountry())){
-                result.put(customer.getCountry(),result.get(customer.getCountry())+customer.getBonusAmount());
-            }else {
-                result.put(customer.getCountry(),customer.getBonusAmount());
+        for (Customer customer : customers) {
+            if (result.containsKey(customer.getCountry())) {
+                result.put(customer.getCountry(), result.get(customer.getCountry()) + customer.getBonusAmount());
+            } else {
+                result.put(customer.getCountry(), customer.getBonusAmount());
             }
         }
         return result;
     }
+
+    public static Map<String, Integer> getCountrySumBonusMap(List<Customer> customers) {
+        Map<String, List<Customer>> countryCustomersMap = getListOfCustomersFromCountryMap(customers);
+        Map<String, Integer> result = new HashMap<>();
+        Set<Map.Entry<String, List<Customer>>> set = countryCustomersMap.entrySet();
+        for (Map.Entry<String, List<Customer>> entry : set) {
+            Integer sum = 0;
+            for (Customer customer : entry.getValue()) {
+                sum += customer.getBonusAmount();
+            }
+            result.put(entry.getKey(), sum);
+        }
+        return result;
+    }
 }
+

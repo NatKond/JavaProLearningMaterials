@@ -306,7 +306,9 @@ public class FixedSizeList<E> implements List<E> {
     }
 
     private void checkIndexBounds(int index) {
-        if ((index > size - 1 || index < 0) && (index != 0)) {
+
+        //if ((index > size - 1 || index < 0) && (index != 0)) {
+        if (!(index >= 0 && index <= size)){
             throw new OutOfRangeException("Index " + index + " is out of bounds. The largest index of this list is " + (size - 1) + ".");
         }
     }
