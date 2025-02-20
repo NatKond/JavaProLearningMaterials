@@ -6,7 +6,7 @@ public class Main {
         ValidationSystem.validate(o);
         ValidationSystem.validate("Hello");
         ValidationSystem.validate('2');
-        ValidationSystem.validate(10);
+        ValidationSystem.validate(5);
 
     }
 }
