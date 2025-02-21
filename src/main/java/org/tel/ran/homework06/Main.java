@@ -70,7 +70,6 @@ public class Main {
         System.out.println("stringFixedSizeList.indexOf(\"Hello\") = " + stringFixedSizeList.indexOf("Hello"));
         System.out.println(YELLOW + "stringFixedSizeList = " + stringFixedSizeList + RESET);
 
-
         System.out.println("--------- ITERATOR ---------");
         Iterator<String> stringIterator = stringFixedSizeList.iterator();
         // stringIterator.remove();  //OutOfRangeException
@@ -94,6 +93,8 @@ public class Main {
         System.out.println("--------- CLEAR ---------");
         stringFixedSizeList.clear();
         System.out.println("stringFixedSizeList.clear()");
+        System.out.println(YELLOW + "stringFixedSizeList = " + stringFixedSizeList + RESET);
+        stringFixedSizeList.add(0,"Hello");
         System.out.println(YELLOW + "stringFixedSizeList = " + stringFixedSizeList + RESET);
     }
 }
