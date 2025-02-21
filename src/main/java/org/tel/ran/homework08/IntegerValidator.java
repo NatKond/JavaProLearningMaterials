@@ -1,6 +1,6 @@
 package org.tel.ran.homework08;
 
-public class IntegerValidator extends Validator<Integer>{
+public class IntegerValidator implements Validator<Integer>{
 
     @Override
     public void validate(Integer integer) {

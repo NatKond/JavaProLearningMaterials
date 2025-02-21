@@ -177,7 +177,7 @@ public class Customer {
         Map<String, Integer> result = new HashMap<>();
         Set<Map.Entry<String, List<Customer>>> set = countryCustomersMap.entrySet();
         for (Map.Entry<String, List<Customer>> entry : set) {
-            Integer sum = 0;
+            int sum = 0;
             for (Customer customer : entry.getValue()) {
                 sum += customer.getBonusAmount();
             }
