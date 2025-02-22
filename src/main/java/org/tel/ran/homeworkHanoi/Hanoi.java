@@ -8,6 +8,7 @@ public class Hanoi {
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final Map<String, Tower> TOWER_MAP = new HashMap<>();
     private static int callStackDepth;
+    private static int countMoves;
 
     public static void main(String[] args) {
         String answer;
@@ -25,11 +26,15 @@ public class Hanoi {
                         input = Integer.parseInt(SCANNER.nextLine());
                         if (useRecursion) {
                             callStackDepth = 0;
-                            System.out.println(GREY + "depthOfCallStack = " + callStackDepth + RESET);
+                            countMoves = 0;
+                            System.out.println(printCallInfo(input, "A", "C", "B"));
                             createTowers(input, "A", "C", "B");
                             hanoiRecursion(input, "A", "C", "B");
+                            System.out.println("countMoves = " + countMoves);
                         } else {
+                            countMoves = 0;
                             hanoiIteration(input, "A", "C", "B");
+                            System.out.println("countMoves = " + countMoves);
                         }
                     } catch (Exception e) {
                         System.out.println("Invalid number of rings.");
@@ -50,25 +55,25 @@ public class Hanoi {
                 }
             }
         }
-        //depthOfCallStack = 0;
-        //createTowers(4, "A", "C", "B");
-        //hanoiRecursion(4, "A", "C", "B");
-        //hanoiIteration(3, "A", "C", "B");
+//        callStackDepth = 0;
+//        createTowers(4, "A", "C", "B");
+//        hanoiRecursion(4, "A", "C", "B");
+//        hanoiIteration(3, "A", "C", "B");
     }
 
     private static void hanoiRecursion(int n, String start, String end, String aux) {
         callStackDepth++;
-        System.out.println(GREY + "callStackDepth = " + callStackDepth + ": n = " + n + ", start = " + start + ", end = " + end + ", aux = " + aux + RESET);
+        System.out.println(printCallInfo(n, start, end, aux));
         if (n == 1) {
             makeMove(start, end);
         } else {
             hanoiRecursion(n - 1, start, aux, end);
             callStackDepth--;
-            System.out.println(GREY + "callStackDepth = " + callStackDepth + RESET);
+            System.out.println(printCallInfo(n, start, end, aux));
             makeMove(start, end);
             hanoiRecursion(n - 1, aux, end, start);
             callStackDepth--;
-            System.out.println(GREY + "callStackDepth = " + callStackDepth + RESET);
+            System.out.println(printCallInfo(n, start, end, aux));
         }
     }
 
@@ -76,6 +81,7 @@ public class Hanoi {
         System.out.println(start + "  -->  " + end);
         TOWER_MAP.get(start).moveRing(TOWER_MAP.get(end));
         System.out.println(printTowerMap());
+        countMoves++;
     }
 
     private static void makeDirectOrReverseMove(String nameTower1, String nameTower2) {
@@ -88,16 +94,16 @@ public class Hanoi {
 
     private static void hanoiIteration(int n, String start, String end, String aux) {
         createTowers(n, start, end, aux);
-        while (!isTowerSolved(n, end)) {
+        while (!isSolved(n, end)) {
             makeDirectOrReverseMove(start, n % 2 == 0 ? aux : end);
-            if (isTowerSolved(n, end)) continue;
+            if (isSolved(n, end)) continue;
             makeDirectOrReverseMove(start, n % 2 == 0 ? end : aux);
-            if (isTowerSolved(n, end)) continue;
+            if (isSolved(n, end)) continue;
             makeDirectOrReverseMove(aux, end);
         }
     }
 
-    private static boolean isTowerSolved(int n, String end) {
+    private static boolean isSolved(int n, String end) {
         return TOWER_MAP.get(end).getSize() == n;
     }
 
@@ -112,16 +118,19 @@ public class Hanoi {
         System.out.println(printTowerMap());
     }
 
+    private static String printCallInfo(int n, String start, String end, String aux) {
+        return GREY + "callStackDepth = " + callStackDepth + ": n = " + n + ", start = " + start + ", end = " + end + ", aux = " + aux + RESET;
+    }
+
     private static String printTowerMap() {
         StringBuilder output = new StringBuilder();
-        Set<Map.Entry<String, Tower>> entries = TOWER_MAP.entrySet();
         StringBuilder names = new StringBuilder();
         List<Iterator<Integer>> iterators = new ArrayList<>();
         List<Integer> sizes = new ArrayList<>();
         Integer maxSize = 0;
         String indent = "\t";
 
-        for (Map.Entry<String, Tower> entry : entries) {
+        for (Map.Entry<String, Tower> entry : TOWER_MAP.entrySet()) {
             if (entry.getValue().getSize() > maxSize) {
                 maxSize = entry.getValue().getSize();
             }
@@ -129,9 +138,10 @@ public class Hanoi {
             iterators.add(entry.getValue().getIterator());
             names.append(entry.getKey()).append(indent);
         }
+
         output.append(CYAN);
         for (int i = maxSize; i > 0; i--) {
-            for (int j = 0; j < entries.size(); j++) {
+            for (int j = 0; j < iterators.size(); j++) {
                 if (sizes.get(j) >= i) {
                     output.append(iterators.get(j).next()).append(indent);
                 } else output.append(indent);
