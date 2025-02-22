@@ -1,6 +1,7 @@
 package org.tel.ran;
 
 public class textFormatting {
+    public static final String GREY = "\u001B[90m";
     public static final String BLACK = "\u001B[30m";
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";

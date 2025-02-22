@@ -33,7 +33,7 @@ public class FixedSizeList<E> implements List<E> {
 
     @Override
     public boolean contains(Object o) {
-        return (findNodeValue((E)o) != null);
+        return (indexOf(o) >= 0);
     }
 
     @Override

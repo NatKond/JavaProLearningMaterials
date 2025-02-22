@@ -1,5 +1,6 @@
 package org.tel.ran.homework06;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import static org.tel.ran.textFormatting.*;
