@@ -58,52 +58,47 @@ public class Hanoi {
 
     private static void hanoiRecursion(int n, String start, String end, String aux) {
         callStackDepth++;
-        System.out.println(GREY + "depthOfCallStack = " + callStackDepth + RESET);
+        System.out.println(GREY + "callStackDepth = " + callStackDepth + ": n = " + n + ", start = " + start + ", end = " + end + ", aux = " + aux + RESET);
         if (n == 1) {
             makeMove(start, end);
         } else {
             hanoiRecursion(n - 1, start, aux, end);
             callStackDepth--;
-            System.out.println(GREY + "depthOfCallStack = " + callStackDepth + RESET);
+            System.out.println(GREY + "callStackDepth = " + callStackDepth + RESET);
             makeMove(start, end);
             hanoiRecursion(n - 1, aux, end, start);
             callStackDepth--;
-            System.out.println(GREY + "depthOfCallStack = " + callStackDepth + RESET);
+            System.out.println(GREY + "callStackDepth = " + callStackDepth + RESET);
         }
     }
 
     private static void makeMove(String start, String end) {
-        System.out.println(" " + start + " --> " + end);
-        TOWER_MAP.get(start).moveRingToTower(TOWER_MAP.get(end));
+        System.out.println(start + "  -->  " + end);
+        TOWER_MAP.get(start).moveRing(TOWER_MAP.get(end));
         System.out.println(printTowerMap());
+    }
+
+    private static void makeDirectOrReverseMove(String nameTower1, String nameTower2) {
+        if (TOWER_MAP.get(nameTower1).isMoveAllowed(TOWER_MAP.get(nameTower2))) {
+            makeMove(nameTower1, nameTower2);
+        } else {
+            makeMove(nameTower2, nameTower1);
+        }
     }
 
     private static void hanoiIteration(int n, String start, String end, String aux) {
         createTowers(n, start, end, aux);
-        while (TOWER_MAP.get(end).getSize() != n) {
-            if (n % 2 == 0) {
-                chooseAndMakeMove(start, aux);
-                if (TOWER_MAP.get(end).getSize() != n) {
-                    chooseAndMakeMove(start, end);
-                }
-            } else {
-                chooseAndMakeMove(start, end);
-                if (TOWER_MAP.get(end).getSize() != n) {
-                    chooseAndMakeMove(start, aux);
-                }
-            }
-            if (TOWER_MAP.get(end).getSize() != n) {
-                chooseAndMakeMove(aux, end);
-            }
+        while (!isTowerSolved(n, end)) {
+            makeDirectOrReverseMove(start, n % 2 == 0 ? aux : end);
+            if (isTowerSolved(n, end)) continue;
+            makeDirectOrReverseMove(start, n % 2 == 0 ? end : aux);
+            if (isTowerSolved(n, end)) continue;
+            makeDirectOrReverseMove(aux, end);
         }
     }
 
-    private static void chooseAndMakeMove(String nameTower1, String nameTower2) {
-        if (TOWER_MAP.get(nameTower1).isMoveToTowerAllowed(TOWER_MAP.get(nameTower2))) {
-            makeMove(nameTower1,nameTower2);
-        } else if (TOWER_MAP.get(nameTower2).isMoveToTowerAllowed(TOWER_MAP.get(nameTower1))) {
-            makeMove(nameTower2,nameTower1);
-        }
+    private static boolean isTowerSolved(int n, String end) {
+        return TOWER_MAP.get(end).getSize() == n;
     }
 
     private static void createTowers(int n, String start, String end, String aux) {
@@ -124,6 +119,7 @@ public class Hanoi {
         List<Iterator<Integer>> iterators = new ArrayList<>();
         List<Integer> sizes = new ArrayList<>();
         Integer maxSize = 0;
+        String indent = "\t";
 
         for (Map.Entry<String, Tower> entry : entries) {
             if (entry.getValue().getSize() > maxSize) {
@@ -131,14 +127,14 @@ public class Hanoi {
             }
             sizes.add(entry.getValue().getSize());
             iterators.add(entry.getValue().getIterator());
-            names.append(" ").append(entry.getKey()).append(" ");
+            names.append(entry.getKey()).append(indent);
         }
-        output.append(BLUE);
+        output.append(CYAN);
         for (int i = maxSize; i > 0; i--) {
             for (int j = 0; j < entries.size(); j++) {
                 if (sizes.get(j) >= i) {
-                    output.append(" ").append(iterators.get(j).next()).append(" ");
-                } else output.append("   ");
+                    output.append(iterators.get(j).next()).append(indent);
+                } else output.append(indent);
             }
             output.append("\n");
         }

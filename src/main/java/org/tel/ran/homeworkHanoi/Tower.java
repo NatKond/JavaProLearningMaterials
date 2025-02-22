@@ -1,9 +1,6 @@
 package org.tel.ran.homeworkHanoi;
 
-import org.tel.ran._2025_02_11.lesson08.MyArrayList;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -19,12 +16,12 @@ public class Tower {
         }
     }
 
-    public void moveRingToTower(Tower target) {
+    public void moveRing(Tower target) {
         target.RINGS.add(this.RINGS.getLast());
         this.RINGS.removeLast();
     }
 
-    public boolean isMoveToTowerAllowed(Tower target) {
+    public boolean isMoveAllowed(Tower target) {
         return (target.RINGS.isEmpty()&&!RINGS.isEmpty()) || (!RINGS.isEmpty()) && this.RINGS.getLast() < target.RINGS.getLast();
     }
 
