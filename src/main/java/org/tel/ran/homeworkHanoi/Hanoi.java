@@ -27,7 +27,6 @@ public class Hanoi {
                         if (useRecursion) {
                             callStackDepth = 0;
                             countMoves = 0;
-                            System.out.println(printCallInfo(input, "A", "C", "B"));
                             createTowers(input, "A", "C", "B");
                             hanoiRecursion(input, "A", "C", "B");
                             System.out.println("countMoves = " + countMoves);
@@ -96,9 +95,9 @@ public class Hanoi {
         createTowers(n, start, end, aux);
         while (!isSolved(n, end)) {
             makeDirectOrReverseMove(start, n % 2 == 0 ? aux : end);
-            if (isSolved(n, end)) continue;
+            if (isSolved(n, end)) break;
             makeDirectOrReverseMove(start, n % 2 == 0 ? end : aux);
-            if (isSolved(n, end)) continue;
+            if (isSolved(n, end)) break;
             makeDirectOrReverseMove(aux, end);
         }
     }
@@ -119,7 +118,7 @@ public class Hanoi {
     }
 
     private static String printCallInfo(int n, String start, String end, String aux) {
-        return GREY + "callStackDepth = " + callStackDepth + ": n = " + n + ", start = " + start + ", end = " + end + ", aux = " + aux + RESET;
+        return GREY + "hanoiRecursion(n = " + n + ", start = " + start + ", end = " + end + ", aux = " + aux + "), callStackDepth = " + callStackDepth + RESET;
     }
 
     private static String printTowerMap() {

@@ -1,6 +1,5 @@
 package org.tel.ran.homework06;
 
-import org.tel.ran._2025_02_11.lesson08.MyArrayList;
 import org.tel.ran.homework06.exceptions.ElementNotFoundException;
 import org.tel.ran.homework06.exceptions.OutOfRangeException;
 import org.tel.ran.homework06.exceptions.MaxSizeExceededException;
