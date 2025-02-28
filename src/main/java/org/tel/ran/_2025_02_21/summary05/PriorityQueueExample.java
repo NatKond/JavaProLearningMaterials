@@ -4,14 +4,27 @@ import java.util.PriorityQueue;
 
 public class PriorityQueueExample {
     public static void main(String[] args) {
-        PriorityQueue<Item> store= new PriorityQueue<>();
+        PriorityQueue<Item> items= new PriorityQueue<>();
+        Storage groceryStore = new Storage();
+        Storage fruitStore = new Storage("apples", "bananas", "oranges", "grapes", "kiwi");
+
         for (int i = 0; i < 10; i++) {
-            store.add(Storage.getRandomItem());
+            items.add(groceryStore.getRandomItem());
+            items.add(fruitStore.getRandomItem());
         }
-        System.out.println("store = " + store);
-        while (!store.isEmpty()){
-            System.out.println("I take " + store.poll());
+        Store store1 = new Store(items);
+        System.out.println(store1);
+
+        Customer customer1 = new Customer("John Doh");
+        Customer customer2 = new Customer("Jane Doh");
+
+        while (!store1.isEmpty()){
+            customer1.addItem(store1);
+            customer2.addItem(store1);
         }
+
+        System.out.println(customer1);
+        System.out.println(customer2);
     }
 
     /**

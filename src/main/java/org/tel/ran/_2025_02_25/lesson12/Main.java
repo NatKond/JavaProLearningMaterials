@@ -8,29 +8,6 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
-        String test1 = """
-                The little lizard leisurely lounged under the lemon tree.
-                Bouncing bunnies boldly bounded beyond the broken bridge.
-                Daring dogs danced delightfully despite daunting downpours.
-                Several students studied sincerely, searching for success.""";
-        System.out.println(test1);
-        Pattern pattern1 = Pattern.compile("\\b[Ll]\\w*"); // words starting with letter b
-        Matcher matcher1 = pattern1.matcher(test1);
-        while (matcher1.find()) {
-            System.out.println(matcher1.start() + "-" + matcher1.end() + ": " + matcher1.group());
-        }
-
-        String test2 = """
-                The ancient {artifact} was hidden inside a {cave}.
-                When Sarah found it, she whispered, "Unbelievable!" and later added, "This is historic!"
-                Among the ruins, she noticed a /mysterious/ symbol and a /secret/ passage.
-                She consulted the (map) for clues, but the (directions) were unclear.""";
-        Pattern pattern2 = Pattern.compile("\"(\\w+&&\\p{L}*)\"");
-        Matcher matcher2 = pattern2.matcher(test2);
-        while (matcher2.find()) {
-            System.out.println(matcher2.start() + ":" + matcher2.group());
-        }
-
         String s1 = "Егор Алла Александр";
         System.out.println(s1);
         Pattern pattern3 = Pattern.compile("А.+?а");
@@ -50,7 +27,8 @@ public class Main {
         // Pattern pattern4 = Pattern.compile("[\\w.]{6,}@[A-Za-z\\d]{3,}\\.(ru|com|de|pl)"); // regex for email
         // Pattern pattern4 = Pattern.compile("https?://[A-Za-z._\\d]+"); // regex for site
         // Pattern pattern4 = Pattern.compile("[А-Я][а-я]+\\s[А-Я][а-я]+"); // find name and surname
-        Pattern pattern4 = Pattern.compile("(яблок([иао])|груш([аи]))");
+        //Pattern pattern4 = Pattern.compile("(яблок([иао])|груш([аи]))");
+        Pattern pattern4 = Pattern.compile("(?<=\\+7 )[\\d\\s-()]{7,}"); // in the result +7 isn't included
         // Pattern pattern4 = Pattern.compile("[А-Я][а-я]+\\s[А-Я][а-я]+"); // regex for price
         Matcher matcher4 = pattern4.matcher(s2);
         while (matcher4.find()) {
