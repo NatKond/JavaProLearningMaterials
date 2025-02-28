@@ -46,7 +46,6 @@ public class MyArrayList<E> implements List<E> {
         }
         if (size == elementData.length) {
             elementData = grow();
-
         }
         elementData[size++] = o;
         return true;

@@ -1,6 +1,5 @@
 package org.tel.ran.homework06;
 
-import org.tel.ran._2025_02_11.lesson08.MyArrayList;
 import org.tel.ran.homework06.exceptions.ElementNotFoundException;
 import org.tel.ran.homework06.exceptions.OutOfRangeException;
 import org.tel.ran.homework06.exceptions.MaxSizeExceededException;
@@ -33,7 +32,7 @@ public class FixedSizeList<E> implements List<E> {
 
     @Override
     public boolean contains(Object o) {
-        return (findNodeValue((E)o) != null);
+        return (indexOf(o) >= 0);
     }
 
     @Override

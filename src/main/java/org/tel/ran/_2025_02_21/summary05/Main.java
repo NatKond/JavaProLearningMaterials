@@ -80,13 +80,9 @@ public class Main {
         Map<Integer, List<String>> integerListMap = new HashMap<>(); // создаем мапу
         for (String s : strings) { // берем слово из списка
             if (!integerListMap.containsKey(s.length())) { // если элемента с длиной этого слова нет
-                ArrayList<String> words = new ArrayList<>();
-                words.add(s);
-                integerListMap.put(s.length(), words); // то добаляем новый элемент в мапу с ключем = длине, значением - новый с список с одним элементом - этим словом
-            } else { // иначе добавляем слово в уже существующий список, находим список по ключу = длина слова
-                List<String> words = integerListMap.get(s.length());
-                words.add(s);
+                integerListMap.put(s.length(), new ArrayList<>()); // то добаляем новый элемент в мапу с ключем = длине, значением - новый список
             }
+            integerListMap.get(s.length()).add(s); // дбавляем слово в список
         }
         return integerListMap;
     }

@@ -4,7 +4,8 @@ import java.util.Iterator;
 
 import static org.tel.ran.textFormatting.*;
 
-public class Main {
+public class TestList {
+
     public static void main(String[] args) {
         FixedSizeList<String> stringFixedSizeList = new FixedSizeList<>(10);
         stringFixedSizeList.add("Hello");
@@ -96,5 +97,6 @@ public class Main {
         System.out.println(YELLOW + "stringFixedSizeList = " + stringFixedSizeList + RESET);
         stringFixedSizeList.add(0,"Hello");
         System.out.println(YELLOW + "stringFixedSizeList = " + stringFixedSizeList + RESET);
+
     }
 }
