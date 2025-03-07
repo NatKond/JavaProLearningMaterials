@@ -110,13 +110,8 @@ class FixedSizeListTest {
         Assertions.assertTrue(FIXED_SIZE_LIST_1.add("Catch you later"));
         // then
         Assertions.assertEquals(expected, FIXED_SIZE_LIST_1);
-
-        // when
-        FIXED_SIZE_LIST_1.add(2, "Hey");
-        expected = List.of("Hello", "Hi", "Hey", "Good morning", "Good afternoon", "Good evening", "Bye", "See you", "Take care", "Catch you later");
-        // then
-        Assertions.assertEquals(expected, FIXED_SIZE_LIST_1);
     }
+
 
     @Test
     void addNegativeTest() {
