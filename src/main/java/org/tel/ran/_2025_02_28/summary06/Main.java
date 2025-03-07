@@ -37,7 +37,7 @@ public class Main {
         System.out.println("-------- GET_LONGEST_WORD --------");
         System.out.println(getLongestWord(text));
         System.out.println("addSpaces(\"123456789\") = " + addSpaces("1234567890"));
-        System.out.println("getSimpleNumber(999996) = " + getSimpleNumber(999996));
+        System.out.println("getSimpleNumber(999996) = " + getSimpleNumberRecursive(999996));
         System.out.println("getSimpleNumberIterative(999996) = " + getSimpleNumberIterative(999996));
     }
 
@@ -142,7 +142,7 @@ public class Main {
         return stringBuilderNumber.toString();
     }
 
-    public static int getSimpleNumber(int number) {
+    public static int getSimpleNumberRecursive(int number) {
         if (number / 10 == 0) {
             return number;
         }
@@ -151,7 +151,7 @@ public class Main {
             result += number % 10;
             number = number / 10;
         }
-        return getSimpleNumber(result);
+        return getSimpleNumberRecursive(result);
     }
 
     public static int getSimpleNumberIterative(int number) {

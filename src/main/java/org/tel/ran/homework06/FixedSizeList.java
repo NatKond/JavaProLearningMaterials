@@ -1,6 +1,4 @@
 package org.tel.ran.homework06;
-
-import org.tel.ran.homework06.exceptions.ElementNotFoundException;
 import org.tel.ran.homework06.exceptions.OutOfRangeException;
 import org.tel.ran.homework06.exceptions.MaxSizeExceededException;
 
@@ -144,8 +142,8 @@ public class FixedSizeList<E> implements List<E> {
 
     @Override
     public void add(int index, E element) {
-        hasReachedMaxSize();
         checkIndexBounds(index);
+        hasReachedMaxSize();
         if (this.isEmpty()) {
             this.add(element);
             return;
@@ -305,9 +303,7 @@ public class FixedSizeList<E> implements List<E> {
     }
 
     private void checkIndexBounds(int index) {
-
-        //if ((index > size - 1 || index < 0) && (index != 0)) {
-        if (!(index >= 0 && index <= size)){
+        if (!(index >= 0 && index < size)){
             throw new OutOfRangeException("Index " + index + " is out of bounds. The largest index of this list is " + (size - 1) + ".");
         }
     }
