@@ -35,8 +35,9 @@ class FixedSizeListTest {
         int expected = 5;
         List<String> fixedSizeList = new FixedSizeList<>(expected);
         // when
-        for (int i = 0; i < expected; i++) {
+        for (int i = 1; i <= expected; i++) {
             fixedSizeList.add("Hi");
+            Assertions.assertEquals(i, fixedSizeList.size());
         }
         // then
         Assertions.assertEquals(expected, fixedSizeList.size());
@@ -58,23 +59,47 @@ class FixedSizeListTest {
     }
 
     @Test
-    void iterator() {
+    void iteratorNextPositiveCase() {
         // given
         Iterator<String> fixedSizeListIterator = FIXED_SIZE_LIST_1.iterator();
-        List<String> expected = List.of("Hi", "Good morning", "Good afternoon", "Good evening", "Bye", "See you", "Take care");
         // then
-        Assertions.assertTrue(fixedSizeListIterator.hasNext());
         Assertions.assertEquals("Hello", fixedSizeListIterator.next());
-        fixedSizeListIterator.remove();
-        Assertions.assertEquals(expected, FIXED_SIZE_LIST_1);
+    }
 
+    @Test
+    void iteratorNextNegativeCase() {
+        // given
+        Iterator<String> fixedSizeListIterator = FIXED_SIZE_LIST_1.iterator();
         // when
         for (int i = 0; i < FIXED_SIZE_LIST_1.size(); i++) {
             fixedSizeListIterator.next();
         }
-        //then
         Assertions.assertThrows(OutOfRangeException.class, () -> fixedSizeListIterator.next());
+    }
 
+    @Test
+    void iteratorHasNext() {
+        // given
+        Iterator<String> fixedSizeListIterator = FIXED_SIZE_LIST_1.iterator();
+        // when
+        for (int i = 0; i < FIXED_SIZE_LIST_1.size(); i++) {
+            Assertions.assertTrue(fixedSizeListIterator.hasNext());
+            fixedSizeListIterator.next();
+        }
+        // then
+        Assertions.assertFalse(fixedSizeListIterator.hasNext());
+    }
+
+    @Test
+    void iteratorRemove() {
+        // given
+        Iterator<String> fixedSizeListIterator = FIXED_SIZE_LIST_1.iterator();
+        List<String> expected = List.of("Hi", "Good morning", "Good afternoon", "Good evening", "Bye", "See you", "Take care");
+        // when
+        fixedSizeListIterator.next();
+        fixedSizeListIterator.remove();
+        // then
+        Assertions.assertEquals(expected, FIXED_SIZE_LIST_1);
     }
 
     @Test
@@ -95,13 +120,30 @@ class FixedSizeListTest {
 
     @Test
     void addNegativeTest() {
-        // given
+        // when
         FIXED_SIZE_LIST_1.add(2, "Hey");
         FIXED_SIZE_LIST_1.add("Catch you later");
         // then
         Assertions.assertThrows(MaxSizeExceededException.class, () -> FIXED_SIZE_LIST_1.add("Farewell"));
 
+    }
+
+    @Test
+    void addAtIndexPositiveTest() {
+        // given
+        List<String> expected = List.of("Hello", "Hi", "Hey", "Good morning", "Good afternoon", "Good evening", "Bye", "See you", "Take care");
+        // when
+        FIXED_SIZE_LIST_1.add(2, "Hey");
+        // then
+        Assertions.assertEquals(expected, FIXED_SIZE_LIST_1);
+    }
+
+    @Test
+    void addAtIndexNegativeTest() {
+        FIXED_SIZE_LIST_1.add(2, "Hey");
+        FIXED_SIZE_LIST_1.add(2, "Catch you later");
         Assertions.assertThrows(OutOfRangeException.class, () -> FIXED_SIZE_LIST_1.add(FIXED_SIZE_LIST_1.size(), "Farewell"));
+        Assertions.assertThrows(MaxSizeExceededException.class, () -> FIXED_SIZE_LIST_1.add(2, "Farewell"));
     }
 
     @Test
@@ -110,21 +152,22 @@ class FixedSizeListTest {
         List<String> expected = List.of("Hello", "Hi", "Good morning", "Good afternoon", "Good evening", "Bye", "Take care");
         // when
         Assertions.assertTrue(FIXED_SIZE_LIST_1.remove("See you"));
-        //then
+        // then
         Assertions.assertEquals(expected, FIXED_SIZE_LIST_1);
-
-        // when
-        FIXED_SIZE_LIST_1.add(null);
-        FIXED_SIZE_LIST_1.remove(null);
-        //then
-        Assertions.assertEquals(expected, FIXED_SIZE_LIST_1);
-
-        //then
         Assertions.assertEquals("Hi", FIXED_SIZE_LIST_1.remove(1));
-
         Assertions.assertFalse(FIXED_SIZE_LIST_1.remove("Farewell"));
-
         Assertions.assertThrows(OutOfRangeException.class, () -> FIXED_SIZE_LIST_1.remove(FIXED_SIZE_LIST_1.size()));
+    }
+
+    @Test
+    void removeNullTest() {
+        // given
+        List<String> expected = List.of("Hello", "Hi", "Good morning", "Good afternoon", "Good evening", "Bye", "See you", "Take care");
+        //when
+        FIXED_SIZE_LIST_1.add(null);
+        //then
+        Assertions.assertTrue(FIXED_SIZE_LIST_1.remove(null));
+        Assertions.assertEquals(expected, FIXED_SIZE_LIST_1);
     }
 
     @Test
@@ -148,10 +191,10 @@ class FixedSizeListTest {
     void set() {
         // given
         List<String> expected = List.of("Hello", "Hey", "Good morning", "Good afternoon", "Good evening", "Bye", "See you", "Take care");
-
+        // when
         Assertions.assertEquals("Hi", FIXED_SIZE_LIST_1.set(1, "Hey"));
+        // then
         Assertions.assertEquals(expected, FIXED_SIZE_LIST_1);
-
     }
 
     @Test
@@ -168,11 +211,9 @@ class FixedSizeListTest {
     void lastIndexOf() {
         // then
         Assertions.assertEquals(0, FIXED_SIZE_LIST_1.lastIndexOf("Hello"));
-
         // given
         FIXED_SIZE_LIST_1.add(7, "Hello");
         // then
-
         Assertions.assertEquals(7, FIXED_SIZE_LIST_1.lastIndexOf("Hello"));
 
     }
