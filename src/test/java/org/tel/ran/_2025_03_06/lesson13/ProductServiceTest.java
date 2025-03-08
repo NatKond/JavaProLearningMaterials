@@ -159,12 +159,68 @@ public class ProductServiceTest {
     }
 
     @Test
-    void findMostPopularCategoryTest(){
+    void findMostPopularCategoryPositiveCaseTest(){
         // given
         String expected = "Electronics";
 
         // when
         String actual = PRODUCT_SERVICE.findMostPopularCategory(PRODUCTS);
+
+        // then
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void findMostPopularCategoryNegativeCaseTest(){
+        Assertions.assertThrows(NullPointerException.class, () -> PRODUCT_SERVICE.findMostPopularCategory(null));
+    }
+
+    @Test
+    void findCheapestCategoryTest (){
+        // given
+        String expected = "Food";
+
+        // when
+        String actual = PRODUCT_SERVICE.findCheapestCategory(PRODUCTS);
+
+        // then
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void findProductsByKeywordNameTest(){
+        // given
+        List<Product> expected = List.of(new Product("Tablet", "TAB-9999", "Electronics", 499.99, 0));
+
+        // when
+        List<Product>  actual = PRODUCT_SERVICE.findProductsByKeyword(PRODUCTS, "Tab");
+
+        // then
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void findProductsByKeywordCategoryTest(){
+        // given
+        List<Product> expected = List.of(new Product("Bread", "BRD-3333", "Food", 1.99, 0),
+                new Product("Milk", "MLK-4444", "Food", 2.49, 0),
+                new Product("Cheese", "CHS-5555", "Food", 5.99, 10));
+
+        // when
+        List<Product>  actual = PRODUCT_SERVICE.findProductsByKeyword(PRODUCTS, "Food");
+
+        // then
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void findProductsByKeywordPriceTest(){
+        // given
+        List<Product> expected = List.of(new Product("Jacket", "JCK-2222", "Fashion", 119.99, 15),
+                new Product("Toy Car", "TOY-6666", "Toys", 19.99, 25));
+
+        // when
+        List<Product>  actual = PRODUCT_SERVICE.findProductsByKeyword(PRODUCTS, "19.99");
 
         // then
         Assertions.assertEquals(expected, actual);

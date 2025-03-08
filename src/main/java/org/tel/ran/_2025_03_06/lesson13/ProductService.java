@@ -15,12 +15,7 @@ public class ProductService {
 
     public List<Product> getThreeMostExpensive(List<Product> products) {
         List<Product> copyOfProducts = new ArrayList<>(products);
-        copyOfProducts.sort(new Comparator<Product>() {
-            @Override
-            public int compare(Product o1, Product o2) {
-                return (int) (o2.getPrice() - o1.getPrice()) * 100;
-            }
-        });
+        copyOfProducts.sort(new ProductComparator());
         // copyOfProducts.sort((o1, o2) -> (int) (o2.getPrice() * 10 - o1.getPrice() * 10));
         if (copyOfProducts.size() <= 3) {
             return copyOfProducts;
@@ -30,12 +25,7 @@ public class ProductService {
 
     public List<Product> getSortedByFinalPrice(List<Product> products) {
         List<Product> copyOfProducts = new ArrayList<>(products);
-        copyOfProducts.sort(new Comparator<Product>() {
-            @Override
-            public int compare(Product o1, Product o2) {
-                return (int) (o1.getFinalPrice() - o2.getFinalPrice()) * 100;
-            }
-        });
+        copyOfProducts.sort(new ProductComparator().reversed());
         // copyOfProducts.sort((o1, o2) -> (int) (o1.getFinalPrice() * 100 - o2.getFinalPrice() * 100));
         return copyOfProducts;
     }
@@ -77,5 +67,35 @@ public class ProductService {
             }
         }
         return category;
+    }
+
+    public String findCheapestCategory(List<Product> products) {
+        Map<String, List<Product>> groupedByCategory = groupByCategory(products);
+        String category = "";
+        double minAveragePrice = Double.MAX_VALUE;
+        double averagePrice = 0;
+        for (Map.Entry<String, List<Product>> entry : groupedByCategory.entrySet()) {
+            for (Product product : entry.getValue()) {
+                averagePrice += product.getFinalPrice();
+            }
+            averagePrice /= entry.getValue().size();
+
+            if (averagePrice < minAveragePrice) {
+                category = entry.getKey();
+                minAveragePrice = averagePrice;
+            }
+            averagePrice = 0;
+        }
+        return category;
+    }
+
+    public List<Product> findProductsByKeyword(List<Product> products, String target) {
+        List<Product> output = new ArrayList<>();
+        for (Product product : products) {
+            if (product.getCategory().contains(target) || product.getName().contains(target) || String.valueOf(product.getPrice()).contains(target)){
+                output.add(product);
+            }
+        }
+        return output;
     }
 }
