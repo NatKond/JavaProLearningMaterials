@@ -105,23 +105,23 @@ public class ProductServiceTest {
         List<Product> productsWithInvalidSku = new ArrayList<>(LIST_WITH_TWO_PRODUCTS);
 
         productsWithInvalidSku.add(new Product("Shoes", "SHO-111", "Fashion", 59.99, 20));
-        RuntimeException runtimeException = Assertions.assertThrows(InvalidSkuException.class, ()-> PRODUCT_SERVICE.checkAllSku(productsWithInvalidSku));
+        RuntimeException runtimeException = Assertions.assertThrows(InvalidSkuException.class, () -> PRODUCT_SERVICE.checkAllSku(productsWithInvalidSku));
         Assertions.assertEquals("Shoes has invalid stock keeping unit.", runtimeException.getMessage());
         productsWithInvalidSku.removeLast();
 
         productsWithInvalidSku.add(new Product("Tablet", "AB-1234", "Electronics", 1200.99, 10));
-        runtimeException = Assertions.assertThrows(InvalidSkuException.class, ()-> PRODUCT_SERVICE.checkAllSku(productsWithInvalidSku));
+        runtimeException = Assertions.assertThrows(InvalidSkuException.class, () -> PRODUCT_SERVICE.checkAllSku(productsWithInvalidSku));
         Assertions.assertEquals("Tablet has invalid stock keeping unit.", runtimeException.getMessage());
         productsWithInvalidSku.removeLast();
 
         productsWithInvalidSku.add(new Product("Cheese", "CHS5555", "Food", 5.99, 10));
-        runtimeException = Assertions.assertThrows(InvalidSkuException.class, ()-> PRODUCT_SERVICE.checkAllSku(productsWithInvalidSku));
+        runtimeException = Assertions.assertThrows(InvalidSkuException.class, () -> PRODUCT_SERVICE.checkAllSku(productsWithInvalidSku));
         Assertions.assertEquals("Cheese has invalid stock keeping unit.", runtimeException.getMessage());
         Assertions.assertThrows(InvalidSkuException.class, () -> PRODUCT_SERVICE.checkAllSku(productsWithInvalidSku));
     }
 
     @Test
-    void productsWithPricesTest() {
+    void getProductsWithPricesTest() {
         // given
         List<Product> expected = List.of(
                 new Product("Bread", "BRD-3333", "Food", 1.99, 0),
@@ -130,7 +130,7 @@ public class ProductServiceTest {
                 new Product("Toy Car", "TOY-6666", "Toys", 19.99, 25));
 
         //when
-        List<Product> actual = PRODUCT_SERVICE.productsWithPrices(PRODUCTS, 1, 20);
+        List<Product> actual = PRODUCT_SERVICE.getProductsWithPrices(PRODUCTS, 1, 20);
 
         // then
         Assertions.assertEquals(expected, actual);
@@ -152,14 +152,14 @@ public class ProductServiceTest {
         );
 
         //when
-        List<Product> actual = PRODUCT_SERVICE.applyDiscountToCategory(PRODUCTS,"Electronics", 20);
+        List<Product> actual = PRODUCT_SERVICE.applyDiscountToCategory(PRODUCTS, "Electronics", 20);
 
         // then
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void findMostPopularCategoryPositiveCaseTest(){
+    void findMostPopularCategoryPositiveCaseTest() {
         // given
         String expected = "Electronics";
 
@@ -171,12 +171,12 @@ public class ProductServiceTest {
     }
 
     @Test
-    void findMostPopularCategoryNegativeCaseTest(){
+    void findMostPopularCategoryNegativeCaseTest() {
         Assertions.assertThrows(NullPointerException.class, () -> PRODUCT_SERVICE.findMostPopularCategory(null));
     }
 
     @Test
-    void findCheapestCategoryTest (){
+    void findCheapestCategoryTest() {
         // given
         String expected = "Food";
 
@@ -188,39 +188,41 @@ public class ProductServiceTest {
     }
 
     @Test
-    void findProductsByKeywordNameTest(){
+    void findProductsByKeywordNameTest() {
         // given
-        List<Product> expected = List.of(new Product("Tablet", "TAB-9999", "Electronics", 499.99, 0));
+        List<Product> expected = List.of(new Product("Laptop", "ABC-1234", "Electronics", 1200.99, 10),
+                new Product("Phone", "XYZ-5678", "Electronics", 799.49, 5),
+                new Product("Tablet", "TAB-9999", "Electronics", 499.99, 0));
 
         // when
-        List<Product>  actual = PRODUCT_SERVICE.findProductsByKeyword(PRODUCTS, "Tab");
+        List<Product> actual = PRODUCT_SERVICE.findProductsByKeyword(PRODUCTS, "electro");
 
         // then
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void findProductsByKeywordCategoryTest(){
+    void findProductsByKeywordCategoryTest() {
         // given
         List<Product> expected = List.of(new Product("Bread", "BRD-3333", "Food", 1.99, 0),
                 new Product("Milk", "MLK-4444", "Food", 2.49, 0),
                 new Product("Cheese", "CHS-5555", "Food", 5.99, 10));
 
         // when
-        List<Product>  actual = PRODUCT_SERVICE.findProductsByKeyword(PRODUCTS, "Food");
+        List<Product> actual = PRODUCT_SERVICE.findProductsByKeyword(PRODUCTS, "Food");
 
         // then
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void findProductsByKeywordPriceTest(){
+    void findProductsByKeywordPriceTest() {
         // given
         List<Product> expected = List.of(new Product("Jacket", "JCK-2222", "Fashion", 119.99, 15),
                 new Product("Toy Car", "TOY-6666", "Toys", 19.99, 25));
 
         // when
-        List<Product>  actual = PRODUCT_SERVICE.findProductsByKeyword(PRODUCTS, "19.99");
+        List<Product> actual = PRODUCT_SERVICE.findProductsByKeyword(PRODUCTS, "19.99");
 
         // then
         Assertions.assertEquals(expected, actual);
