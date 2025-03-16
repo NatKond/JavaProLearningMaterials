@@ -22,6 +22,8 @@ class TeamTest {
     void meetsRequirementsPositiveTest() {
         Assertions.assertTrue(TEAM.meetsRequirements(Set.of(Skill.ROOFER,Skill.CARPENTER,Skill.CONCRETE_WORKER)));
     }
+
+    @Test
     void meetsRequirementsNegativeTest() {
         Assertions.assertFalse(TEAM.meetsRequirements(Set.of(Skill.ROOFER,Skill.CARPENTER,Skill.CONCRETE_WORKER, Skill.CRANE_OPERATOR)));
     }
