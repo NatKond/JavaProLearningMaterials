@@ -5,6 +5,7 @@ import java.util.*;
 public class ProductService {
 
     public Map<String, List<Product>> groupByCategory(List<Product> products) {
+        checkProductList(products);
         Map<String, List<Product>> productsGroupedByCategory = new HashMap<>();
         for (Product product : products) {
             productsGroupedByCategory.putIfAbsent(product.getCategory(), new ArrayList<>());
@@ -14,6 +15,7 @@ public class ProductService {
     }
 
     public List<Product> getThreeMostExpensive(List<Product> products) {
+        checkProductList(products);
         List<Product> copyOfProducts = new ArrayList<>(products);
         copyOfProducts.sort(new ProductComparator());
         // copyOfProducts.sort((o1, o2) -> (int) (o2.getPrice() * 10 - o1.getPrice() * 10));
@@ -24,6 +26,7 @@ public class ProductService {
     }
 
     public List<Product> getSortedByFinalPrice(List<Product> products) {
+        checkProductList(products);
         List<Product> copyOfProducts = new ArrayList<>(products);
         copyOfProducts.sort(new ProductComparator().reversed());
         // copyOfProducts.sort((o1, o2) -> (int) (o1.getFinalPrice() * 100 - o2.getFinalPrice() * 100));
@@ -31,15 +34,17 @@ public class ProductService {
     }
 
     public void checkAllSku(List<Product> products) {
+        checkProductList(products);
         for (Product product : products) {
             product.checkSku();
         }
     }
 
-    public List<Product> productsWithPrices(List<Product> products, double min, double max) {
+    public List<Product> getProductsWithPrices(List<Product> products, double min, double max) {
+        checkProductList(products);
         List<Product> output = new ArrayList<>();
         for (Product product : products) {
-            if (product.getPrice() > min && product.getPrice() < max) {
+            if (product.getPrice() >= min && product.getPrice() <= max) {
                 output.add(product);
             }
         }
@@ -47,16 +52,17 @@ public class ProductService {
     }
 
     public List<Product> applyDiscountToCategory(List<Product> products, String category, double discount) {
-        List<Product> copyOfProducts = new ArrayList<>(products);
-        for (Product product : copyOfProducts) {
+        checkProductList(products);
+        for (Product product : products) {
             if (product.getCategory().equals(category)) {
                 product.setDiscountPercentage(discount);
             }
         }
-        return copyOfProducts;
+        return products;
     }
 
     public String findMostPopularCategory(List<Product> products) {
+        checkProductList(products);
         Map<String, List<Product>> groupedByCategory = groupByCategory(products);
         int count = 0;
         String category = "";
@@ -70,32 +76,42 @@ public class ProductService {
     }
 
     public String findCheapestCategory(List<Product> products) {
+        checkProductList(products);
         Map<String, List<Product>> groupedByCategory = groupByCategory(products);
         String category = "";
         double minAveragePrice = Double.MAX_VALUE;
-        double averagePrice = 0;
         for (Map.Entry<String, List<Product>> entry : groupedByCategory.entrySet()) {
+            double sum = 0;
             for (Product product : entry.getValue()) {
-                averagePrice += product.getFinalPrice();
+                sum += product.getFinalPrice();
             }
-            averagePrice /= entry.getValue().size();
-
+            double averagePrice = sum / entry.getValue().size();
             if (averagePrice < minAveragePrice) {
                 category = entry.getKey();
                 minAveragePrice = averagePrice;
             }
-            averagePrice = 0;
         }
         return category;
     }
 
     public List<Product> findProductsByKeyword(List<Product> products, String target) {
+        checkProductList(products);
+        target = target.toLowerCase();
         List<Product> output = new ArrayList<>();
         for (Product product : products) {
-            if (product.getCategory().contains(target) || product.getName().contains(target) || String.valueOf(product.getPrice()).contains(target)){
+            String category = product.getCategory().toLowerCase();
+            String name = product.getName().toLowerCase();
+            String price = String.valueOf(product.getPrice());
+            if (category.contains(target) || name.contains(target) || price.contains(target)) {
                 output.add(product);
             }
         }
         return output;
+    }
+
+    private void checkProductList(List<Product> products) {
+        if (products == null || products.isEmpty()) {
+            throw new InvalidProductListException("Product list is null or empty.");
+        }
     }
 }

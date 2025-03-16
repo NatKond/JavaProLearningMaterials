@@ -9,7 +9,11 @@ import static org.tel.ran.textFormatting.*;
 
 public class WordCounter {
 
-    public static Map<String, Integer> getWordsCountMap(String string) {
+    public static String countWords(String text){
+        return printMap(getWordsCountMap(text));
+    }
+
+    private static Map<String, Integer> getWordsCountMap(String string) {
         String[] strings = string.replaceAll("[^\\p{L}' ]", "").trim().toLowerCase().split("\\s+");
         Map<String, Integer> output = new TreeMap<>(Comparator.naturalOrder());
         for (String str : strings) {
@@ -22,7 +26,7 @@ public class WordCounter {
         return output;
     }
 
-    public static String printMap(Map<String, Integer> wordsCountMap) {
+    private static String printMap(Map<String, Integer> wordsCountMap) {
         Set<Map.Entry<String, Integer>> wordsCountSet = wordsCountMap.entrySet();
         StringBuilder output = new StringBuilder();
         char letter = ' ';
@@ -41,5 +45,4 @@ public class WordCounter {
         }
         return output.toString();
     }
-
 }

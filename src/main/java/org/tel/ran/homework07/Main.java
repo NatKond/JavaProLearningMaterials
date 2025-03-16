@@ -34,8 +34,7 @@ public class Main {
                 case "1" -> {
                     System.out.println("Enter some text:");
                     input = SCANNER.nextLine();
-                    wordsCount = WordCounter.getWordsCountMap(input);
-                    System.out.println(WordCounter.printMap(wordsCount));
+                    System.out.println(WordCounter.countWords(input));
                 }
             }
         }
