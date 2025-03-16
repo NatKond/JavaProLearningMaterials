@@ -21,7 +21,6 @@ public enum Country {
     };
 
     private String currency;
-
     private String currencySymbol;
 
     Country(String currency) {
