@@ -11,15 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TeamTest {
 
-    private final Team TEAM = new Team(1500);
-
-    @BeforeEach
-    void init() {
-        TEAM.addWorker(new Worker("John Smith", Set.of(Skill.ARCHITECT, Skill.CIVIL_ENGINEER)),
-                new Worker("Alice Johnson", Set.of(Skill.ROOFER, Skill.CARPENTER, Skill.PAINTER_PLASTERER)),
-                new Worker("Michael Brown", Set.of(Skill.ECONOMIST)),
-                new Worker("Emma Davis", Set.of(Skill.CONCRETE_WORKER)));
-    }
+    private final Team TEAM = new Team(List.of(
+            new Worker("John Smith", Set.of(Skill.ARCHITECT, Skill.CIVIL_ENGINEER)),
+            new Worker("Alice Johnson", Set.of(Skill.ROOFER, Skill.CARPENTER, Skill.PAINTER_PLASTERER)),
+            new Worker("Michael Brown", Set.of(Skill.ECONOMIST)),
+            new Worker("Emma Davis", Set.of(Skill.CONCRETE_WORKER))),
+            1500);
 
     @Test
     void meetsRequirementsPositiveTest() {
