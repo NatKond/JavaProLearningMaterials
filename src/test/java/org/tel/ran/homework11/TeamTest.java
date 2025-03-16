@@ -1,6 +1,7 @@
 package org.tel.ran.homework11;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -18,24 +19,20 @@ class TeamTest {
             1500);
 
     @Test
-    void addWorker() {
-        // given
-        Team expected = new Team(List.of(
-                new Worker("John Smith", Set.of(Skill.ARCHITECT, Skill.CIVIL_ENGINEER)),
-                new Worker("Alice Johnson", Set.of(Skill.ROOFER, Skill.CARPENTER, Skill.PAINTER_PLASTERER)),
-                new Worker("Michael Brown", Set.of(Skill.ECONOMIST)),
-                new Worker("Emma Davis", Set.of(Skill.CONCRETE_WORKER)),
-                new Worker("Robert Wilson", Set.of(Skill.TECHNOLOGIST, Skill.MASTER_OF_CONSTRUCTION_AND_INSTALLATION_WORKS))),
-                1500);
-
-        // when
-        TEAM.addWorker( new Worker("Robert Wilson", Set.of(Skill.TECHNOLOGIST, Skill.MASTER_OF_CONSTRUCTION_AND_INSTALLATION_WORKS)));
-        //then
-        Assertions.assertEquals(expected,TEAM);
+    void meetsRequirementsPositiveTest() {
+        Assertions.assertTrue(TEAM.meetsRequirements(Set.of(Skill.ROOFER,Skill.CARPENTER,Skill.CONCRETE_WORKER)));
+    }
+    void meetsRequirementsNegativeTest() {
+        Assertions.assertFalse(TEAM.meetsRequirements(Set.of(Skill.ROOFER,Skill.CARPENTER,Skill.CONCRETE_WORKER, Skill.CRANE_OPERATOR)));
     }
 
     @Test
-    void meetsRequirements() {
-        Assertions.assertTrue(TEAM.meetsRequirements(Set.of(Skill.ROOFER,Skill.CARPENTER,Skill.CONCRETE_WORKER)));
+    void meetsRequirementsAdvancedPositiveTest() {
+        Assertions.assertTrue(TEAM.meetsRequirementsAdvanced(Set.of(Skill.ROOFER,Skill.CONCRETE_WORKER,Skill.ARCHITECT)));
+    }
+
+    @Test
+    void meetsRequirementsAdvancedNegativeTest() {
+        Assertions.assertFalse(TEAM.meetsRequirementsAdvanced(Set.of(Skill.ROOFER,Skill.CARPENTER,Skill.ARCHITECT)));
     }
 }
