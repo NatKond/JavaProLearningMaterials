@@ -6,6 +6,6 @@ public class ProductComparator implements Comparator<Product> {
 
     @Override
     public int compare(Product o1, Product o2) {
-        return (int) ((o1.getFinalPrice() - o2.getFinalPrice()) * 100);
+        return (int) (o1.getFinalPrice() * 100 - o2.getFinalPrice() * 100);
     }
 }

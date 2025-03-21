@@ -2,7 +2,6 @@ package org.tel.ran.homework11;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Worker {
@@ -10,7 +9,7 @@ public class Worker {
     private Set<Skill> skills;
 
     public Worker(String name) {
-        this(name,new HashSet<>());
+        this(name, new HashSet<>());
     }
 
     public Worker(String name, Set<Skill> skills) {

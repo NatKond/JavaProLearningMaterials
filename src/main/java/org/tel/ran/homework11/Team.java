@@ -39,26 +39,6 @@ public class Team {
         return getAllSkills().containsAll(requirements);
     }
 
-    public boolean meetsRequirementsAdvanced(Set<Skill> requirements) {
-        List<Worker> workerListCopy = new ArrayList<>(workerList);
-        boolean hasAllSkills = true;
-        for (Skill skill : requirements) {
-            boolean containSkill = false;
-            for (Worker worker: workerListCopy){
-                if (worker.getSkills().contains(skill)){
-                    containSkill = true;
-                    workerListCopy.remove(worker);
-                    break;
-                }
-            }
-            if (!containSkill){
-                hasAllSkills = false;
-                break;
-            }
-        }
-        return hasAllSkills;
-    }
-
     @Override
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
@@ -76,15 +56,20 @@ public class Team {
         return workerList.toString() + "\nbitAmount = " + bidAmount;
     }
 
-    private void resetSkills(){
-        for (Worker worker: workerList){
-            for (Skill skill: worker.getSkills()){
+    private void rotateList(List<Worker> workerList) {
+        workerList.addLast(workerList.getFirst());
+        workerList.removeFirst();
+    }
+
+    private void resetSkills() {
+        for (Worker worker : workerList) {
+            for (Skill skill : worker.getSkills()) {
                 skill.reset();
             }
         }
     }
 
-    private Set<Skill> getAllSkills() {
+    public Set<Skill> getAllSkills() {
         Set<Skill> skills = new HashSet<>();
         for (Worker worker : workerList) {
             skills.addAll(worker.getSkills());

@@ -33,38 +33,38 @@ class TenderTest {
 
     @Test
     void chooseTeamPositiveTest() {
-        Assertions.assertEquals(TEAM_2, TENDER.chooseTeam(TEAM_1, TEAM_2));
+        Assertions.assertEquals(TEAM_2, TENDER.chooseTeam(false, TEAM_1, TEAM_2));
     }
 
     @Test
     void chooseTeamNegativeTestNoSuitableTeams() {
         TENDER.addRequirement(Skill.CRANE_OPERATOR);
-        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(TEAM_1, TEAM_2));
+        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(false, TEAM_1, TEAM_2));
         Assertions.assertEquals("There is no suitable team.", runtimeException.getMessage());
     }
 
     @Test
     void chooseTeamNegativeTestNoTeams() {
-        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam());
-        Assertions.assertEquals("There are no teams in the list.", runtimeException.getMessage());
+        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(false));
+        Assertions.assertEquals("There is no suitable team.", runtimeException.getMessage());
     }
 
     @Test
     void chooseTeamAdvancedPositiveTest() {
-        Assertions.assertEquals(TEAM_1, TENDER.chooseTeamAdvanced(TEAM_1, TEAM_2));
+        Assertions.assertEquals(TEAM_1, TENDER.chooseTeam(true, TEAM_1, TEAM_2));
     }
 
     @Test
     void chooseTeamAdvancedNegativeTestNoSuitableTeams() {
         TENDER.addRequirement(Skill.CRANE_OPERATOR);
-        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeamAdvanced(TEAM_1, TEAM_2));
+        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(true, TEAM_1, TEAM_2));
         Assertions.assertEquals("There is no suitable team.", runtimeException.getMessage());
     }
 
     @Test
     void chooseTeamAdvancedNegativeTestNoTeams() {
-        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeamAdvanced());
-        Assertions.assertEquals("There are no teams in the list.", runtimeException.getMessage());
+        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(true));
+        Assertions.assertEquals("There is no suitable team.", runtimeException.getMessage());
     }
 
 }

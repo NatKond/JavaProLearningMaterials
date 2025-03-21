@@ -7,9 +7,9 @@ import java.util.*;
 
 public class ProductServiceTest {
 
-    private static final ProductService PRODUCT_SERVICE = new ProductService();
+    private final ProductService PRODUCT_SERVICE = new ProductService();
 
-    private static final List<Product> PRODUCTS = new ArrayList<>(List.of(
+    private final List<Product> PRODUCTS = new ArrayList<>(List.of(
             new Product("Laptop", "ABC-1234", "Electronics", 1200.99, 10),
             new Product("Phone", "XYZ-5678", "Electronics", 799.49, 5),
             new Product("Tablet", "TAB-9999", "Electronics", 499.99, 0),
@@ -21,7 +21,7 @@ public class ProductServiceTest {
             new Product("Toy Car", "TOY-6666", "Toys", 19.99, 25)
     ));
 
-    private static final List<Product> LIST_WITH_TWO_PRODUCTS = new ArrayList<>(List.of(
+    private final List<Product> LIST_WITH_TWO_PRODUCTS = new ArrayList<>(List.of(
             new Product("Shoes", "SHO-1111", "Fashion", 59.99, 20),
             new Product("Tablet", "TAB-9999", "Electronics", 499.99, 0)
     ));
@@ -172,7 +172,12 @@ public class ProductServiceTest {
 
     @Test
     void findMostPopularCategoryNegativeCaseTest() {
-        Assertions.assertThrows(NullPointerException.class, () -> PRODUCT_SERVICE.findMostPopularCategory(null));
+        Assertions.assertThrows(InvalidProductListException.class, () -> PRODUCT_SERVICE.findMostPopularCategory(null));
+    }
+
+    @Test
+    void findMostPopularCategoryEmptyListTest() {
+        Assertions.assertNull(PRODUCT_SERVICE.findMostPopularCategory(new ArrayList<>()));
     }
 
     @Test

@@ -1,11 +1,10 @@
 package org.tel.ran.homework11;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Tender {
+
+    private final Map<Boolean, TeamChecker> TEAM_CHECKER_MAP = Map.of(false, new RegularTeamChecker(), true, new AdvanceTeamChecker());
 
     private Set<Skill> requirements;
 
@@ -25,33 +24,13 @@ public class Tender {
         return requirements;
     }
 
-    public Team chooseTeam(Team... teams) {
-        if (teams.length == 0) {
-            throw new NoSuitableTeamException("There are no teams in the list.");
-        }
-
+    public Team chooseTeam(boolean useAdvance, Team... teams) {
+        TeamChecker teamChecker = TEAM_CHECKER_MAP.get(useAdvance);
         Team choosenTeam = null;
         double minBitAmount = Double.MAX_VALUE;
-        for (Team team : teams) {
-            if (team != null && team.meetsRequirements(requirements) && team.getBidAmount() < minBitAmount) {
-                choosenTeam = team;
-                minBitAmount = team.getBidAmount();
-            }
-        }
-        if (choosenTeam == null) {
-            throw new NoSuitableTeamException("There is no suitable team.");
-        }
-        return choosenTeam;
-    }
 
-    public Team chooseTeamAdvanced(Team... teams) {
-        if (teams.length == 0) {
-            throw new NoSuitableTeamException("There are no teams in the list.");
-        }
-        Team choosenTeam = null;
-        double minBitAmount = Double.MAX_VALUE;
         for (Team team : teams) {
-            if (team != null && team.meetsRequirementsAdvanced(requirements) && team.getBidAmount() < minBitAmount) {
+            if (team != null && teamChecker.meatsTeamRequirements(team, this) && team.getBidAmount() < minBitAmount) {
                 choosenTeam = team;
                 minBitAmount = team.getBidAmount();
             }
@@ -60,8 +39,6 @@ public class Tender {
         if (choosenTeam == null) {
             throw new NoSuitableTeamException("There is no suitable team.");
         }
-
         return choosenTeam;
     }
-
 }

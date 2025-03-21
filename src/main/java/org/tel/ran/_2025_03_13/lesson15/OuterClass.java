@@ -12,7 +12,7 @@ public class OuterClass {
     }
 
     public void anonymousClassExample() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        int a = 5;
+        int a = 5; // можно обращаться 
         SomeClass someClass = new SomeClass("Harry! ") {
             @Override
             public void doSomething() {
@@ -24,13 +24,12 @@ public class OuterClass {
             }
         };
         someClass.doSomething();
-
         SomeClass someClass1 = new SomeClass("Ron");
     }
 
     public void localClassExample() {
-        final int localOuter1 = 1;
-        int localOuter2 = 2;
+        final int localOuter1 = 1; // в локальном классе можно обращаться к финальной и эффективно-финальной переменной
+        int localOuter2 = 2; // то есть переменной не должно переприсваиваться значение
 
         class LocalClass {
             private static String localStaticField = "content of local static field";
@@ -49,6 +48,8 @@ public class OuterClass {
                 System.out.println(localOuter1);
                 System.out.println(localOuter2);
             }
+
+
 
             LocalClass localClass1 = new LocalClass("content of local class");
             LocalClass localClass2 = new LocalClass("content of local class");
