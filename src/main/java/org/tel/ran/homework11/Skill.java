@@ -11,18 +11,5 @@ public enum Skill {
     CARPENTER,
     ROOFER,
     CONCRETE_WORKER,
-    PAINTER_PLASTERER;
-
-    private boolean isChecked = false;
-
-    public void check(){
-        isChecked = true;
-    }
-    public boolean hasBeenChecked(){
-        return isChecked;
-    }
-
-    public void reset(){
-        isChecked = false;
-    }
+    PAINTER_PLASTERER
 }

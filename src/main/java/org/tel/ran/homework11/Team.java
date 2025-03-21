@@ -32,13 +32,6 @@ public class Team {
         workerList.addAll(Arrays.asList(worker));
     }
 
-    public boolean meetsRequirements(Set<Skill> requirements) {
-        if (requirements == null || requirements.isEmpty()) {
-            return false;
-        }
-        return getAllSkills().containsAll(requirements);
-    }
-
     @Override
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
@@ -54,19 +47,6 @@ public class Team {
     @Override
     public String toString() {
         return workerList.toString() + "\nbitAmount = " + bidAmount;
-    }
-
-    private void rotateList(List<Worker> workerList) {
-        workerList.addLast(workerList.getFirst());
-        workerList.removeFirst();
-    }
-
-    private void resetSkills() {
-        for (Worker worker : workerList) {
-            for (Skill skill : worker.getSkills()) {
-                skill.reset();
-            }
-        }
     }
 
     public Set<Skill> getAllSkills() {
