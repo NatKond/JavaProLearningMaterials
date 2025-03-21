@@ -4,7 +4,10 @@ import java.util.*;
 
 public class Tender {
 
-    private final Map<Boolean, TeamChecker> TEAM_CHECKER_MAP = Map.of(false, new RegularTeamChecker(), true, new AdvanceTeamChecker());
+    private final Map<TeamCheck, TeamChecker> TEAM_CHECKER_MAP = Map.of(TeamCheck.REGULAR, new RegularTeamChecker(),
+            TeamCheck.ADVANCE_RECURSIVE, new AdvanceTeamCheckerRecursive(),
+            TeamCheck.ADVANCE_ITERATIVE, new AdvanceTeamCheckerIterative(),
+            TeamCheck.ADVANCE_MAP, new AdvanceTeamCheckerMap());
 
     private Set<Skill> requirements;
 
@@ -24,8 +27,8 @@ public class Tender {
         return requirements;
     }
 
-    public Team chooseTeam(boolean useAdvance, Team... teams) {
-        TeamChecker teamChecker = TEAM_CHECKER_MAP.get(useAdvance);
+    public Team chooseTeam(TeamCheck teamCheck, Team... teams) {
+        TeamChecker teamChecker = TEAM_CHECKER_MAP.get(teamCheck);
         Team choosenTeam = null;
         double minBitAmount = Double.MAX_VALUE;
 
