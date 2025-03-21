@@ -10,16 +10,16 @@ import java.util.Set;
 class TenderTest {
     private final Team TEAM_1 = new Team(List.of(
             new Worker("John Smith", Set.of(Skill.ARCHITECT, Skill.CIVIL_ENGINEER)),
-            new Worker("Alice Johnson", Set.of(Skill.ROOFER)),
-            new Worker("Michael Brown", Set.of(Skill.CARPENTER)),
-            new Worker("Emma Davis", Set.of(Skill.CONCRETE_WORKER)),
+            new Worker("Alice Johnson", Set.of(Skill.ROOFER,  Skill.CONCRETE_WORKER)),
+            new Worker("Michael Brown", Set.of(Skill.ROOFER, Skill.CARPENTER, Skill. MASTER_OF_CONSTRUCTION_AND_INSTALLATION_WORKS)),
+            new Worker("Emma Davis", Set.of(Skill.CARPENTER, Skill.CONCRETE_WORKER)),
             new Worker("Robert Wilson", Set.of(Skill.TECHNOLOGIST, Skill.PAINTER_PLASTERER))),
             1500);
 
     private final Team TEAM_2 = new Team(List.of(
             new Worker("Sophia Miller", Set.of(Skill.SURVEYOR, Skill.CONCRETE_WORKER)),
             new Worker("James Anderson", Set.of(Skill.ARCHITECT)),
-            new Worker("Olivia Thomas", Set.of(Skill.ROOFER)),
+            new Worker("Olivia Thomas", Set.of(Skill.ROOFER, Skill.CONCRETE_WORKER)),
             new Worker("William Martinez", Set.of(Skill.CARPENTER, Skill.PAINTER_PLASTERER)),
             new Worker("Charlotte Taylor", Set.of(Skill.ECONOMIST))),
             1300);

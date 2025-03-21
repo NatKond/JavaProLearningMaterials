@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Set;
 
 public class AdvanceTeamChecker implements TeamChecker {
+
     @Override
-    public boolean meatsTeamRequirements(Team team, Tender tender) {
+    public boolean meetsTeamRequirements(Team team, Tender tender) {
         return checkCombinations(team.getWorkerList(), 0, new HashSet<>(), tender.getRequirements());
     }
 

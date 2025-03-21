@@ -30,7 +30,7 @@ public class Tender {
         double minBitAmount = Double.MAX_VALUE;
 
         for (Team team : teams) {
-            if (team != null && teamChecker.meatsTeamRequirements(team, this) && team.getBidAmount() < minBitAmount) {
+            if (team != null && teamChecker.meetsTeamRequirements(team, this) && team.getBidAmount() < minBitAmount) {
                 choosenTeam = team;
                 minBitAmount = team.getBidAmount();
             }
