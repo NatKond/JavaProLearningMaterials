@@ -1,11 +1,14 @@
 package org.tel.ran.homework11;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Tender {
+
+    private final Map<TeamCheck, TeamChecker> TEAM_CHECKER_MAP = Map.of(
+            TeamCheck.REGULAR, new RegularTeamChecker(),
+            TeamCheck.ADVANCE_RECURSIVE, new AdvanceTeamCheckerRecursive(),
+            TeamCheck.ADVANCE_ITERATIVE, new AdvanceTeamCheckerIterative(),
+            TeamCheck.ADVANCE_MAP, new AdvanceTeamCheckerMap());
 
     private Set<Skill> requirements;
 
@@ -25,33 +28,13 @@ public class Tender {
         return requirements;
     }
 
-    public Team chooseTeam(Team... teams) {
-        if (teams.length == 0) {
-            throw new NoSuitableTeamException("There are no teams in the list.");
-        }
-
+    public Team chooseTeam(TeamCheck teamCheck, Team... teams) {
+        TeamChecker teamChecker = TEAM_CHECKER_MAP.get(teamCheck);
         Team choosenTeam = null;
         double minBitAmount = Double.MAX_VALUE;
-        for (Team team : teams) {
-            if (team != null && team.meetsRequirements(requirements) && team.getBidAmount() < minBitAmount) {
-                choosenTeam = team;
-                minBitAmount = team.getBidAmount();
-            }
-        }
-        if (choosenTeam == null) {
-            throw new NoSuitableTeamException("There is no suitable team.");
-        }
-        return choosenTeam;
-    }
 
-    public Team chooseTeamAdvanced(Team... teams) {
-        if (teams.length == 0) {
-            throw new NoSuitableTeamException("There are no teams in the list.");
-        }
-        Team choosenTeam = null;
-        double minBitAmount = Double.MAX_VALUE;
         for (Team team : teams) {
-            if (team != null && team.meetsRequirementsAdvanced(requirements) && team.getBidAmount() < minBitAmount) {
+            if (team != null && teamChecker.meetsTeamRequirements(team, this) && team.getBidAmount() < minBitAmount) {
                 choosenTeam = team;
                 minBitAmount = team.getBidAmount();
             }
@@ -60,8 +43,15 @@ public class Tender {
         if (choosenTeam == null) {
             throw new NoSuitableTeamException("There is no suitable team.");
         }
-
         return choosenTeam;
     }
 
+    public boolean allRequirementsAreChecked(){
+        for (Skill requirement : requirements) {
+            if (!requirement.hasBeenChecked()){
+                return false;
+            }
+        }
+        return true;
+    }
 }

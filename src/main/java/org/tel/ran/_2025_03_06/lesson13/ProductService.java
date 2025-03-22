@@ -17,8 +17,8 @@ public class ProductService {
     public List<Product> getThreeMostExpensive(List<Product> products) {
         checkProductList(products);
         List<Product> copyOfProducts = new ArrayList<>(products);
-        copyOfProducts.sort(new ProductComparator());
-        // copyOfProducts.sort((o1, o2) -> (int) (o2.getPrice() * 10 - o1.getPrice() * 10));
+        copyOfProducts.sort(new ProductComparator().reversed());
+        // copyOfProducts.sort((o1, o2) -> (int) (o2.getPrice() * 100 - o1.getPrice() * 100));
         if (copyOfProducts.size() <= 3) {
             return copyOfProducts;
         }
@@ -28,7 +28,7 @@ public class ProductService {
     public List<Product> getSortedByFinalPrice(List<Product> products) {
         checkProductList(products);
         List<Product> copyOfProducts = new ArrayList<>(products);
-        copyOfProducts.sort(new ProductComparator().reversed());
+        copyOfProducts.sort(new ProductComparator());
         // copyOfProducts.sort((o1, o2) -> (int) (o1.getFinalPrice() * 100 - o2.getFinalPrice() * 100));
         return copyOfProducts;
     }
@@ -65,7 +65,7 @@ public class ProductService {
         checkProductList(products);
         Map<String, List<Product>> groupedByCategory = groupByCategory(products);
         int count = 0;
-        String category = "";
+        String category = null;
         for (Map.Entry<String, List<Product>> entry : groupedByCategory.entrySet()) {
             if (entry.getValue().size() > count) {
                 category = entry.getKey();
@@ -78,7 +78,7 @@ public class ProductService {
     public String findCheapestCategory(List<Product> products) {
         checkProductList(products);
         Map<String, List<Product>> groupedByCategory = groupByCategory(products);
-        String category = "";
+        String category = null;
         double minAveragePrice = Double.MAX_VALUE;
         for (Map.Entry<String, List<Product>> entry : groupedByCategory.entrySet()) {
             double sum = 0;
@@ -110,7 +110,7 @@ public class ProductService {
     }
 
     private void checkProductList(List<Product> products) {
-        if (products == null || products.isEmpty()) {
+        if (products == null) {
             throw new InvalidProductListException("Product list is null or empty.");
         }
     }

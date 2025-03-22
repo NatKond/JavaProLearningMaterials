@@ -2,15 +2,15 @@ package org.tel.ran.homework11;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Worker {
     private String name;
     private Set<Skill> skills;
+    private boolean isAssigned = false;
 
     public Worker(String name) {
-        this(name,new HashSet<>());
+        this(name, new HashSet<>());
     }
 
     public Worker(String name, Set<Skill> skills) {
@@ -24,6 +24,18 @@ public class Worker {
 
     public String getName() {
         return name;
+    }
+
+    public void assign (){
+        isAssigned = true;
+    }
+
+    public boolean isAssigned() {
+        return isAssigned;
+    }
+
+    public void reassign(){
+        isAssigned = false;
     }
 
     public void addSkill(Skill... skillsToAdd) {
