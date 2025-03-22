@@ -14,19 +14,21 @@ public class AdvanceTeamCheckerRecursive implements TeamChecker {
             return false;
         }
 
-        return checkCombinations(team.getWorkerList(), 0, new HashSet<>(), tender.getRequirements());
+        return checkCombinations(team.getWorkerList(), 0, tender);
     }
 
-    private boolean checkCombinations(List<Worker> workers, int index, Set<Skill> currentSet, Set<Skill> requirements) {
+    private boolean checkCombinations(List<Worker> workers, int index, Tender tender) {
         if (index == workers.size()) {
-            return currentSet.containsAll(requirements);
+            return true;
         }
 
         for (Skill skill : workers.get(index).getSkills()) {
-            if (requirements.contains(skill) && !currentSet.contains(skill)) {
-                currentSet.add(skill);
-                if (checkCombinations(workers, index + 1, currentSet, requirements)) return true;
-                currentSet.remove(skill);
+            if (tender.getRequirements().contains(skill) && !skill.hasBeenChecked()) {
+                skill.check();
+                if (checkCombinations(workers, index + 1, tender)) {
+                    return true;
+                }
+                skill.reset();
             }
         }
         return false;

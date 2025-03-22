@@ -4,7 +4,8 @@ import java.util.*;
 
 public class Tender {
 
-    private final Map<TeamCheck, TeamChecker> TEAM_CHECKER_MAP = Map.of(TeamCheck.REGULAR, new RegularTeamChecker(),
+    private final Map<TeamCheck, TeamChecker> TEAM_CHECKER_MAP = Map.of(
+            TeamCheck.REGULAR, new RegularTeamChecker(),
             TeamCheck.ADVANCE_RECURSIVE, new AdvanceTeamCheckerRecursive(),
             TeamCheck.ADVANCE_ITERATIVE, new AdvanceTeamCheckerIterative(),
             TeamCheck.ADVANCE_MAP, new AdvanceTeamCheckerMap());
@@ -43,5 +44,14 @@ public class Tender {
             throw new NoSuitableTeamException("There is no suitable team.");
         }
         return choosenTeam;
+    }
+
+    public boolean allRequirementsAreChecked(){
+        for (Skill requirement : requirements) {
+            if (!requirement.hasBeenChecked()){
+                return false;
+            }
+        }
+        return true;
     }
 }

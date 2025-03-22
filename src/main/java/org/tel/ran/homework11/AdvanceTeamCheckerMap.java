@@ -2,13 +2,11 @@ package org.tel.ran.homework11;
 
 import java.util.*;
 
-public class AdvanceTeamCheckerMap implements TeamChecker{
+public class AdvanceTeamCheckerMap implements TeamChecker {
 
     @Override
     public boolean meetsTeamRequirements(Team team, Tender tender) {
-        if (tender.getRequirements() == null || tender.getRequirements().isEmpty()
-                || !team.getAllSkills().containsAll(tender.getRequirements())
-                || team.getWorkerList().size() < tender.getRequirements().size()) {
+        if (tender.getRequirements() == null || tender.getRequirements().isEmpty() || !team.getAllSkills().containsAll(tender.getRequirements()) || team.getWorkerList().size() < tender.getRequirements().size()) {
             return false;
         }
 
@@ -42,7 +40,7 @@ public class AdvanceTeamCheckerMap implements TeamChecker{
             workerListCopy.addAll(countNumberOfSkills.get(false));
         } while (!requirementsCopy.isEmpty() && !countNumberOfSkills.get(true).isEmpty());
 
-        // создаем мапу, в которой работники распределены по уменям
+        // создаем мапу, в которой работники распределены по умениям
         Map<Skill, List<Worker>> skillWorkerMap = new HashMap<>();
         for (Skill requirement : requirementsCopy) {
             skillWorkerMap.put(requirement, new ArrayList<>());
@@ -54,22 +52,40 @@ public class AdvanceTeamCheckerMap implements TeamChecker{
         }
 
         // проверям все комбинации работников, очередь используем для промежуточного хранения комбинаций
-        Queue<Set<Worker>> queue = new LinkedList<>();
+        // итеративная проверка
+        /* Queue<Set<Worker>> queue = new LinkedList<>();
         queue.add(new HashSet<>());
         for (Map.Entry<Skill, List<Worker>> skillListEntry : skillWorkerMap.entrySet()) {
             int size = queue.size();
             for (int i = 0; i < size; i++) {
                 Set<Worker> currentWorkerSet = queue.poll();
                 for (Worker worker : skillListEntry.getValue()) {
-                    if (!currentWorkerSet.contains(worker)){
+                    if (!currentWorkerSet.contains(worker)) {
                         Set<Worker> newWorkerSet = new HashSet<>(currentWorkerSet);
                         newWorkerSet.add(worker);
                         queue.add(newWorkerSet);
-                        if (newWorkerSet.size() == skillWorkerMap.size()){
+                        if (newWorkerSet.size() == skillWorkerMap.size()) {
                             return true;
                         }
                     }
                 }
+            }
+        }
+        return false; */
+
+        // рекурсивная проверка
+        return checkCombinations(skillWorkerMap.entrySet().iterator());
+    }
+
+    private boolean checkCombinations(Iterator<Map.Entry<Skill, List<Worker>>> skillListEntryIterator){
+        if (!skillListEntryIterator.hasNext()){
+            return true;
+        }
+        for (Worker worker : skillListEntryIterator.next().getValue()){
+            if (!worker.isAssigned()){
+                worker.assign();
+                if (checkCombinations(skillListEntryIterator)) return true;
+                worker.reassign();
             }
         }
         return false;

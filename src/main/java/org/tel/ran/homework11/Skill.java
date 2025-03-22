@@ -11,5 +11,23 @@ public enum Skill {
     CARPENTER,
     ROOFER,
     CONCRETE_WORKER,
-    PAINTER_PLASTERER
+    PAINTER_PLASTERER;
+    private boolean isChecked = false;
+
+    public void check(){
+        isChecked = true;
+    }
+    public boolean hasBeenChecked(){
+        return isChecked;
+    }
+
+    public void reset(){
+        isChecked = false;
+    }
+
+    @Override
+    public String toString() {
+        return name() +
+                " isChecked = " + isChecked;
+    }
 }
