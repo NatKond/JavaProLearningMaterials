@@ -4,19 +4,13 @@ import java.util.*;
 
 public class Tender {
 
-    private final Map<TeamCheck, TeamChecker> TEAM_CHECKER_MAP = Map.of(
-            TeamCheck.REGULAR, new RegularTeamChecker(),
-            TeamCheck.ADVANCE_RECURSIVE, new AdvanceTeamCheckerRecursive(),
-            TeamCheck.ADVANCE_ITERATIVE, new AdvanceTeamCheckerIterative(),
-            TeamCheck.ADVANCE_MAP, new AdvanceTeamCheckerMap());
-
-    private Set<Skill> requirements;
+    private List<Skill> requirements;
 
     public Tender() {
-        this(new HashSet<>());
+        this(new ArrayList<>());
     }
 
-    public Tender(Set<Skill> requirements) {
+    public Tender(List<Skill> requirements) {
         this.requirements = requirements;
     }
 
@@ -24,17 +18,17 @@ public class Tender {
         requirements.addAll(Arrays.asList(skills));
     }
 
-    public Set<Skill> getRequirements() {
+    public List<Skill> getRequirements() {
         return requirements;
     }
 
-    public Team chooseTeam(TeamCheck teamCheck, Team... teams) {
-        TeamChecker teamChecker = TEAM_CHECKER_MAP.get(teamCheck);
+    public Team chooseTeam(CheckType checkType, Team... teams) {
+        TeamChecker teamChecker = checkType.getTeamChecker();
         Team choosenTeam = null;
         double minBitAmount = Double.MAX_VALUE;
 
         for (Team team : teams) {
-            if (team != null && teamChecker.meetsTeamRequirements(team, this) && team.getBidAmount() < minBitAmount) {
+            if (team != null && teamChecker.meetsTeamRequirements(team, requirements) && team.getBidAmount() < minBitAmount) {
                 choosenTeam = team;
                 minBitAmount = team.getBidAmount();
             }
@@ -44,14 +38,5 @@ public class Tender {
             throw new NoSuitableTeamException("There is no suitable team.");
         }
         return choosenTeam;
-    }
-
-    public boolean allRequirementsAreChecked(){
-        for (Skill requirement : requirements) {
-            if (!requirement.hasBeenChecked()){
-                return false;
-            }
-        }
-        return true;
     }
 }

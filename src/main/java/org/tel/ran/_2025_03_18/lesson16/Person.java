@@ -29,6 +29,10 @@ public class Person {
         return isActive;
     }
 
+    public void sayIt(String s){
+        System.out.println(s);
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;

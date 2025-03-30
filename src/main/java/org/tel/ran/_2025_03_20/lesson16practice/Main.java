@@ -19,6 +19,5 @@ public class Main {
 
         Converter converterLambda = s -> "Howdy, " + s.getName();
         System.out.println(converterLambda.convert(student3));
-
     }
 }

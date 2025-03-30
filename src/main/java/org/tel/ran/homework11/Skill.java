@@ -17,6 +17,7 @@ public enum Skill {
     public void check(){
         isChecked = true;
     }
+
     public boolean hasBeenChecked(){
         return isChecked;
     }
