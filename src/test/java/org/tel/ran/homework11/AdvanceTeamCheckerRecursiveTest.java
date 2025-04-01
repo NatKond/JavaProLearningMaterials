@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 
-class AdvanceTeamCheckerRecursiveTest {
+import static org.junit.jupiter.api.Assertions.*;
 
+class AdvanceTeamCheckerRecursiveTest {
     private final TeamChecker ADVANCE_TEAM_CHECKER = new AdvanceTeamCheckerRecursive();
 
     private final Team TEAM = new Team(new ArrayList<>(Arrays.asList(
@@ -25,27 +26,38 @@ class AdvanceTeamCheckerRecursiveTest {
     void init() {
         TENDER.addRequirement(Skill.ROOFER, Skill.CARPENTER, Skill.CONCRETE_WORKER, Skill.CRANE_OPERATOR);
     }
+
     @Test
-    void meetsTeamRequirementsPositiveCaseTest(){
-        Assertions.assertTrue(ADVANCE_TEAM_CHECKER.meetsTeamRequirements(TEAM,TENDER));
+    void meetsTeamRequirementsPositiveCaseTest() {
+        Assertions.assertTrue(ADVANCE_TEAM_CHECKER.meetsTeamRequirements(TEAM, TENDER.getRequirements()));
     }
 
     @Test
     void meetsTeamRequirementsNoSkillCaseTest() {
         TENDER.addRequirement(Skill.ARCHITECT);
-        Assertions.assertFalse(ADVANCE_TEAM_CHECKER.meetsTeamRequirements(TEAM,TENDER));
+        Assertions.assertFalse(ADVANCE_TEAM_CHECKER.meetsTeamRequirements(TEAM, TENDER.getRequirements()));
     }
 
     @Test
     void meetsTeamRequirementsNoWorkerCaseTest() {
         TENDER.addRequirement(Skill.PAINTER_PLASTERER);
-        Assertions.assertFalse(ADVANCE_TEAM_CHECKER.meetsTeamRequirements(TEAM,TENDER));
+        Assertions.assertFalse(ADVANCE_TEAM_CHECKER.meetsTeamRequirements(TEAM, TENDER.getRequirements()));
     }
 
     @Test
     void meetsTeamRequirementsNoWorkerWithSkillCaseTest() {
         TENDER.addRequirement(Skill.PAINTER_PLASTERER);
         TEAM.addWorker(new Worker("Robert Wilson", Set.of(Skill.TECHNOLOGIST)));
-        Assertions.assertFalse(ADVANCE_TEAM_CHECKER.meetsTeamRequirements(TEAM,TENDER));
+        Assertions.assertFalse(ADVANCE_TEAM_CHECKER.meetsTeamRequirements(TEAM, TENDER.getRequirements()));
+    }
+
+    @Test
+    void meetsTeamRequirementsTooManyWorkersPositiveCaseTest() {
+        TENDER.addRequirement(Skill.PAINTER_PLASTERER);
+        TENDER.addRequirement(Skill.TECHNOLOGIST);
+        TEAM.addWorker(new Worker("Robert Wilson", Set.of(Skill.TECHNOLOGIST)));
+        TEAM.addWorker(new Worker("Robert Wilson", Set.of(Skill.PAINTER_PLASTERER)));
+        TEAM.addWorker(new Worker("Robert Wilson", Set.of(Skill.SURVEYOR)));
+        Assertions.assertTrue(ADVANCE_TEAM_CHECKER.meetsTeamRequirements(TEAM, TENDER.getRequirements()));
     }
 }

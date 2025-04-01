@@ -33,73 +33,55 @@ class TenderTest {
 
     @Test
     void chooseTeamPositiveTest() {
-        Assertions.assertEquals(TEAM_2, TENDER.chooseTeam(TeamCheck.REGULAR, TEAM_1, TEAM_2));
+        Assertions.assertEquals(TEAM_2, TENDER.chooseTeam(CheckType.REGULAR, TEAM_1, TEAM_2));
     }
 
     @Test
     void chooseTeamNegativeTestNoSuitableTeams() {
         TENDER.addRequirement(Skill.CRANE_OPERATOR);
-        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(TeamCheck.REGULAR, TEAM_1, TEAM_2));
+        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(CheckType.REGULAR, TEAM_1, TEAM_2));
         Assertions.assertEquals("There is no suitable team.", runtimeException.getMessage());
     }
 
     @Test
     void chooseTeamNegativeTestNoTeams() {
-        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(TeamCheck.REGULAR));
+        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(CheckType.REGULAR));
         Assertions.assertEquals("There is no suitable team.", runtimeException.getMessage());
     }
 
     @Test
     void chooseTeamAdvancedRecursivePositiveTest() {
-        Assertions.assertEquals(TEAM_1, TENDER.chooseTeam(TeamCheck.ADVANCE_RECURSIVE, TEAM_1, TEAM_2));
+        Assertions.assertEquals(TEAM_1, TENDER.chooseTeam(CheckType.ADVANCE_RECURSIVE, TEAM_1, TEAM_2));
     }
 
     @Test
     void chooseTeamAdvancedRecursiveNegativeTestNoSuitableTeams() {
         TENDER.addRequirement(Skill.CRANE_OPERATOR);
-        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(TeamCheck.ADVANCE_RECURSIVE, TEAM_1, TEAM_2));
+        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(CheckType.ADVANCE_RECURSIVE, TEAM_1, TEAM_2));
         Assertions.assertEquals("There is no suitable team.", runtimeException.getMessage());
     }
 
     @Test
     void chooseTeamAdvancedRecursiveNegativeCaseTestNoTeams() {
-        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(TeamCheck.ADVANCE_RECURSIVE));
+        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(CheckType.ADVANCE_RECURSIVE));
         Assertions.assertEquals("There is no suitable team.", runtimeException.getMessage());
     }
 
     @Test
     void chooseTeamAdvancedIterativePositiveCaseTest() {
-        Assertions.assertEquals(TEAM_1, TENDER.chooseTeam(TeamCheck.ADVANCE_ITERATIVE, TEAM_1, TEAM_2));
+        Assertions.assertEquals(TEAM_1, TENDER.chooseTeam(CheckType.ADVANCE_ITERATIVE, TEAM_1, TEAM_2));
     }
 
     @Test
     void chooseTeamAdvancedIterativeNegativeCaseTestNoSuitableTeams() {
         TENDER.addRequirement(Skill.CRANE_OPERATOR);
-        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(TeamCheck.ADVANCE_ITERATIVE, TEAM_1, TEAM_2));
+        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(CheckType.ADVANCE_ITERATIVE, TEAM_1, TEAM_2));
         Assertions.assertEquals("There is no suitable team.", runtimeException.getMessage());
     }
 
     @Test
     void chooseTeamAdvancedIterativeNegativeCaseTestNoTeams() {
-        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(TeamCheck.ADVANCE_ITERATIVE));
-        Assertions.assertEquals("There is no suitable team.", runtimeException.getMessage());
-    }
-
-    @Test
-    void chooseTeamAdvancedMapPositiveCaseTest() {
-        Assertions.assertEquals(TEAM_1, TENDER.chooseTeam(TeamCheck.ADVANCE_MAP, TEAM_1, TEAM_2));
-    }
-
-    @Test
-    void chooseTeamAdvancedMapNegativeCaseTestNoSuitableTeams() {
-        TENDER.addRequirement(Skill.CRANE_OPERATOR);
-        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(TeamCheck.ADVANCE_MAP, TEAM_1, TEAM_2));
-        Assertions.assertEquals("There is no suitable team.", runtimeException.getMessage());
-    }
-
-    @Test
-    void chooseTeamAdvancedMapNegativeCaseTestNoTeams() {
-        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(TeamCheck.ADVANCE_MAP));
+        RuntimeException runtimeException = Assertions.assertThrows(NoSuitableTeamException.class, () -> TENDER.chooseTeam(CheckType.ADVANCE_ITERATIVE));
         Assertions.assertEquals("There is no suitable team.", runtimeException.getMessage());
     }
 }

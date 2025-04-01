@@ -1,34 +1,62 @@
 package org.tel.ran.homework11;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class AdvanceTeamCheckerRecursive implements TeamChecker {
 
     @Override
-    public boolean meetsTeamRequirements(Team team, Tender tender) {
-        if (tender.getRequirements() == null || tender.getRequirements().isEmpty()
-                || !team.getAllSkills().containsAll(tender.getRequirements())
-                || team.getWorkerList().size() < tender.getRequirements().size()) {
+    public boolean meetsTeamRequirements(Team team, List<Skill> requirements) {
+        if (requirements == null || requirements.isEmpty()
+                || !team.getAllSkills().containsAll(requirements)
+                || team.getWorkerList().size() < requirements.size()) {
             return false;
         }
 
-        return checkCombinations(team.getWorkerList(), 0, tender);
+        List<Worker> workerListCopy = new ArrayList<>(team.getWorkerList());
+        List<Skill> requirementsCopy = new ArrayList<>(requirements);
+        Map<Boolean, List<Worker>> countNumberOfSkills = Map.of(true, new ArrayList<>(), false, new ArrayList<>());
+        do
+        { // строим мапу  со значениями true - если у работника только один нужный навык, false - если у работника больше одного нужного навыка
+            countNumberOfSkills.get(true).clear();
+            countNumberOfSkills.get(false).clear();
+            for (Worker worker : workerListCopy) {
+                int countSkills = 0;
+                for (Skill requirement : requirementsCopy) {
+                    if (worker.getSkills().contains(requirement)) {
+                        countSkills++;
+                    }
+                }
+                if (countSkills != 0) {
+                    countNumberOfSkills.get(countSkills == 1).add(worker);
+                }
+            } // работников с одним нужным навыком удаляем из списка работников, навык так же удаляем из списка требований
+            for (Worker worker : countNumberOfSkills.get(true)) {
+                for (Skill requirement : requirementsCopy) {
+                    if (worker.getSkills().contains(requirement)) {
+                        requirementsCopy.remove(requirement);
+                        break;
+                    }
+                }
+            }
+            workerListCopy.clear();
+            workerListCopy.addAll(countNumberOfSkills.get(false));
+        } while (!requirementsCopy.isEmpty() && !countNumberOfSkills.get(true).isEmpty());
+
+        return checkCombinations(workerListCopy, 0, requirementsCopy, new ArrayList<>());
     }
 
-    private boolean checkCombinations(List<Worker> workers, int index, Tender tender) {
+    private boolean checkCombinations(List<Worker> workers, int index, List<Skill> requirements, List<Skill> skills) {
         if (index == workers.size()) {
-            return true;
+            return skills.equals(requirements);
         }
 
         for (Skill skill : workers.get(index).getSkills()) {
-            if (tender.getRequirements().contains(skill) && !skill.hasBeenChecked()) {
-                skill.check();
-                if (checkCombinations(workers, index + 1, tender)) {
+            if (requirements.contains(skill)) {
+                skills.add(skill);
+                if (checkCombinations(workers, index + 1, requirements, skills)) {
                     return true;
                 }
-                skill.reset();
+                skills.remove(skill);
             }
         }
         return false;
