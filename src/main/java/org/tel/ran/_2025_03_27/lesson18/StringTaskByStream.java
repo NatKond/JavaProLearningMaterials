@@ -18,7 +18,8 @@ public class StringTaskByStream {
                             .append(": ")
                             .append(entry.getValue().pollFirst())
                             .append("\n");
-                    entry.getValue().forEach(string -> {
+                    entry.getValue()
+                            .forEach(string -> {
                         stringBuilder.append("   ")
                                 .append(string)
                                 .append("\n");
