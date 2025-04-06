@@ -26,7 +26,10 @@ public class Task {
     }
 
     public static List<Integer> allMultiplications(List<Integer> list1, List<Integer> list2) {
-        return list1.stream().flatMap(x -> list2.stream().map(y -> x * y)).toList();
+        return list1.stream()
+                .flatMap(x -> list2.stream()
+                        .map(y -> x * y))
+                .toList();
     }
 
     public static Set<List<Integer>> allCombinations(List<Integer> list1, List<Integer> list2) {
