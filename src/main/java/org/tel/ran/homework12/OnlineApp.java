@@ -1,26 +1,24 @@
 package org.tel.ran.homework12;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public final class OnlineApp {
-    private static List<User> users = new ArrayList<>();
-    private static List<Content> content = new ArrayList<>();
-    private static List<Interaction> interactions = new ArrayList<>();
+    private static Set<User> users = new HashSet<>();
+    private static Set<Content> content = new HashSet<>();
+    private static Set<Interaction> interactions = new HashSet<>();
 
-    public static List<User> getUsers() {
+    public static Set<User> getUsers() {
         return users;
     }
 
-    public static List<Content> getContent() {
+    public static Set<Content> getContent() {
         return content;
     }
 
-    public static List<Interaction> getInteractions() {
+    public static Set<Interaction> getInteractions() {
         return interactions;
     }
 
@@ -32,8 +30,8 @@ public final class OnlineApp {
         OnlineApp.content.add(content);
     }
 
-    public static void interact(User user, Content content, InteractionType interactionType) {
-        interactions.add(Interaction.builder(user, content, interactionType).localDate(LocalDate.now()).build());
+    public static void addInteraction(Interaction interaction) {
+        interactions.add(interaction);
     }
 
     public static void interact(User user, Content content, InteractionType interactionType, String comment) {
@@ -60,7 +58,7 @@ public final class OnlineApp {
                 .map(Interaction::getContent)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
-                .sorted((e1, e2) -> Math.toIntExact(e1.getValue() - e2.getValue()))
+                .sorted((e1, e2) -> Math.toIntExact(e2.getValue() - e1.getValue()))
                 .map(Map.Entry::getKey)
                 .limit(3)
                 .toList();
