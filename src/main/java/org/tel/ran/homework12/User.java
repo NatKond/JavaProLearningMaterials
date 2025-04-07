@@ -31,6 +31,10 @@ public class User {
         return country;
     }
 
+    public Set<Interaction> getInteractions() {
+        return interactions;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
@@ -47,19 +51,16 @@ public class User {
         content.view();
         Interaction interaction = Interaction.builder(this, content, InteractionType.VIEW).localDate(date).build();
         this.interactions.add(interaction);
-        OnlineApp.addInteraction(interaction);
     }
 
     public void like(Content content, LocalDate date) {
         Interaction interaction = Interaction.builder(this, content, InteractionType.LIKE).localDate(date).build();
         this.interactions.add(interaction);
-        OnlineApp.addInteraction(interaction);
     }
 
     public void comment(Content content, LocalDate date, String comment) {
         Interaction interaction = Interaction.builder(this, content, InteractionType.COMMENT).localDate(date).comment(comment).build();
         this.interactions.add(interaction);
-        OnlineApp.addInteraction(interaction);
     }
 
     @Override
