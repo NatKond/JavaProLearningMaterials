@@ -1,16 +1,21 @@
 package org.tel.ran.homework12;
 
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class User {
     private String name;
     private int age;
     private String country;
+    private Set<Interaction> interactions;
 
     public User(String name, int age, String country) {
         this.name = name;
         this.age = age;
         this.country = country;
+        this.interactions = new HashSet<>();
         OnlineApp.addUser(this);
     }
 
@@ -26,6 +31,10 @@ public class User {
         return country;
     }
 
+    public Set<Interaction> getInteractions() {
+        return interactions;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
@@ -38,17 +47,20 @@ public class User {
         return Objects.hash(name, age, country);
     }
 
-    public void view(Content content) {
+    public void view(Content content, LocalDate date) {
         content.view();
-        OnlineApp.interact(this, content, InteractionType.VIEW);
+        Interaction interaction = Interaction.builder(this, content, InteractionType.VIEW).localDate(date).build();
+        this.interactions.add(interaction);
     }
 
-    public void like(Content content) {
-        OnlineApp.interact(this, content, InteractionType.LIKE);
+    public void like(Content content, LocalDate date) {
+        Interaction interaction = Interaction.builder(this, content, InteractionType.LIKE).localDate(date).build();
+        this.interactions.add(interaction);
     }
 
-    public void comment(Content content, String comment) {
-        OnlineApp.interact(this, content, InteractionType.COMMENT, comment);
+    public void comment(Content content, LocalDate date, String comment) {
+        Interaction interaction = Interaction.builder(this, content, InteractionType.COMMENT).localDate(date).comment(comment).build();
+        this.interactions.add(interaction);
     }
 
     @Override

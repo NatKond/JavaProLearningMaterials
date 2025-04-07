@@ -1,69 +1,42 @@
 package org.tel.ran.homework12;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public final class OnlineApp {
-    private static List<User> users = new ArrayList<>();
-    private static List<Content> content = new ArrayList<>();
-    private static List<Interaction> interactions = new ArrayList<>();
+    private static Set<User> users = new HashSet<>();
 
-    public static List<User> getUsers() {
+    public static Set<User> getUsers() {
         return users;
-    }
-
-    public static List<Content> getContent() {
-        return content;
-    }
-
-    public static List<Interaction> getInteractions() {
-        return interactions;
     }
 
     public static void addUser(User user) {
         OnlineApp.users.add(user);
     }
 
-    public static void addContent(Content content) {
-        OnlineApp.content.add(content);
-    }
-
-    public static void interact(User user, Content content, InteractionType interactionType) {
-        interactions.add(Interaction.builder(user, content, interactionType).localDate(LocalDate.now()).build());
-    }
-
-    public static void interact(User user, Content content, InteractionType interactionType, String comment) {
-        interactions.add(Interaction.builder(user, content, interactionType).localDate(LocalDate.now()).comment(comment).build());
-    }
-
-    public static List<User> findMostActiveUsers() {
-        Map<User, Long> userCountInteractionsMap = interactions.stream()
-                .map(Interaction::getUser)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
-        long maxInteractions = userCountInteractionsMap.values().stream()
-                .max(Long::compare)
+    public static Set<User> findMostActiveUsers() {
+        int maxInteractions = users.stream()
+                .map(user -> user.getInteractions().size())
+                .max(Integer::compare)
                 .orElseThrow();
 
-        return userCountInteractionsMap.entrySet().stream()
-                .filter(entry -> entry.getValue() == maxInteractions)
-                .map(Map.Entry::getKey)
-                .toList();
+        return users.stream()
+                .filter(user -> user.getInteractions().size() == maxInteractions)
+                .collect(Collectors.toSet());
     }
 
-    public static List<Content> findThreeMostPopularContent() {
-        return interactions.stream()
-                .map(Interaction::getContent)
+    public static Set<Content> findThreeMostPopularContent() {
+        return users.stream()
+                .flatMap(user -> user.getInteractions().stream().map(Interaction::getContent))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
-                .sorted((e1, e2) -> Math.toIntExact(e1.getValue() - e2.getValue()))
+                .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
                 .map(Map.Entry::getKey)
                 .limit(3)
-                .toList();
+                .collect(Collectors.toSet());
     }
 
     public static Map<String, Double> findAverageOfInteractionsByCountry() {
@@ -71,9 +44,30 @@ public final class OnlineApp {
                 .collect(Collectors.groupingBy(User::getCountry))
                 .entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().stream()
-                        .map(user -> interactions.stream()
-                                .filter(interaction -> interaction.getUser().equals(user))
-                                .count())
-                        .mapToDouble(d -> d).average().orElse(0.0)));
+                        .map(user -> user.getInteractions().size())
+                        .mapToInt(d -> d).average().orElse(0.0)));
+    }
+
+    public static Set<User> findUsersInteractingWithDifferentTypesOfContent(){
+        Map<User, Integer> userTypeContentMap = users.stream()
+                .collect(Collectors.toMap(Function.identity(), user -> user.getInteractions().stream()
+                        .map(interaction -> interaction.getContent().getClass())
+                        .collect(Collectors.toSet()).size()));
+
+        int maxTypeContentInteractions = userTypeContentMap.values().stream()
+                .max(Integer::compare)
+                .orElseThrow();
+
+        return userTypeContentMap.entrySet().stream()
+                .filter(entry -> entry.getValue() == maxTypeContentInteractions)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
+    }
+
+    public static Map<Class<?>, Long> countNumberOfInteractionsForEachTypeOfContent(){
+        return users.stream()
+                .flatMap(user -> user.getInteractions().stream())
+                .map(Interaction::getContent)
+                .collect(Collectors.groupingBy(Content::getClass,Collectors.counting()));
     }
 }
