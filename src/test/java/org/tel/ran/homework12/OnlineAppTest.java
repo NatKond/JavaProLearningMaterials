@@ -38,15 +38,15 @@ class OnlineAppTest {
     static void init() {
         USERS.forEach(user -> CONTENT_SET.forEach(content -> {
             if (user.getCountry().equals("USA") && content.getClass().equals(Video.class)) {
-                user.view(content, LocalDate.now());
+                user.view(content, LocalDate.now().minusDays(5));
             } else if (user.getName().equals("Hannah Lewis") && content.getClass().equals(Article.class)) {
-                user.comment(content, LocalDate.of(2025, 3, 15), "Interesting.");
+                user.comment(content, LocalDate.now().minusMonths(2), "Interesting.");
             } else if ((user.getName().equals("Diana Miller") || user.getName().equals("Fiona Davis")) && content.getClass().equals(Music.class)) {
-                user.like(content, LocalDate.of(2025, 2, 15));
+                user.like(content, LocalDate.now().minusMonths(6));
             } else if (user.getName().equals("George Wilson") && (content.getName().equals("Morning Energy")
-                            || content.getName().equals("Design Patterns")
-                            || content.getName().equals("SOLID Principles"))){
-                user.like(content,LocalDate.now());
+                    || content.getName().equals("Design Patterns")
+                    || content.getName().equals("SOLID Principles"))) {
+                user.like(content, LocalDate.now());
             }
         }));
     }
@@ -59,73 +59,73 @@ class OnlineAppTest {
     @Test
     void interactPositiveTestCase1() {
         Set<Interaction> expected = Set.of(
-                Interaction.builder(user1, video1, InteractionType.VIEW).localDate(LocalDate.now()).build(),
-                Interaction.builder(user1, video2, InteractionType.VIEW).localDate(LocalDate.now()).build(),
-                Interaction.builder(user1, video3, InteractionType.VIEW).localDate(LocalDate.now()).build()
+                Interaction.builder(video1, InteractionType.VIEW).localDate(LocalDate.now().minusDays(5)).build(),
+                Interaction.builder(video2, InteractionType.VIEW).localDate(LocalDate.now().minusDays(5)).build(),
+                Interaction.builder(video3, InteractionType.VIEW).localDate(LocalDate.now().minusDays(5)).build()
         );
         Assertions.assertEquals(expected, user1.getInteractions());
     }
 
     @Test
-    void interactPositiveTestCase2(){
+    void interactPositiveTestCase2() {
         Set<Interaction> expected = Set.of(
-                Interaction.builder(user3, video1, InteractionType.VIEW).localDate(LocalDate.now()).build(),
-                Interaction.builder(user3, video2, InteractionType.VIEW).localDate(LocalDate.now()).build(),
-                Interaction.builder(user3, video3, InteractionType.VIEW).localDate(LocalDate.now()).build()
+                Interaction.builder(video1, InteractionType.VIEW).localDate(LocalDate.now().minusDays(5)).build(),
+                Interaction.builder(video2, InteractionType.VIEW).localDate(LocalDate.now().minusDays(5)).build(),
+                Interaction.builder(video3, InteractionType.VIEW).localDate(LocalDate.now().minusDays(5)).build()
         );
         Assertions.assertEquals(expected, user3.getInteractions());
     }
 
     @Test
-    void interactPositiveTestCase3(){
+    void interactPositiveTestCase3() {
         Set<Interaction> expected = Set.of(
-                Interaction.builder(user6, video1, InteractionType.VIEW).localDate(LocalDate.now()).build(),
-                Interaction.builder(user6, video2, InteractionType.VIEW).localDate(LocalDate.now()).build(),
-                Interaction.builder(user6, video3, InteractionType.VIEW).localDate(LocalDate.now()).build()
+                Interaction.builder(video1, InteractionType.VIEW).localDate(LocalDate.now().minusDays(5)).build(),
+                Interaction.builder(video2, InteractionType.VIEW).localDate(LocalDate.now().minusDays(5)).build(),
+                Interaction.builder(video3, InteractionType.VIEW).localDate(LocalDate.now().minusDays(5)).build()
         );
         Assertions.assertEquals(expected, user6.getInteractions());
     }
 
     @Test
-    void interactPositiveTestCase4(){
+    void interactPositiveTestCase4() {
         Set<Interaction> expected = Set.of(
-                Interaction.builder(user5, article1, InteractionType.COMMENT).comment("Interesting.").localDate(LocalDate.of(2025, 3, 15)).build(),
-                Interaction.builder(user5, article2, InteractionType.COMMENT).comment("Interesting.").localDate(LocalDate.of(2025, 3, 15)).build(),
-                Interaction.builder(user5, article3, InteractionType.COMMENT).comment("Interesting.").localDate(LocalDate.of(2025, 3, 15)).build()
+                Interaction.builder(article1, InteractionType.COMMENT).comment("Interesting.").localDate(LocalDate.now().minusMonths(2)).build(),
+                Interaction.builder(article2, InteractionType.COMMENT).comment("Interesting.").localDate(LocalDate.now().minusMonths(2)).build(),
+                Interaction.builder(article3, InteractionType.COMMENT).comment("Interesting.").localDate(LocalDate.now().minusMonths(2)).build()
         );
         Assertions.assertEquals(expected, user5.getInteractions());
     }
 
     @Test
-    void interactPositiveTestCase5(){
+    void interactPositiveTestCase5() {
         Set<Interaction> expected = Set.of(
-                Interaction.builder(user2, music1, InteractionType.LIKE).localDate(LocalDate.of(2025, 2, 15)).build(),
-                Interaction.builder(user2, music2, InteractionType.LIKE).localDate(LocalDate.of(2025, 2, 15)).build(),
-                Interaction.builder(user2, music3, InteractionType.LIKE).localDate(LocalDate.of(2025, 2, 15)).build(),
-                Interaction.builder(user2, music4, InteractionType.LIKE).localDate(LocalDate.of(2025, 2, 15)).build(),
-                Interaction.builder(user2, music5, InteractionType.LIKE).localDate(LocalDate.of(2025, 2, 15)).build()
+                Interaction.builder(music1, InteractionType.LIKE).localDate(LocalDate.now().minusMonths(6)).build(),
+                Interaction.builder(music2, InteractionType.LIKE).localDate(LocalDate.now().minusMonths(6)).build(),
+                Interaction.builder(music3, InteractionType.LIKE).localDate(LocalDate.now().minusMonths(6)).build(),
+                Interaction.builder(music4, InteractionType.LIKE).localDate(LocalDate.now().minusMonths(6)).build(),
+                Interaction.builder(music5, InteractionType.LIKE).localDate(LocalDate.now().minusMonths(6)).build()
         );
         Assertions.assertEquals(expected, user2.getInteractions());
     }
 
     @Test
-    void interactPositiveTestCase6(){
-    Set<Interaction> expected = Set.of(
-            Interaction.builder(user4, music1, InteractionType.LIKE).localDate(LocalDate.of(2025, 2, 15)).build(),
-            Interaction.builder(user4, music2, InteractionType.LIKE).localDate(LocalDate.of(2025, 2, 15)).build(),
-            Interaction.builder(user4, music3, InteractionType.LIKE).localDate(LocalDate.of(2025, 2, 15)).build(),
-            Interaction.builder(user4, music4, InteractionType.LIKE).localDate(LocalDate.of(2025, 2, 15)).build(),
-            Interaction.builder(user4, music5, InteractionType.LIKE).localDate(LocalDate.of(2025, 2, 15)).build()
-    );
+    void interactPositiveTestCase6() {
+        Set<Interaction> expected = Set.of(
+                Interaction.builder(music1, InteractionType.LIKE).localDate(LocalDate.now().minusMonths(6)).build(),
+                Interaction.builder(music2, InteractionType.LIKE).localDate(LocalDate.now().minusMonths(6)).build(),
+                Interaction.builder(music3, InteractionType.LIKE).localDate(LocalDate.now().minusMonths(6)).build(),
+                Interaction.builder(music4, InteractionType.LIKE).localDate(LocalDate.now().minusMonths(6)).build(),
+                Interaction.builder(music5, InteractionType.LIKE).localDate(LocalDate.now().minusMonths(6)).build()
+        );
         Assertions.assertEquals(expected, user4.getInteractions());
     }
 
     @Test
-    void interactPositiveTestCase7(){
+    void interactPositiveTestCase7() {
         Set<Interaction> expected = Set.of(
-                Interaction.builder(user7, video3, InteractionType.LIKE).localDate(LocalDate.now()).build(),
-                Interaction.builder(user7, music5, InteractionType.LIKE).localDate(LocalDate.now()).build(),
-                Interaction.builder(user7, article1, InteractionType.LIKE).localDate(LocalDate.now()).build()
+                Interaction.builder(video3, InteractionType.LIKE).localDate(LocalDate.now()).build(),
+                Interaction.builder(music5, InteractionType.LIKE).localDate(LocalDate.now()).build(),
+                Interaction.builder(article1, InteractionType.LIKE).localDate(LocalDate.now()).build()
         );
         Assertions.assertEquals(expected, user7.getInteractions());
     }
@@ -160,19 +160,31 @@ class OnlineAppTest {
     }
 
     @Test
-    void findUsersInteractingWithDifferentTypesOfContentTest(){
+    void findUsersInteractingWithDifferentTypesOfContentTest() {
         Set<User> expected = Set.of(new User("George Wilson", 31, "Germany"));
-        Assertions.assertEquals(expected,OnlineApp.findUsersInteractingWithDifferentTypesOfContent());
+        Assertions.assertEquals(expected, OnlineApp.findUsersInteractingWithDifferentTypesOfContent());
     }
 
     @Test
-    void findAvgNumberOfInteractionsForEachTypeOfContentTest(){
-        Map<Class<?>, Long> expected = Map.of(
-                Video.class, 10L,
-                Article.class, 4L,
-                Music.class, 11L
+    void findAverageNumberOfInteractionsForEachTypeOfContentTest() {
+        System.out.println(OnlineApp.findAverageNumberOfInteractionsForEachTypeOfContent());
+        Map<Class<?>, Double> expected = Map.of(
+                Video.class, 10.0 / 3,
+                Article.class, 4.0 / 3,
+                Music.class, 11.0 / 5
         );
-        Assertions.assertEquals(expected, OnlineApp.countNumberOfInteractionsForEachTypeOfContent());
+        Assertions.assertEquals(expected, OnlineApp.findAverageNumberOfInteractionsForEachTypeOfContent());
     }
 
+    @Test
+    void findUsersWithLastMonthInteractionsTest() {
+        Set<User> expected = Set.of(user1, user3, user6, user7);
+        Assertions.assertEquals(expected, OnlineApp.findUsersWithLastMonthInteractions());
+    }
+
+    @Test
+    void findUsersHadOnlyLikedTest() {
+        Set<User> expected = Set.of(user2, user4, user7);
+        Assertions.assertEquals(expected, OnlineApp.findUsersHadOnlyLiked());
+    }
 }
