@@ -49,17 +49,17 @@ public class User {
 
     public void view(Content content, LocalDate date) {
         content.view();
-        Interaction interaction = Interaction.builder(this, content, InteractionType.VIEW).localDate(date).build();
+        Interaction interaction = Interaction.builder(content, InteractionType.VIEW).localDate(date).build();
         this.interactions.add(interaction);
     }
 
     public void like(Content content, LocalDate date) {
-        Interaction interaction = Interaction.builder(this, content, InteractionType.LIKE).localDate(date).build();
+        Interaction interaction = Interaction.builder(content, InteractionType.LIKE).localDate(date).build();
         this.interactions.add(interaction);
     }
 
     public void comment(Content content, LocalDate date, String comment) {
-        Interaction interaction = Interaction.builder(this, content, InteractionType.COMMENT).localDate(date).comment(comment).build();
+        Interaction interaction = Interaction.builder(content, InteractionType.COMMENT).localDate(date).comment(comment).build();
         this.interactions.add(interaction);
     }
 
