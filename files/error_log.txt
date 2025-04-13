@@ -1,0 +1,6 @@
+java.lang.NumberFormatException: For input string: "0.99c"
+	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2054)
+	at java.base/jdk.internal.math.FloatingDecimal.parseDouble(FloatingDecimal.java:110)
+	at java.base/java.lang.Double.parseDouble(Double.java:944)
+	at org.tel.ran.homework13.Parser.parseProducts(Parser.java:47)
+	at org.tel.ran.homework13.Main.main(Main.java:11)

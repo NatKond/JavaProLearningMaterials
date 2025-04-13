@@ -24,7 +24,6 @@ public class Interaction {
         return type;
     }
 
-
     public Content getContent() {
         return content;
     }
