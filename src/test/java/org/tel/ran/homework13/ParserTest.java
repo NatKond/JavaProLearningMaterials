@@ -24,14 +24,14 @@ class ParserTest {
     @Test
     void parseProductsTest() {
         Set<Product> expected = Set.of(
-                new Product(ProductCategory.FOOD, "Pasta", "Barilla", 150, true, false, 1.49, 15.0, false),
-                new Product(ProductCategory.DRINKS, "Mineral Water", "Coca-Cola", 300, true, false, 0.99, 20.0, false),
-                new Product(ProductCategory.SNACKS, "Potato Chips", "Lays", 250, false, true, 1.49, 18.5, false),
-                new Product(ProductCategory.FOOD, "Chocolate Bar", "Nestle", 250, false, true, 1.99, 15.0, false),
-                new Product(ProductCategory.DRINKS, "Iced Tea", "Lipton", 400, true, false, 1.79, 18.0, false),
-                new Product(ProductCategory.SNACKS, "Mixed Nuts", "Planters", 200, true, true, 3.49, 22.0, false)
+                new Product().setId(1).setProductCategory(ProductCategory.FOOD).setName("Pasta").setFactory("Barilla").setQuantity(150).setPacked(true).setAdv(false).setPrice(1.49).setMargin(15.0).setDebt(false),
+                new Product().setId(2).setProductCategory(ProductCategory.DRINKS).setName("Mineral Water").setFactory("Coca-Cola").setQuantity(300).setPacked(true).setAdv(false).setPrice(0.99).setMargin(20.0).setDebt(false),
+                new Product().setId(3).setProductCategory(ProductCategory.SNACKS).setName("Potato Chips").setFactory("Lays").setQuantity(250).setPacked(false).setAdv(true).setPrice(1.49).setMargin(18.5).setDebt(false),
+                new Product().setId(4).setProductCategory(ProductCategory.FOOD).setName("Chocolate Bar").setFactory("Nestle").setQuantity(250).setPacked(false).setAdv(true).setPrice(1.99).setMargin(15.0).setDebt(false),
+                new Product().setId(5).setProductCategory(ProductCategory.DRINKS).setName("Iced Tea").setFactory("Lipton").setQuantity(400).setPacked(true).setAdv(false).setPrice(1.79).setMargin(18.0).setDebt(false),
+                new Product().setId(5).setProductCategory(ProductCategory.SNACKS).setName("Mixed Nuts").setFactory("Planters").setQuantity(200).setPacked(true).setAdv(true).setPrice(3.49).setMargin(22.0).setDebt(false)
         );
-        Assertions.assertEquals(expected, Parser.parseProducts(Parser.readFile(Path.of("files/shortReportTest.json"))));
+        Assertions.assertEquals(expected, Parser.parseProductsFromFile(Path.of("files/shortReportTest.json")));
     }
 
 }

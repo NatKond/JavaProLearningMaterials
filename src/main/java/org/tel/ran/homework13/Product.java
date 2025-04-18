@@ -3,6 +3,7 @@ package org.tel.ran.homework13;
 import java.util.Objects;
 
 public class Product {
+    private int id;
     private ProductCategory productCategory;
     private String name;
     private String factory;
@@ -13,16 +14,57 @@ public class Product {
     private double margin;
     private boolean isDebt;
 
-    public Product(ProductCategory productCategory, String name, String factory, int quantity, boolean isPacked, boolean isAdv, double price, double margin, boolean isDebt) {
+    public Product() {
+    }
+
+    public Product setId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public Product setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
+        return this;
+    }
+
+    public Product setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public Product setFactory(String factory) {
         this.factory = factory;
+        return this;
+    }
+
+    public Product setQuantity(int quantity) {
         this.quantity = quantity;
-        this.isPacked = isPacked;
-        this.isAdv = isAdv;
+        return this;
+    }
+
+    public Product setPacked(boolean packed) {
+        isPacked = packed;
+        return this;
+    }
+
+    public Product setAdv(boolean adv) {
+        isAdv = adv;
+        return this;
+    }
+
+    public Product setPrice(double price) {
         this.price = price;
+        return this;
+    }
+
+    public Product setMargin(double margin) {
         this.margin = margin;
-        this.isDebt = isDebt;
+        return this;
+    }
+
+    public Product setDebt(boolean debt) {
+        isDebt = debt;
+        return this;
     }
 
     public ProductCategory getProductCategory() {

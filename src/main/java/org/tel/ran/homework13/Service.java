@@ -23,59 +23,59 @@ public class Service {
         return products;
     }
 
-    public Set<String> getAllFactories(){
+    public Set<String> getAllFactories() {
         return products.stream()
                 .map(Product::getFactory)
                 .collect(Collectors.toSet());
     }
 
-    public Product getMostExpensiveInCategory(ProductCategory productCategory){
+    public Product getMostExpensiveInCategory(ProductCategory productCategory) {
         return products.stream()
                 .filter(product -> product.getProductCategory().equals(productCategory))
                 .max(Comparator.comparingDouble(Product::getPrice))
                 .orElseThrow();
     }
 
-    public Product findMostInStockInCurrency(){
+    public Product findMostInStockInCurrency() {
         return products.stream()
                 .max(Comparator.comparingDouble(p -> p.getQuantity() * p.getPrice()))
                 .orElseThrow();
     }
 
-    public Product findMostInStockInCurrencyInCategory(ProductCategory productCategory){
+    public Product findMostInStockInCurrencyInCategory(ProductCategory productCategory) {
         return products.stream()
                 .filter(product -> product.getProductCategory().equals(productCategory))
                 .min(Comparator.comparingDouble(Product::getPrice))
                 .orElseThrow();
     }
 
-    public long countAdvertisedProductInCategory(ProductCategory productCategory){
+    public long countAdvertisedProductInCategory(ProductCategory productCategory) {
         return products.stream()
                 .filter(product -> product.getProductCategory().equals(productCategory))
                 .filter(Product::isAdv)
                 .count();
     }
 
-    public Map<Boolean, Set<Product>> groupByPacked(){
+    public Map<Boolean, Set<Product>> groupByPacked() {
         return products.stream()
-                .collect(Collectors.groupingBy(Product::isPacked,Collectors.toSet()));
+                .collect(Collectors.groupingBy(Product::isPacked, Collectors.toSet()));
     }
 
-    public Product getProductWithMostMarginInCategory(ProductCategory productCategory){
+    public Product getProductWithMostMarginInCategory(ProductCategory productCategory) {
         return products.stream()
                 .filter(product -> product.getProductCategory().equals(productCategory))
                 .max(Comparator.comparingDouble(Product::getMargin))
                 .orElseThrow();
     }
 
-    public Map<ProductCategory,Double> findAvgMarginInEveryCategory(){
+    public Map<ProductCategory, Double> findAvgMarginInEveryCategory() {
         return products.stream()
-                .collect(Collectors.groupingBy(Product::getProductCategory,Collectors.mapping(Product::getMargin,Collectors.toList())))
+                .collect(Collectors.groupingBy(Product::getProductCategory, Collectors.mapping(Product::getMargin, Collectors.toList())))
                 .entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey,entry->entry.getValue().stream().mapToDouble(d->d).average().orElseThrow()));
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().stream().mapToDouble(d -> d).average().orElseThrow()));
     }
 
-    public Set<Product> getFirstWithLowestMargin(int quantity, ProductCategory productCategory){
+    public Set<Product> getFirstWithLowestMargin(int quantity, ProductCategory productCategory) {
         return products.stream()
                 .filter(product -> product.getProductCategory().equals(productCategory))
                 .sorted(Comparator.comparingDouble(Product::getMargin))
