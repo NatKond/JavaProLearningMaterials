@@ -14,5 +14,6 @@ public class Main {
 
         service = new Service(Parser.parseProductsFromFile(Paths.get("files/shortReportTest.json")));
         service.getProducts().forEach(System.out::println);
+
     }
 }
