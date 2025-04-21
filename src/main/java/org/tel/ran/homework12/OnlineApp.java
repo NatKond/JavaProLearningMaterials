@@ -40,10 +40,11 @@ public final class OnlineApp {
 
     public static Map<String, Double> findAverageOfInteractionsByCountry() {
         return users.stream()
-                .collect(Collectors.groupingBy(User::getCountry))
-                .entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().stream()
-                        .mapToInt(user -> user.getInteractions().size()).average().orElse(0.0)));
+                .collect(Collectors.groupingBy(User::getCountry,
+                        Collectors.mapping(user -> user.getInteractions().size(), Collectors.averagingInt(i -> i))));
+                //.entrySet().stream()
+                //.collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().stream()
+                //.mapToInt(user -> user.getInteractions().size()).average().orElse(0.0)));
     }
 
     public static Set<User> findUsersInteractingWithDifferentTypesOfContent() {
@@ -68,9 +69,7 @@ public final class OnlineApp {
                 .map(Interaction::getContent)
                 .collect(Collectors.groupingBy(Content::getClass, Collectors.groupingBy(Function.identity(), Collectors.counting())))
                 .entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, (entry) -> entry.getValue().values().stream()
-                        .mapToLong(l -> l)
-                        .average().orElse(0.0)));
+                .collect(Collectors.toMap(Map.Entry::getKey, (entry) -> entry.getValue().values().stream().collect(Collectors.averagingLong(l -> l))));
     }
 
     public static Set<User> findUsersWithLastMonthInteractions() {

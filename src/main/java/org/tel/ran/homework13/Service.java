@@ -70,9 +70,11 @@ public class Service {
 
     public Map<ProductCategory, Double> findAvgMarginInEveryCategory() {
         return products.stream()
-                .collect(Collectors.groupingBy(Product::getProductCategory, Collectors.mapping(Product::getMargin, Collectors.toList())))
-                .entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().stream().mapToDouble(d -> d).average().orElseThrow()));
+                .collect(Collectors.groupingBy(Product::getProductCategory, Collectors.averagingDouble(Product::getMargin)));
+                //Collectors.mapping(Product::getMargin, Collectors.toList())))
+                //.entrySet().stream()
+                //.collect(Collectors.toMap(Map.Entry::getKey,
+                // entry -> entry.getValue().stream().mapToDouble(d -> d).average().orElseThrow()));
     }
 
     public Set<Product> getFirstWithLowestMargin(int quantity, ProductCategory productCategory) {
