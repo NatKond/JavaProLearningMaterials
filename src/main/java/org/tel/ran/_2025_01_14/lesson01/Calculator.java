@@ -20,8 +20,6 @@ public class Calculator {
 
     private final String[] history = new String[5];
 
-    private int countCases;
-
     public String getResult(String input){
         if (!checkStringForValidCharacters(input)) return "Error. The string contains invalid characters.";
 
@@ -45,15 +43,10 @@ public class Calculator {
     }
 
     private void saveHistory (String output){
-        if (countCases == history.length){
-            for (int i = 0; i < history.length - 1; i++) {
-                history[i] = history[i+1];
-                countCases = history.length - 1;
+            for (int i = history.length - 1; i > 0; i--) {
+                history[i-1] = history[i];
             }
-        }
-
-        history[countCases] = output;
-        countCases++;
+        history[0] = output;
     }
 
     private boolean checkStringForValidCharacters(String input){
