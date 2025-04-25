@@ -20,7 +20,8 @@ public class Main {
                     FileSystem.createStructureFromString(input);
                 }
                 case "2" -> FileSystem.displayFormatedContent();
-                case "3" -> flag = false;
+                case "3" -> FileSystem.saveToFileFormatedContent("files/FileSystem.txt");
+                case "0" -> flag = false;
             }
         }
     }
@@ -31,7 +32,8 @@ public class Main {
                 Available actions:
                 1 - add content;
                 2 - print FileSystem;
-                3 - stop program;
+                3 - save FileSystem to file;
+                0 - stop program;
                 Enter a number for which action you want to do:""";
         System.out.println(textBlock + " ");
     }
