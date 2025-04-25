@@ -21,6 +21,7 @@ public class Main {
                 }
                 case "2" -> FileSystem.displayFormatedContent();
                 case "3" -> FileSystem.saveToFileFormatedContent("files/FileSystem.txt");
+                case "4" -> FileSystem.readFileSystemFromFileFormatedContent("files/FileSystem.txt");
                 case "0" -> flag = false;
             }
         }
@@ -33,6 +34,7 @@ public class Main {
                 1 - add content;
                 2 - print FileSystem;
                 3 - save FileSystem to file;
+                4 - read FileSystem from file;
                 0 - stop program;
                 Enter a number for which action you want to do:""";
         System.out.println(textBlock + " ");

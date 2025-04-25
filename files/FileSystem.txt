@@ -1,0 +1,8 @@
+root
+  folder1
+    task.md
+    test
+      hello.java
+      text.txt
+  folder2
+    task.md
