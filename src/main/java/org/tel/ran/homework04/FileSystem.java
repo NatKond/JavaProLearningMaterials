@@ -1,15 +1,30 @@
 package org.tel.ran.homework04;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public class FileSystem {
+public final class FileSystem {
+
     private static final Folder ROOT = new Folder("root");
     private static final String INITIAL_INDENT = "";
+    public static final Logger LOGGER = new Logger("files/log",true);
+
+    private FileSystem() {
+    }
 
     public static void displayFormatedContent(){
-        ROOT.displayFormatedContent(INITIAL_INDENT);
+        System.out.println(getFormatedContent());
+    }
+
+    public static void saveToFileFormatedContent(String path){
+        try (FileWriter fileWriter = new FileWriter(path)) {
+            fileWriter.write(getFormatedContent());
+            fileWriter.flush();
+        } catch (IOException e) {
+            LOGGER.log(e.getMessage(), java.nio.file.FileSystem.class);
+        }
     }
 
     public static void createStructureFromString(String input){
@@ -31,15 +46,16 @@ public class FileSystem {
         }
     }
 
+    private static String getFormatedContent(){
+        StringBuilder output = new StringBuilder();
+        ROOT.displayFormatedContent(INITIAL_INDENT, output);
+        return output.toString();
+    }
+
     private static ArrayList<String> parseString(String input){
         //input = input.replaceAll("\\s+","");
         ArrayList<String> names = new ArrayList<>(List.of(input.split("/")));
-        Iterator<String> iterator = names.iterator();
-        while (iterator.hasNext()){
-            if (iterator.next().isEmpty()){
-                iterator.remove();
-            }
-        }
+        names.removeIf(String::isEmpty);
         if (names.getFirst().equals("root")) {
             names.removeFirst();
         }

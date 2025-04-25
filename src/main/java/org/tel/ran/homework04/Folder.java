@@ -16,29 +16,29 @@ public class Folder extends Content {
     }
 
     @Override
-    public void displayFormatedContent(String indent) {
-        super.displayFormatedContent(indent);
-        for (Content component: content){
-            component.displayFormatedContent(indent + "  ");
+    public void displayFormatedContent(String indent, StringBuilder output) {
+        super.displayFormatedContent(indent, output);
+        for (Content component : content) {
+            component.displayFormatedContent(indent + "  ", output);
         }
     }
 
-    public void addContent(Content component){
+    public void addContent(Content component) {
         content.add(component);
     }
 
-    public boolean hasFolder(String folderName){
-        for (Content component: content){
-            if (component instanceof Folder){
+    public boolean hasFolder(String folderName) {
+        for (Content component : content) {
+            if (component instanceof Folder) {
                 if (component.getName().equals(folderName)) return true;
             }
         }
         return false;
     }
 
-    public Folder getFolder(String folderName){
-        for (Content component: content){
-            if (component instanceof Folder){
+    public Folder getFolder(String folderName) {
+        for (Content component : content) {
+            if (component instanceof Folder) {
                 if (component.getName().equals(folderName)) return (Folder) component;
             }
         }

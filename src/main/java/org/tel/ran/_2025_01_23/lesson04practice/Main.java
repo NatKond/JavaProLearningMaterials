@@ -5,17 +5,17 @@ public class Main {
 
         Item[][] items = new Item[5][5];
 
-        Category[] categorys = new Category[5];
-        CatalogBuilder.populateCatalog(categorys,items);
+        Category[] categories = new Category[5];
+        CatalogBuilder.populateCatalog(categories,items);
 
-        for (Category category : categorys) {
+        for (Category category : categories) {
             category.printAllItems();
         }
         System.out.println();
         Basket basket = new Basket();
-        basket.addItem(categorys[0].getItems()[0]);
-        basket.addItem(categorys[2].getItems()[4]);
-        basket.addItem(categorys[4].getItems()[3]);
+        basket.addItem(categories[0].getItems()[0]);
+        basket.addItem(categories[2].getItems()[4]);
+        basket.addItem(categories[4].getItems()[3]);
         basket.printItemsInBasket();
 
         User user = new User("Ivan","12345", basket);

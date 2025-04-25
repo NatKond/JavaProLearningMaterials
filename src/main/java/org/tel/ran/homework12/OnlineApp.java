@@ -40,24 +40,24 @@ public final class OnlineApp {
 
     public static Map<String, Double> findAverageOfInteractionsByCountry() {
         return users.stream()
-                .collect(Collectors.groupingBy(User::getCountry))
-                .entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().stream()
-                        .map(user -> user.getInteractions().size())
-                        .mapToInt(d -> d).average().orElse(0.0)));
+                .collect(Collectors.groupingBy(User::getCountry,
+                        Collectors.mapping(user -> user.getInteractions().size(), Collectors.averagingInt(i -> i))));
+                //.entrySet().stream()
+                //.collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().stream()
+                //.mapToInt(user -> user.getInteractions().size()).average().orElse(0.0)));
     }
 
     public static Set<User> findUsersInteractingWithDifferentTypesOfContent() {
-        Map<User, Integer> userTypeContentMap = users.stream()
+        Map<User, Long> userTypeContentCountMap = users.stream()
                 .collect(Collectors.toMap(Function.identity(), user -> user.getInteractions().stream()
                         .map(interaction -> interaction.getContent().getClass())
-                        .collect(Collectors.toSet()).size()));
+                        .distinct().count()));
 
-        int maxTypeContentInteractions = userTypeContentMap.values().stream()
-                .max(Integer::compare)
+        long maxTypeContentInteractions = userTypeContentCountMap.values().stream()
+                .max(Long::compare)
                 .orElseThrow();
 
-        return userTypeContentMap.entrySet().stream()
+        return userTypeContentCountMap.entrySet().stream()
                 .filter(entry -> entry.getValue() == maxTypeContentInteractions)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toSet());
@@ -67,24 +67,19 @@ public final class OnlineApp {
         return users.stream()
                 .flatMap(user -> user.getInteractions().stream())
                 .map(Interaction::getContent)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .collect(Collectors.groupingBy(Content::getClass, Collectors.groupingBy(Function.identity(), Collectors.counting())))
                 .entrySet().stream()
-                .collect(Collectors.groupingBy(entry -> entry.getKey().getClass(), Collectors.mapping(Map.Entry::getValue, Collectors.toList())))
-                .entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().stream()
-                        .mapToLong(i -> i)
-                        .average()
-                        .orElseThrow()));
+                .collect(Collectors.toMap(Map.Entry::getKey, (entry) -> entry.getValue().values().stream().collect(Collectors.averagingLong(l -> l))));
     }
 
-    public static Set<User> findUsersWithLastMonthInteractions(){
+    public static Set<User> findUsersWithLastMonthInteractions() {
         return users.stream()
                 .filter(user -> user.getInteractions().stream()
                         .allMatch(interaction -> interaction.getLocalDate().isAfter(LocalDate.now().minusMonths(1))))
-                        .collect(Collectors.toSet());
+                .collect(Collectors.toSet());
     }
 
-    public static Set<User> findUsersHadOnlyLiked(){
+    public static Set<User> findUsersHadOnlyLiked() {
         return users.stream()
                 .filter(user -> user.getInteractions().stream().allMatch(interaction -> interaction.getType().equals(InteractionType.LIKE)))
                 .collect(Collectors.toSet());

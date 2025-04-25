@@ -1,6 +1,6 @@
 package org.tel.ran.homework04;
 
-public abstract class Content implements Comparable {
+public abstract class Content implements Comparable<Content> {
 
     private String name;
 
@@ -12,13 +12,13 @@ public abstract class Content implements Comparable {
         return name;
     }
 
-    public void displayFormatedContent(String indent){
-        System.out.println(indent + name);
+    public void displayFormatedContent(String indent, StringBuilder output){
+        //System.out.println(indent + name);
+        output.append(indent).append(name).append("\n");
     }
 
     @Override
-    public int compareTo(Object o) {
-        Content obj = (Content) o;
+    public int compareTo(Content obj) {
         return name.compareTo(obj.getName());
     }
 }
