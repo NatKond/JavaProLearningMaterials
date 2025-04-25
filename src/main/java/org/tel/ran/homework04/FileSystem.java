@@ -60,10 +60,10 @@ public final class FileSystem {
     }
 
     private static ArrayList<String> generateQueries(ArrayList<String> input) {
-        return generateQueriesRecursive(input, 1, INITIAL_INDENT + "  ", new StringBuilder(), new ArrayList<>());
+        return generateQueriesRecursive(input, 1, INITIAL_INDENT + "  ", new StringBuilder(), new ArrayList<>(), false);
     }
 
-    private static ArrayList<String> generateQueriesRecursive(ArrayList<String> input, int index, String indent, StringBuilder query, ArrayList<String> queries) {
+    private static ArrayList<String> generateQueriesRecursive(ArrayList<String> input, int index, String indent, StringBuilder query, ArrayList<String> queries, boolean addedNew) {
         if (index == input.size()) {
             queries.add(query.toString());
             return queries;
@@ -71,12 +71,14 @@ public final class FileSystem {
 
         String line = input.get(index);
         if (indent.equals(line.substring(0, indent.length()))) {
-            query.append("/").append(line.replaceAll("\\s+",""));
-            return generateQueriesRecursive(input, index + 1, indent + "  ", query, queries);
+            query.append("/").append(line.replaceAll("\\s+", ""));
+            return generateQueriesRecursive(input, index + 1, indent + "  ", query, queries, true);
         } else {
-            queries.add(query.toString());
+            if (addedNew) {
+                queries.add(query.toString());
+            }
             query = new StringBuilder(query.substring(0, query.lastIndexOf("/")));
-            return generateQueriesRecursive(input, index, indent.substring(0, indent.length() - 2), query, queries);
+            return generateQueriesRecursive(input, index, indent.substring(0, indent.length() - 2), query, queries, false);
         }
     }
 
