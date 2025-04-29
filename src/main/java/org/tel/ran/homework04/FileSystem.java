@@ -19,10 +19,8 @@ public final class FileSystem {
     }
 
     public static void saveToFileFormatedContent(String path) {
-        try (FileWriter fileWriter = new FileWriter(path)) {
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path))) {
             bufferedWriter.write(getFormatedContent());
-            bufferedWriter.flush();
         } catch (IOException e) {
             LOGGER.log(e.getMessage(), java.nio.file.FileSystem.class);
         }

@@ -9,7 +9,7 @@ public class Interaction {
     private final LocalDate localDate;
     private final String comment;
 
-    public Interaction(Builder builder) {
+    private Interaction(Builder builder) {
         this.type = builder.type;
         this.content = builder.content;
         this.localDate = builder.localDate;
