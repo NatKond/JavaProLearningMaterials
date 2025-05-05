@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 public final class FileSystem {
 
     private static final Folder ROOT = new Folder("root");
+
     private static final String INITIAL_INDENT = "";
+
     public static final Logger LOGGER = new Logger("files/log", true);
 
     private FileSystem() {

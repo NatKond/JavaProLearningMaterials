@@ -2,7 +2,6 @@ package org.tel.ran._2025_02_28.summary06;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 public class Main {
     public static void main(String[] args) {
@@ -85,28 +84,29 @@ public class Main {
      * Дана строка - проверить правильно ли в ней расставлены скобки
      */
     public static boolean checkParenthesis(String text) {
-//        Pattern leftParenthesis = Pattern.compile("\\(");
-//        Matcher matcherLeftParenthesis = leftParenthesis.matcher(text);
-//        Pattern rightParenthesis = Pattern.compile("\\)");
-//        Matcher matcherRightParenthesis = rightParenthesis.matcher(text);
-//        boolean hasLeft = matcherLeftParenthesis.find(), hasRight = matcherRightParenthesis.find();
-//        while (hasLeft || hasRight) {
-//            if (!hasLeft || !hasRight) {
-//                return false;
-//            }
-//            if (matcherLeftParenthesis.start() > matcherRightParenthesis.start()) {
-//                return false;
-//            }
-//            hasLeft = matcherLeftParenthesis.find();
-//            hasRight = matcherRightParenthesis.find();
-//        }
-//        return true;
-        try {
-            Pattern.compile(text);
-            return true;
-        } catch (PatternSyntaxException e) {
-            return false;
+        Pattern leftParenthesis = Pattern.compile("\\(");
+        Matcher matcherLeftParenthesis = leftParenthesis.matcher(text);
+
+        Pattern rightParenthesis = Pattern.compile("\\)");
+        Matcher matcherRightParenthesis = rightParenthesis.matcher(text);
+
+        boolean hasLeft, hasRight;
+        while ((hasLeft = matcherLeftParenthesis.find()) | (hasRight = matcherRightParenthesis.find())) {
+            if (!hasLeft || !hasRight) {
+                return false;
+            }
+            if (matcherLeftParenthesis.start() > matcherRightParenthesis.start()) {
+                return false;
+            }
         }
+        return true;
+
+//        try {
+//            Pattern.compile(text);
+//            return true;
+//        } catch (PatternSyntaxException e) {
+//            return false;
+//        }
     }
 
     /**
