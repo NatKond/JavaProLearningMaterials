@@ -14,28 +14,21 @@ public class MoneyApp {
     public static final AtomicBoolean THROWN_EXCEPTION = new AtomicBoolean(false);
 
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
-
         Card card = new Card("John Dow", 500, 1000);
+        int numberOfATM = RANDOM.nextInt(3, 7);
+        List<Runnable> runnableList = new ArrayList<>();
 
-        List<Runnable> runnables = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-            runnables.add(new MoneyConsumer(card, RANDOM.nextInt(25, 51), THROWN_EXCEPTION));
-            runnables.add(new MoneyProducer(card, RANDOM.nextInt(25, 51), THROWN_EXCEPTION));
+        for (int i = 0; i < numberOfATM; i++) {
+            runnableList.add(new MoneyConsumer(card, RANDOM.nextInt(25, 51), RANDOM.nextInt(500,1501), THROWN_EXCEPTION));
+            runnableList.add(new MoneyProducer(card, RANDOM.nextInt(25, 51),RANDOM.nextInt(500,1501), THROWN_EXCEPTION));
         }
 
-        for (Runnable runnable : runnables) {
+        ExecutorService executorService = Executors.newFixedThreadPool(numberOfATM * 2);
+
+        for (Runnable runnable : runnableList) {
             executorService.submit(runnable);
         }
-
-
-        while (true) {
-            if (THROWN_EXCEPTION.get()) {
-                executorService.shutdownNow();
-                return;
-            }
-        }
+        executorService.shutdown();
     }
 
 }

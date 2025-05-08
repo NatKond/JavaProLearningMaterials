@@ -8,12 +8,15 @@ public class MoneyProducer implements Runnable {
 
     private double amount;
 
+    private int sleepTime;
+
     private final AtomicBoolean hasException;
 
-    public MoneyProducer(Card card, double amount, AtomicBoolean hasException) {
-        this.hasException = hasException;
-        this.amount = amount;
+    public MoneyProducer(Card card, double amount, int sleepTime, AtomicBoolean hasException) {
         this.card = card;
+        this.amount = amount;
+        this.sleepTime = sleepTime;
+        this.hasException = hasException;
     }
 
     public void setCard(Card card) {
@@ -26,23 +29,17 @@ public class MoneyProducer implements Runnable {
 
     @Override
     public void run() {
-        if (hasException.get()) {
-            return;
-        }
-        while (true) {
+
+        while (!hasException.get()) {
             try {
                 card.deposit(amount);
-                Thread.sleep(10);
+                Thread.sleep(sleepTime);
             } catch (IllegalArgumentException e) {
                 if ("The maximum balance amount has been reached.".equals(e.getMessage())) {
-
                     hasException.set(true);
                     return;
                 }
-            } catch (InterruptedException e) {
-                return;
-            }
-            if (Thread.interrupted()) {
+            }catch (InterruptedException e) {
                 return;
             }
         }
