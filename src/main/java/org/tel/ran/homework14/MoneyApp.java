@@ -1,21 +1,40 @@
 package org.tel.ran.homework14;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MoneyApp {
-    public static void main(String[] args) {
-        Card card = new Card("John Doh", 500,1500);
 
-        Class<? extends Card> clazz = card.getClass();
-        Field[] declaredFields = clazz.getDeclaredFields();
-        for (Field declaredField : declaredFields) {
-            System.out.println(declaredField);
+    public static final Random RANDOM = new Random();
+
+    public static final AtomicBoolean THROWN_EXCEPTION = new AtomicBoolean(false);
+
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+        Card card = new Card("John Dow", 500, 1000);
+
+        List<Runnable> runnables = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            runnables.add(new MoneyConsumer(card, RANDOM.nextInt(25, 51), THROWN_EXCEPTION));
+            runnables.add(new MoneyProducer(card, RANDOM.nextInt(25, 51), THROWN_EXCEPTION));
         }
 
-        Method[] methods = clazz.getMethods();
-        for (Method method : methods) {
-            System.out.println(method);
+        for (Runnable runnable : runnables) {
+            executorService.submit(runnable);
+        }
+
+
+        while (true) {
+            if (THROWN_EXCEPTION.get()) {
+                executorService.shutdownNow();
+                return;
+            }
         }
     }
 

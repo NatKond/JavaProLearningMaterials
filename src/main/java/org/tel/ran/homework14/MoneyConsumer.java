@@ -1,16 +1,51 @@
 package org.tel.ran.homework14;
 
 
-public class MoneyConsumer implements Runnable{
+import java.util.concurrent.atomic.AtomicBoolean;
+
+public class MoneyConsumer implements Runnable {
 
     private Card card;
+
+    private double amount;
+
+    private final AtomicBoolean hasException;
+
+    public MoneyConsumer(Card card, double amount, AtomicBoolean hasException) {
+        this.card = card;
+        this.amount = amount;
+        this.hasException = hasException;
+    }
 
     public void setCard(Card card) {
         this.card = card;
     }
 
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+
     @Override
     public void run() {
-
+        if (hasException.get()) {
+            return;
+        }
+        while (true) {
+            try {
+                card.withdraw(amount);
+                Thread.sleep(10);
+            } catch (IllegalArgumentException e) {
+                if ("Insufficient funds.".equals(e.getMessage())) {
+                    hasException.set(true);
+                    return;
+                }
+            } catch (InterruptedException e) {
+                return;
+            }
+            if (Thread.interrupted()) {
+                return;
+            }
+        }
     }
 }

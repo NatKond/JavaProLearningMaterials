@@ -1,5 +1,7 @@
 package org.tel.ran.homework14;
 
+import static org.tel.ran.textFormatting.RED;
+
 public class Card {
 
     private String name;
@@ -23,11 +25,11 @@ public class Card {
         this.maxBalance = maxBalance;
     }
 
-    public String getName(String pin) {
+    public String getName() {
         return name;
     }
 
-    public double getBalance(String pin) {
+    public double getBalance() {
         return balance;
     }
 
@@ -38,21 +40,32 @@ public class Card {
     public void deposit(double amount) {
         if (amount < 0)
             throw new IllegalArgumentException("The amount must be positive.");
-        if (balance >= maxBalance)
-            throw new IllegalArgumentException("The maximum ифдфтсу amount has been reached.");
 
         synchronized (this) {
+            if (balance == maxBalance) return;
+            if (balance + amount >= maxBalance) {
+                balance = maxBalance;
+                System.out.println(RED + Thread.currentThread().getName() + " reached the maximum balance, balance = " + balance);
+                throw new IllegalArgumentException("The maximum balance amount has been reached.");
+            }
             balance += amount;
+            System.out.println(Thread.currentThread().getName() + " deposits " + amount + ", balance = " + balance);
         }
     }
 
     public void withdraw(double amount) {
         if (amount < 0)
             throw new IllegalArgumentException("The amount must be positive.");
-        if (balance < amount)
-            throw new IllegalArgumentException("Insufficient funds.");
+
         synchronized (this) {
+            if (balance == 0) return;
+            if (balance <= amount) {
+                balance = 0;
+                System.out.println(RED + Thread.currentThread().getName() + " reached the minimum balance, balance = " + balance);
+                throw new IllegalArgumentException("Insufficient funds.");
+            }
             balance -= amount;
+            System.out.println(Thread.currentThread().getName() + " withdraws " + amount + ", balance = " + balance);
         }
     }
 
