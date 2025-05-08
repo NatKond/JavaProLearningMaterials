@@ -42,12 +42,16 @@ public class Card {
             throw new IllegalArgumentException("The amount must be positive.");
 
         synchronized (this) {
-            if (balance == maxBalance) return;
             if (balance + amount >= maxBalance) {
                 balance = maxBalance;
                 System.out.println(RED + Thread.currentThread().getName() + " reached the maximum balance, balance = " + balance);
                 throw new IllegalArgumentException("The maximum balance amount has been reached.");
             }
+            if (balance == 0) {
+                System.out.println(RED + Thread.currentThread().getName() + " reached the minimum balance, balance = " + balance);
+                return;
+            }
+
             balance += amount;
             System.out.println(Thread.currentThread().getName() + " deposits " + amount + ", balance = " + balance);
         }
@@ -58,12 +62,16 @@ public class Card {
             throw new IllegalArgumentException("The amount must be positive.");
 
         synchronized (this) {
-            if (balance == 0) return;
             if (balance <= amount) {
                 balance = 0;
                 System.out.println(RED + Thread.currentThread().getName() + " reached the minimum balance, balance = " + balance);
                 throw new IllegalArgumentException("Insufficient funds.");
             }
+            if (balance == maxBalance) {
+                System.out.println(RED + Thread.currentThread().getName() + " reached the maximum balance, balance = " + balance);
+                return;
+            }
+
             balance -= amount;
             System.out.println(Thread.currentThread().getName() + " withdraws " + amount + ", balance = " + balance);
         }

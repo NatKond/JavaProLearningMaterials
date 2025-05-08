@@ -9,11 +9,14 @@ public class MoneyConsumer implements Runnable {
 
     private double amount;
 
+    private int sleepTime;
+
     private final AtomicBoolean hasException;
 
-    public MoneyConsumer(Card card, double amount, AtomicBoolean hasException) {
+    public MoneyConsumer(Card card, double amount, int sleepTime, AtomicBoolean hasException) {
         this.card = card;
         this.amount = amount;
+        this.sleepTime = sleepTime;
         this.hasException = hasException;
     }
 
@@ -28,22 +31,16 @@ public class MoneyConsumer implements Runnable {
 
     @Override
     public void run() {
-        if (hasException.get()) {
-            return;
-        }
-        while (true) {
+        while (!hasException.get()) {
             try {
                 card.withdraw(amount);
-                Thread.sleep(10);
+                Thread.sleep(sleepTime);
             } catch (IllegalArgumentException e) {
                 if ("Insufficient funds.".equals(e.getMessage())) {
                     hasException.set(true);
                     return;
                 }
             } catch (InterruptedException e) {
-                return;
-            }
-            if (Thread.interrupted()) {
                 return;
             }
         }
