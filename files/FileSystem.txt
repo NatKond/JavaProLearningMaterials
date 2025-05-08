@@ -4,5 +4,13 @@ root
     test
       hello.java
       text.txt
+    test2
+      test.java
   folder2
     task.md
+    task1
+      task1.java
+      task1.md
+    task2
+      task2.java
+      task2.md

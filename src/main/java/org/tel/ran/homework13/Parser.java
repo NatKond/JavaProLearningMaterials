@@ -31,7 +31,7 @@ public final class Parser {
         return productSet;
     }
 
-    static String readFile(Path path) {
+    public static String readFile(Path path) {
         StringBuilder sb = new StringBuilder();
         try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
             String line = bufferedReader.readLine();

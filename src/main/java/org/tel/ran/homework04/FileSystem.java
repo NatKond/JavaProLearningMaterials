@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 public final class FileSystem {
 
     private static final Folder ROOT = new Folder("root");
+
     private static final String INITIAL_INDENT = "";
+
     public static final Logger LOGGER = new Logger("files/log", true);
 
     private FileSystem() {
@@ -19,10 +21,8 @@ public final class FileSystem {
     }
 
     public static void saveToFileFormatedContent(String path) {
-        try (FileWriter fileWriter = new FileWriter(path)) {
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path))) {
             bufferedWriter.write(getFormatedContent());
-            bufferedWriter.flush();
         } catch (IOException e) {
             LOGGER.log(e.getMessage(), java.nio.file.FileSystem.class);
         }

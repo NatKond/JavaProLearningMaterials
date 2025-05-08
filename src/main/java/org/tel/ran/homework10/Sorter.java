@@ -9,7 +9,7 @@ public interface Sorter {
         return switch (sorterName){
             case "selection" -> new SelectionSort();
             case "bubble" -> new BubbleSort();
-            default -> throw new InvalidAmountException(sorterName + "is invalid sort name.");
+            default -> throw new InvalidAmountException(sorterName + " is invalid sort name.");
         };
     }
 }

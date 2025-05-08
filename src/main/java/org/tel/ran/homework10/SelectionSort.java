@@ -1,12 +1,5 @@
 package org.tel.ran.homework10;
 
-import org.tel.ran.homework08.CharacterValidator;
-import org.tel.ran.homework08.IntegerValidator;
-import org.tel.ran.homework08.StringValidator;
-import org.tel.ran.homework08.Validator;
-
-import java.util.Map;
-
 public class SelectionSort implements Sorter {
 
     @Override
