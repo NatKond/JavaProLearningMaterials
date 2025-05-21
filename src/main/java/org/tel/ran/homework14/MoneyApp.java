@@ -28,6 +28,7 @@ public class MoneyApp {
         for (Runnable runnable : runnableList) {
             executorService.submit(runnable);
         }
+
         executorService.shutdown();
     }
 

@@ -81,12 +81,16 @@ public class Card {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Invalid name!");
         }
-        this.name = name;
+        synchronized (this) {
+            this.name = name;
+        }
     }
 
     public void setBalance(double balance) {
         if (balance < 0)
             throw new IllegalArgumentException("The initial balance should be positive.");
-        this.balance = balance;
+        synchronized (this) {
+            this.balance = balance;
+        }
     }
 }
