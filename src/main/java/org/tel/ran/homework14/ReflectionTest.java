@@ -1,5 +1,7 @@
 package org.tel.ran.homework14;
 
+import org.tel.ran.homework14.RunnableImp.Card;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -10,7 +12,7 @@ public class ReflectionTest {
         // System.out.println((0.1 + 0.2));
 
         Card card = new Card("John Doh", 500,1500);
-        Class<?> clazz1 = Class.forName("org.tel.ran.homework14.Card");
+        Class<?> clazz1 = Class.forName("org.tel.ran.homework14.RunnableImp.Card");
         Class<?> clazz2 = Card.class;
         Class<? extends Card> clazz = card.getClass();
 

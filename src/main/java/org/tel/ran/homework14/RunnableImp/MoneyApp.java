@@ -1,4 +1,4 @@
-package org.tel.ran.homework14;
+package org.tel.ran.homework14.RunnableImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,8 @@ public class MoneyApp {
         List<Runnable> runnableList = new ArrayList<>();
 
         for (int i = 0; i < numberOfATM; i++) {
-            runnableList.add(new MoneyConsumer(card, RANDOM.nextInt(25, 51), RANDOM.nextInt(500,1501), THROWN_EXCEPTION));
-            runnableList.add(new MoneyProducer(card, RANDOM.nextInt(25, 51),RANDOM.nextInt(500,1501), THROWN_EXCEPTION));
+            runnableList.add(new MoneyConsumer(card, RANDOM.nextInt(25, 51), RANDOM.nextInt(500,1501), THROWN_EXCEPTION)); //RANDOM.nextInt(500,1501), THROWN_EXCEPTION));
+            runnableList.add(new MoneyProducer(card, RANDOM.nextInt(25, 51), RANDOM.nextInt(500,1501), THROWN_EXCEPTION));
         }
 
         ExecutorService executorService = Executors.newFixedThreadPool(numberOfATM * 2);
