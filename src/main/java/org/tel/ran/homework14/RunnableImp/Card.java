@@ -1,4 +1,4 @@
-package org.tel.ran.homework14;
+package org.tel.ran.homework14.RunnableImp;
 
 import static org.tel.ran.textFormatting.RED;
 
@@ -9,6 +9,8 @@ public class Card {
     private double balance;
 
     private double maxBalance;
+
+    private volatile Boolean isBlocked = false;
 
     public Card(String userName) {
         setName(userName);
@@ -41,17 +43,18 @@ public class Card {
         if (amount < 0)
             throw new IllegalArgumentException("The amount must be positive.");
 
+        if (isBlocked) {
+            System.out.println(RED + Thread.currentThread().getName() + " tried to  withdraw from card. The card is blocked, balance = " + balance);
+            throw new IllegalArgumentException("The card is blocked. Either the maximum balance amount has been reached, or insufficient funds.");
+        }
+
         synchronized (this) {
             if (balance + amount >= maxBalance) {
                 balance = maxBalance;
+                isBlocked = true;
                 System.out.println(RED + Thread.currentThread().getName() + " reached the maximum balance, balance = " + balance);
-                throw new IllegalArgumentException("The maximum balance amount has been reached.");
+                throw new IllegalArgumentException("The card is blocked. The maximum balance amount has been reached.");
             }
-            if (balance == 0) {
-                System.out.println(RED + Thread.currentThread().getName() + " reached the minimum balance, balance = " + balance);
-                return;
-            }
-
             balance += amount;
             System.out.println(Thread.currentThread().getName() + " deposits " + amount + ", balance = " + balance);
         }
@@ -61,15 +64,17 @@ public class Card {
         if (amount < 0)
             throw new IllegalArgumentException("The amount must be positive.");
 
+        if (isBlocked) {
+            System.out.println(RED + Thread.currentThread().getName() + " tried to  withdraw from card. The card is blocked, balance = " + balance);
+            throw new IllegalArgumentException("The card is blocked. Either the maximum balance amount has been reached, or insufficient funds.");
+        }
+
         synchronized (this) {
             if (balance <= amount) {
                 balance = 0;
+                isBlocked = true;
                 System.out.println(RED + Thread.currentThread().getName() + " reached the minimum balance, balance = " + balance);
-                throw new IllegalArgumentException("Insufficient funds.");
-            }
-            if (balance == maxBalance) {
-                System.out.println(RED + Thread.currentThread().getName() + " reached the maximum balance, balance = " + balance);
-                return;
+                throw new IllegalArgumentException("Insufficient funds. The card is blocked.");
             }
 
             balance -= amount;
@@ -81,12 +86,16 @@ public class Card {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Invalid name!");
         }
-        this.name = name;
+        synchronized (this) {
+            this.name = name;
+        }
     }
 
     public void setBalance(double balance) {
         if (balance < 0)
             throw new IllegalArgumentException("The initial balance should be positive.");
-        this.balance = balance;
+        synchronized (this) {
+            this.balance = balance;
+        }
     }
 }
