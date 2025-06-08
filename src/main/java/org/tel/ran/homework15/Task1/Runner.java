@@ -41,5 +41,6 @@ public class Runner implements Runnable {
         System.out.println("! " + name + " is finishing the race");
         long end = System.currentTimeMillis();
         totalTime = end - start;
+        System.out.println(name + " has total time: " + totalTime);
     }
 }
