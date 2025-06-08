@@ -23,13 +23,11 @@ public class MoneyApp {
             runnableList.add(new MoneyProducer(card, RANDOM.nextInt(25, 51), RANDOM.nextInt(500,1501), THROWN_EXCEPTION));
         }
 
-        ExecutorService executorService = Executors.newFixedThreadPool(numberOfATM * 2);
-
-        for (Runnable runnable : runnableList) {
-            executorService.submit(runnable);
+        try (ExecutorService executorService = Executors.newFixedThreadPool(numberOfATM * 2)){
+            for (Runnable runnable : runnableList) {
+                executorService.submit(runnable);
+            }
         }
-
-        executorService.shutdown();
     }
 
 }

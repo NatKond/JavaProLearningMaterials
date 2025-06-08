@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import java.util.concurrent.Semaphore;
 
-import static org.tel.ran.homework15.Competition.RANDOM;
+import static org.tel.ran.homework15.Task1.Competition.RANDOM;
 
 public class Runner implements Runnable {
 
@@ -38,9 +38,8 @@ public class Runner implements Runnable {
                 e.printStackTrace();
             }
         }
-        System.out.println("! " + name + " is finishing the race");
         long end = System.currentTimeMillis();
         totalTime = end - start;
-        System.out.println(name + " has total time: " + totalTime);
+        System.out.println("! " + name + " has finished the race" + name + " has total time: " + totalTime);
     }
 }

@@ -1,13 +1,11 @@
-package org.tel.ran.homework15;
-
-import org.tel.ran.homework15.Task1.Runner;
+package org.tel.ran.homework15.Task1;
 
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 public class Competition {
 
-    public static Random RANDOM = new Random();
+    public static final Random RANDOM = new Random();
 
     public static void main(String[] args) {
 
